@@ -590,7 +590,7 @@ const st = { perfil:null, loc:null, texto:'', caso:null, resp:[], soloCob:true, 
 let mapa=null, capaRuta=null;
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const money = v => '$' + v.toLocaleString('es-AR');
-const kmTxt = k => k<1 ? Math.round(k*1000)+' m' : k.toFixed(1).replace('.',',')+' km';
+const kmTxt = k => k<0.05 ? 'muy cerca' : k<1 ? Math.round(k*1000)+' m' : k.toFixed(1).replace('.',',')+' km';
 function dist(a,b){ const R=6371, r=Math.PI/180, dLa=(b[0]-a[0])*r, dLo=(b[1]-a[1])*r;
   const x=Math.sin(dLa/2)**2+Math.cos(a[0]*r)*Math.cos(b[0]*r)*Math.sin(dLo/2)**2; return 2*R*Math.asin(Math.sqrt(x)); }
 function step(n){
@@ -625,7 +625,7 @@ function pantallaPerfil(){
         <span class="loc-st${st.loc&&st.loc.real?' ok':''}" id="u-geo-st">${st.loc&&st.loc.real?esc(st.loc.label)+' ✓':'o escribí tu dirección:'}</span>
       </div>
       <div class="loc-row" style="flex-wrap:nowrap">
-        <input id="u-dir" placeholder="Ej.: 9 de Julio 1191" value="${esc(st.loc&&st.loc.dir||'')}" style="flex:1;min-width:0" autocomplete="street-address">
+        <input id="u-dir" placeholder="Ej.: Av. Colón 500" value="${esc(st.loc&&st.loc.dir||'')}" style="flex:1;min-width:0" autocomplete="street-address">
         <button class="mini-btn out" type="button" id="u-buscar">Buscar</button>
       </div>
       <details style="padding:10px 14px;margin:4px 0 0"><summary style="font-weight:500;font-size:.85rem">O elegí tu barrio</summary>
