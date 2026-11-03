@@ -263,6 +263,11 @@
   .about .role{font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--teal-d);letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
   .about p{color:var(--muted);margin:0 0 12px;max-width:62ch}
   .about .anden{margin-top:16px;background:var(--alt);border-radius:10px;padding:14px 16px;font-size:.9rem;color:var(--text)}
+  .wa-float{position:fixed;right:18px;bottom:18px;z-index:60;background:#25D366;color:#fff;border-radius:999px;padding:13px 18px;font-weight:700;font-size:.9rem;text-decoration:none;box-shadow:0 10px 24px -8px rgba(0,0,0,.35);display:flex;align-items:center;gap:8px}
+  .wa-float:hover{background:#1EBE5A}
+  .contact-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+  .contact-row a{color:#F2F7FA;text-decoration:none;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:8px 12px;font-size:.85rem}
+  .contact-row a:hover{background:rgba(255,255,255,.16)}
   @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
 </head>
@@ -406,7 +411,7 @@
         <li>Casos leves derivados a consultorio o teleconsulta.</li>
         <li>Un semáforo de afluencia y el cronograma de especialistas de turno.</li>
       </ul>
-      <a href="#" class="btn btn-g js-mail" data-subject="Urgen.IA para hospitales">Hablemos →</a>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:auto"><a href="#" class="btn btn-p js-wa" data-msg="Hola Facundo, te escribo de un hospital/sanatorio y me interesa Urgen.IA.">Escribinos por WhatsApp</a><a href="#" class="btn btn-g js-mail" data-subject="Urgen.IA para hospitales">Por mail</a></div>
     </div>
   </div>
 </section>
@@ -477,9 +482,10 @@
   <div class="container foot">
     <a class="brand" href="#top"><img src="data:image/png;base64,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" alt=""><div class="wordmark">URGEN<span>.IA</span></div></a>
     <div class="foot-note"><strong>Importante:</strong> Urgen.IA es un proyecto en desarrollo. Orienta y deriva, pero no brinda diagnóstico médico ni reemplaza la consulta profesional. Ante una emergencia, llamá al <strong>107</strong> (SUEM) o al <strong>911</strong>.</div>
-    <div class="foot-loc">Córdoba, Argentina · © 2026<br><a href="#" class="js-mail" data-subject="Contacto Urgen.IA">Contacto</a></div>
+    <div class="foot-loc">Córdoba, Argentina · © 2026<div class="contact-row"><a href="#" class="js-wa" data-msg="Hola Facundo, te escribo desde urgenia.com.ar.">💬 WhatsApp</a><a href="#" class="js-mail js-mail-txt" data-subject="Contacto Urgen.IA">✉️ Mail</a></div></div>
   </div>
 </footer>
+<a href="#" class="wa-float js-wa" data-msg="Hola Facundo, te escribo desde urgenia.com.ar." aria-label="Escribinos por WhatsApp">💬 <span>Escribinos</span></a>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
@@ -488,7 +494,8 @@ const CONFIG = {
   // URL de la "aplicación web" de Google Apps Script que guarda los formularios en tu planilla.
   // Mientras esté vacía, los formularios funcionan en modo prueba y no guardan nada.
   SHEET_URL: 'https://script.google.com/macros/s/AKfycbxK9GiKyfemqEP12LuAt44TpoPkzoVs8ixKpDL6I7prd5u6sxDMypfJUG-Had87U_EDIQ/exec',
-  CONTACT_EMAIL: 'facundogutierrez2004.fg@gmail.com'
+  CONTACT_EMAIL: 'facundogutierrez2004.fg@gmail.com',
+  WHATSAPP: '5492974614820'   // 549 + característica sin 0 + número sin 15
 };
 /* ========================================================================= */
 
@@ -510,22 +517,23 @@ const BARRIOS = {
   'Cerro de las Rosas':[-31.3600,-64.2300], 'Jardín':[-31.4450,-64.1820], 'Villa Belgrano':[-31.3500,-64.2550], 'Argüello':[-31.3450,-64.2700]
 };
 
-/* Hospitales reales de Córdoba como referencia de UBICACIÓN (coordenadas aproximadas).
+/* Hospitales reales de Córdoba como referencia de UBICACIÓN (coordenadas de OpenStreetMap).
+   part = consulta de guardia particular ESTIMADA, a validar.
    Especialidades de turno, afluencia y coberturas son SIMULADAS para la demo. */
 const PREP = ['OSDE','Swiss Medical','Sancor Salud','Galeno','Medifé','Omint','Prevención Salud','Jerárquicos Salud','Federada Salud','Avalian','Premedic','Accord Salud','Medicus'];
 const HOSP = [
-  { n:'Hospital Municipal de Urgencias', tipo:'Público', ll:[-31.4103,-64.1783], af:'alta',  esp:['Clínica médica','Traumatología','Cirugía','Cardiología'] },
-  { n:'Hospital Nacional de Clínicas', tipo:'Público', ll:[-31.4090,-64.2017], af:'media', esp:['Clínica médica','Traumatología','Oftalmología'] },
-  { n:'Hospital Córdoba', tipo:'Público', ll:[-31.4090,-64.1622], af:'alta',  esp:['Clínica médica','Traumatología','Cardiología'] },
-  { n:'Hospital Misericordia', tipo:'Público', ll:[-31.4330,-64.1912], af:'media', esp:['Clínica médica','Cardiología'] },
-  { n:'Hospital Infantil Municipal', tipo:'Público', ll:[-31.3893,-64.1780], af:'media', esp:['Pediatría'] },
-  { n:'Hospital de Niños de la Santísima Trinidad', tipo:'Público', ll:[-31.4042,-64.1593], af:'alta', esp:['Pediatría','Traumatología'] },
-  { n:'Sanatorio Allende · Nueva Córdoba', tipo:'Privado', ll:[-31.4231,-64.1872], af:'media', esp:['Clínica médica','Pediatría','Traumatología','Cardiología','Oftalmología'], cob:['OSDE','Swiss Medical','Sancor Salud','Galeno','Medifé','Omint','Prevención Salud','APROSS','DASPU (UNC)','Jerárquicos Salud'] },
-  { n:'Sanatorio Allende · Cerro', tipo:'Privado', ll:[-31.3567,-64.2416], af:'baja', esp:['Clínica médica','Pediatría','Traumatología','Cardiología'], cob:['OSDE','Swiss Medical','Sancor Salud','Galeno','Medifé','Omint','Prevención Salud','DASPU (UNC)'] },
-  { n:'Hospital Privado Universitario', tipo:'Privado', ll:[-31.4400,-64.1990], af:'media', esp:['Clínica médica','Pediatría','Traumatología','Cardiología','Oftalmología'], cob:['OSDE','Swiss Medical','Sancor Salud','Galeno','Medifé','APROSS','Federada Salud','Avalian','OSPJN (Poder Judicial)'] },
-  { n:'Clínica Universitaria Reina Fabiola', tipo:'Privado', ll:[-31.4091,-64.1660], af:'alta', esp:['Clínica médica','Pediatría','Traumatología'], cob:['OSDE','Sancor Salud','APROSS','Prevención Salud','Medifé','OSECAC','DASPU (UNC)','Avalian'] },
-  { n:'Hospital Italiano de Córdoba', tipo:'Privado', ll:[-31.4131,-64.1736], af:'baja', esp:['Clínica médica','Traumatología','Cardiología'], cob:['APROSS','PAMI','OSECAC','OSMATA','OSUOMRA','Unión Personal','Prevención Salud','IOSFA','Premedic'] },
-  { n:'Instituto Modelo de Cardiología', tipo:'Privado', ll:[-31.3911,-64.2238], af:'baja', esp:['Cardiología'], cob:['OSDE','Swiss Medical','Sancor Salud','APROSS','PAMI','Galeno','Medifé'] }
+  { n:'Hospital Municipal de Urgencias', tipo:'Público', ll:[-31.41289,-64.17592], af:'alta',  esp:['Clínica médica','Traumatología','Cirugía','Cardiología'] },
+  { n:'Hospital Nacional de Clínicas', tipo:'Público', ll:[-31.40536,-64.20368], af:'media', esp:['Clínica médica','Traumatología','Oftalmología'] },
+  { n:'Hospital Córdoba', tipo:'Público', ll:[-31.40642,-64.15804], af:'alta',  esp:['Clínica médica','Traumatología','Cardiología'] },
+  { n:'Hospital Misericordia', tipo:'Público', ll:[-31.43296,-64.19675], af:'media', esp:['Clínica médica','Cardiología'] },
+  { n:'Hospital Infantil Municipal', tipo:'Público', ll:[-31.37992,-64.18179], af:'media', esp:['Pediatría'] },
+  { n:'Hospital de Niños de la Santísima Trinidad', tipo:'Público', ll:[-31.42750,-64.16842], af:'alta', esp:['Pediatría','Traumatología'] },
+  { n:'Sanatorio Allende · Nueva Córdoba', tipo:'Privado', part:65000, ll:[-31.42462,-64.18734], af:'media', esp:['Clínica médica','Pediatría','Traumatología','Cardiología','Oftalmología'], cob:['OSDE','Swiss Medical','Sancor Salud','Galeno','Medifé','Omint','Prevención Salud','APROSS','DASPU (UNC)','Jerárquicos Salud'] },
+  { n:'Sanatorio Allende · Cerro', tipo:'Privado', part:65000, ll:[-31.35826,-64.24279], af:'baja', esp:['Clínica médica','Pediatría','Traumatología','Cardiología'], cob:['OSDE','Swiss Medical','Sancor Salud','Galeno','Medifé','Omint','Prevención Salud','DASPU (UNC)'] },
+  { n:'Hospital Privado Universitario', tipo:'Privado', part:60000, ll:[-31.44205,-64.19945], af:'media', esp:['Clínica médica','Pediatría','Traumatología','Cardiología','Oftalmología'], cob:['OSDE','Swiss Medical','Sancor Salud','Galeno','Medifé','APROSS','Federada Salud','Avalian','OSPJN (Poder Judicial)'] },
+  { n:'Clínica Universitaria Reina Fabiola', tipo:'Privado', part:55000, ll:[-31.41000,-64.16804], af:'alta', esp:['Clínica médica','Pediatría','Traumatología'], cob:['OSDE','Sancor Salud','APROSS','Prevención Salud','Medifé','OSECAC','DASPU (UNC)','Avalian'] },
+  { n:'Hospital Italiano de Córdoba', tipo:'Privado', part:50000, ll:[-31.40924,-64.16430], af:'baja', esp:['Clínica médica','Traumatología','Cardiología'], cob:['APROSS','PAMI','OSECAC','OSMATA','OSUOMRA','Unión Personal','Prevención Salud','IOSFA','Premedic'] },
+  { n:'Instituto Modelo de Cardiología', tipo:'Privado', part:60000, ll:[-31.39576,-64.23596], af:'baja', esp:['Cardiología'], cob:['OSDE','Swiss Medical','Sancor Salud','APROSS','PAMI','Galeno','Medifé'] }
 ];
 const AF = { baja:{t:'Afluencia baja', c:'#0E9A75', o:0}, media:{t:'Afluencia media', c:'#C98612', o:1}, alta:{t:'Afluencia alta', c:'#C8372F', o:2} };
 
@@ -614,27 +622,50 @@ function pantallaPerfil(){
     <div class="field"><label>¿Dónde estás?</label>
       <div class="loc-row">
         <button class="mini-btn" type="button" id="u-geo">📍 Usar mi ubicación</button>
-        <span class="loc-st${st.loc&&st.loc.real?' ok':''}" id="u-geo-st">${st.loc&&st.loc.real?'Ubicación detectada':'o elegí tu barrio:'}</span>
+        <span class="loc-st${st.loc&&st.loc.real?' ok':''}" id="u-geo-st">${st.loc&&st.loc.real?esc(st.loc.label)+' ✓':'o escribí tu dirección:'}</span>
       </div>
-      <select id="u-barrio">${Object.keys(BARRIOS).map(b=>`<option${st.loc&&!st.loc.real&&st.loc.label===b?' selected':''}>${b}</option>`).join('')}</select>
+      <div class="loc-row" style="flex-wrap:nowrap">
+        <input id="u-dir" placeholder="Ej.: 9 de Julio 1191" value="${esc(st.loc&&st.loc.dir||'')}" style="flex:1;min-width:0" autocomplete="street-address">
+        <button class="mini-btn out" type="button" id="u-buscar">Buscar</button>
+      </div>
+      <details style="padding:10px 14px;margin:4px 0 0"><summary style="font-weight:500;font-size:.85rem">O elegí tu barrio</summary>
+        <select id="u-barrio" style="margin-top:10px;width:100%"><option value="">Elegí un barrio</option>${Object.keys(BARRIOS).map(b=>`<option${st.loc&&st.loc.label===b?' selected':''}>${b}</option>`).join('')}</select></details>
     </div>
     <button class="btn btn-p" id="go0" type="button" style="width:100%;margin-top:6px">Continuar →</button>
     <div class="err" id="err0"></div>
     <p class="privacy">🔒 En esta demo tus datos no se guardan ni se envían: quedan solo en esta pestaña.</p>`;
   const osSel=document.getElementById('u-os');
   osSel.onchange=()=>{ document.getElementById('u-otra-w').style.display = osSel.value==='Otra obra social'?'flex':'none'; };
-  let geo = st.loc&&st.loc.real ? st.loc : null;
+  let geo = st.loc || null;
+  const gst=()=>document.getElementById('u-geo-st');
   document.getElementById('u-geo').onclick=()=>{
-    const s=document.getElementById('u-geo-st');
-    if(!navigator.geolocation){ s.textContent='Tu navegador no permite ubicación: elegí tu barrio.'; return; }
+    const s=gst();
+    if(!navigator.geolocation){ s.textContent='Tu navegador no permite ubicación: escribí tu dirección.'; return; }
     s.textContent='Buscando tu ubicación…'; s.className='loc-st';
     navigator.geolocation.getCurrentPosition(pos=>{
-      geo={ll:[pos.coords.latitude,pos.coords.longitude], label:'Tu ubicación', real:true};
-      const lejos = dist(geo.ll,BARRIOS['Centro'])>40;
-      s.textContent = lejos ? 'Estás fuera de Córdoba: para la demo usamos tu barrio elegido.' : 'Ubicación detectada ✓';
-      s.className='loc-st'+(lejos?'':' ok'); if(lejos) geo=null;
-    }, ()=>{ s.textContent='No pudimos acceder a tu ubicación: elegí tu barrio.'; }, {enableHighAccuracy:true,timeout:10000});
+      const acc=Math.round(pos.coords.accuracy||0);
+      const cand={ll:[pos.coords.latitude,pos.coords.longitude], label:'Tu ubicación', real:true};
+      if(dist(cand.ll,BARRIOS['Centro'])>40){ s.textContent='Estás fuera de Córdoba: escribí una dirección de Córdoba para la demo.'; return; }
+      geo=cand;
+      if(acc>150){ s.textContent='Ubicación aproximada (±'+(acc>=1000?(acc/1000).toFixed(1).replace('.',',')+' km':acc+' m')+'). Si no es correcta, escribí tu dirección o mové el pin en el mapa.'; s.className='loc-st'; }
+      else { s.textContent='Ubicación detectada ✓'; s.className='loc-st ok'; }
+    }, ()=>{ s.textContent='No pudimos acceder a tu ubicación: escribí tu dirección.'; }, {enableHighAccuracy:true,timeout:12000,maximumAge:0});
   };
+  const buscar=async()=>{
+    const q=document.getElementById('u-dir').value.trim(), s=gst();
+    if(q.length<4){ s.textContent='Escribí calle y número.'; return; }
+    s.textContent='Buscando la dirección…'; s.className='loc-st';
+    try{
+      const url='https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=ar&viewbox=-64.35,-31.28,-64.05,-31.53&bounded=1&q='+encodeURIComponent(q+', Córdoba');
+      const j=await (await fetch(url,{headers:{'Accept-Language':'es'}})).json();
+      if(!j.length){ s.textContent='No encontramos esa dirección. Probá con "calle número" o elegí tu barrio.'; return; }
+      geo={ll:[+j[0].lat,+j[0].lon], label:q, dir:q, real:true};
+      s.textContent='📍 '+j[0].display_name.split(',').slice(0,3).join(',')+' ✓'; s.className='loc-st ok';
+    }catch(e){ s.textContent='No pudimos buscar la dirección ahora. Elegí tu barrio.'; }
+  };
+  document.getElementById('u-buscar').onclick=buscar;
+  document.getElementById('u-dir').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); buscar(); } });
+  document.getElementById('u-barrio').onchange=e=>{ if(e.target.value){ geo={ll:BARRIOS[e.target.value], label:e.target.value, real:false}; gst().textContent='Barrio: '+e.target.value; gst().className='loc-st'; } };
   document.getElementById('go0').onclick=()=>{
     const nom=document.getElementById('u-nom').value.trim(), dni=document.getElementById('u-dni').value.replace(/\D/g,''), os=osSel.value;
     const err=document.getElementById('err0');
@@ -643,8 +674,8 @@ function pantallaPerfil(){
     if(!os){ err.textContent='Elegí tu obra social o "Sin cobertura".'; return; }
     const otra=document.getElementById('u-otra').value.trim();
     st.perfil={nombre:nom, dni, os: os==='Otra obra social' && otra ? otra : os, otra};
-    const b=document.getElementById('u-barrio').value;
-    st.loc = geo || {ll:BARRIOS[b], label:b, real:false};
+    if(!geo){ err.textContent='Contanos dónde estás: usá tu ubicación, escribí tu dirección o elegí tu barrio.'; return; }
+    st.loc = geo;
     pantalla1();
   };
 }
@@ -720,24 +751,26 @@ function listaGuardias(r){
 }
 
 function renderGrave(r){
+  st.r=r;
   const lista=listaGuardias(r);
   const okN=lista.filter(h=>h.ok).length;
   app.innerHTML = `${perfilChip()}
     ${r.nivel===1?`<div class="alert107">⚠️ Esto puede ser una emergencia. Llamá ahora al <a href="tel:107">107</a> o al <a href="tel:911">911</a>. Si podés trasladarte, estas son las guardias más indicadas.</div>`:''}
     ${triBox(r,true)}
     <div id="map" role="img" aria-label="Mapa con tu ubicación y las guardias cercanas"></div>
+    <p class="note" style="margin:-6px 0 12px">¿Tu punto azul no está bien? Arrastralo a tu ubicación real.</p>
     <div id="route-box"></div>
     <p class="q-sub" style="margin-bottom:10px"><b>Guardias con ${r.esp.toLowerCase()} de turno</b> ${r.nivel===1?'ordenadas por cercanía. Ante una emergencia, andá a la más cercana: la cobertura se resuelve después.':(sinCob()?'(sin cobertura: te priorizamos hospitales públicos)':'que te atienden con '+esc(st.perfil.os))+' · '+okN+' de '+lista.length}</p>
     <div class="cards">${lista.map((h,i)=>`
       <div class="card${h.ok?'':' off'}${i===st.sel?' sel':''}${i===0&&h.ok?' best':''}" data-i="${i}">
         <div class="nm">${i+1}. ${h.n}${i===0&&h.ok?'<small>'+(r.nivel===1?'Más cercana':'Recomendada')+'</small>':''}</div>
         <div class="meta"><span>${kmTxt(h.km)}</span><span class="${h.tipo==='Público'?'tag-pub':''}">${h.tipo}</span>
-          <span class="${h.ok?'ok':'no'}">${r.nivel===1&&!acepta(h)?'Emergencia: te atienden igual':h.tipo==='Público'?'Atiende a todas las personas':(h.ok?'Acepta '+esc(st.perfil.os):(sinCob()?'Solo como particular':'No acepta tu cobertura'))}</span></div>
+          <span class="${h.ok?'ok':'no'}">${r.nivel===1&&!acepta(h)?'Emergencia: te atienden igual':h.tipo==='Público'?'Atiende a todas las personas':(h.ok?'Acepta '+esc(st.perfil.os):(sinCob()?'Solo como particular':'No acepta tu cobertura'))}</span>${!acepta(h)&&h.part?`<span>Particular aprox. ${money(h.part)}</span>`:''}</div>
         <div class="side"><span class="sema" style="color:${AF[h.af].c}"><i style="background:${AF[h.af].c}"></i>${AF[h.af].t}</span>
-          <button class="mini-btn${h.ok?'':' out'}" type="button" data-go="${i}">Ver ruta</button></div>
+          <button class="mini-btn" type="button" data-go="${i}">Ver ruta</button></div>
       </div>`).join('')}</div>
     <div class="app-actions"><button class="btn btn-g" id="again" type="button">↺ Probar otro síntoma</button></div>
-    <p class="note">Hospitales reales como referencia de ubicación (aproximada). Afluencia, especialistas de turno y coberturas: datos simulados de la demo.</p>`;
+    <p class="note">Hospitales reales como referencia de ubicación (OpenStreetMap). Afluencia, especialistas de turno, coberturas y aranceles: datos simulados o estimados de la demo.</p>`;
   bindChip();
   document.getElementById('again').onclick=reiniciar;
   app.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{ st.sel=+b.dataset.go; marcarSel(); ruta(lista[st.sel]); });
@@ -753,7 +786,8 @@ function pintarMapa(lista){
   if(mapa){ mapa.remove(); mapa=null; }
   mapa=L.map(el,{scrollWheelZoom:false, zoomControl:true});
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19, attribution:'© OpenStreetMap'}).addTo(mapa);
-  const me=L.marker(st.loc.ll,{icon:L.divIcon({className:'',html:'<div class="me"></div>',iconSize:[18,18],iconAnchor:[9,9]})}).addTo(mapa).bindPopup(st.loc.real?'Estás acá':'Tu barrio: '+esc(st.loc.label));
+  const me=L.marker(st.loc.ll,{draggable:true,icon:L.divIcon({className:'',html:'<div class="me"></div>',iconSize:[18,18],iconAnchor:[9,9]})}).addTo(mapa).bindPopup('Estás acá. ¿No es correcto? Arrastrá el punto azul.');
+  me.on('dragend',()=>{ const p=me.getLatLng(); st.loc={ll:[p.lat,p.lng], label:'Ubicación ajustada', real:true}; renderGrave(st.r); });
   const pts=[st.loc.ll];
   lista.forEach((h,i)=>{
     const col = h.ok ? AF[h.af].c : '#9AA6AD';
@@ -773,7 +807,7 @@ async function ruta(h){
   const a=`https://maps.apple.com/?saddr=${la},${lo}&daddr=${hla},${hlo}&dirflg=d`;
   const w=`https://waze.com/ul?ll=${hla},${hlo}&navigate=yes`;
   const pintar=(km,min,aprox)=>{ box.innerHTML=`<div class="route-box"><h4>🚗 ${h.n}</h4>
-    <p>${aprox?'Aprox. ':''}${kmTxt(km)} · ${Math.max(1,Math.round(min))} min en auto${aprox?' (estimado)':''}${h.ok?'':' · ⚠️ '+(h.tipo==='Privado'?'no te atiende con tu cobertura':'')}</p>
+    <p>${aprox?'Aprox. ':''}${kmTxt(km)} · ${Math.max(1,Math.round(min))} min en auto${aprox?' (estimado)':''}</p>${!acepta(h)&&h.part?`<p>⚠️ No te atiende con tu cobertura: consulta de guardia particular <b>aprox. ${money(h.part)}</b> (valor estimado, a validar con la institución).</p>`:''}
     <div class="nav-apps"><a class="mini-btn" target="_blank" rel="noopener" href="${g}">Google Maps</a><a class="mini-btn out" target="_blank" rel="noopener" href="${a}">Apple Mapas</a><a class="mini-btn out" target="_blank" rel="noopener" href="${w}">Waze</a></div></div>`; };
   const kmL=h.km*1.35; pintar(kmL, kmL/25*60, true);
   if(typeof L==='undefined' || !mapa) return;
@@ -874,6 +908,7 @@ document.querySelectorAll('form.fbox').forEach(f=>{
 
 /* ---------- Links de contacto ---------- */
 document.querySelectorAll('.js-mail').forEach(a=>{ a.href='mailto:'+CONFIG.CONTACT_EMAIL+'?subject='+encodeURIComponent(a.dataset.subject||'Urgen.IA'); });
+document.querySelectorAll('.js-wa').forEach(a=>{ a.href='https://wa.me/'+CONFIG.WHATSAPP+'?text='+encodeURIComponent(a.dataset.msg||'Hola'); a.target='_blank'; a.rel='noopener'; });
 document.querySelectorAll('[data-tab="pro"]').forEach(a=>a.addEventListener('click',()=>setTimeout(()=>document.getElementById('pro-nom').focus({preventScroll:true}),400)));
 </script>
 </body>
