@@ -533,7 +533,26 @@ const HOSP = [
   { n:'Hospital Privado Universitario', tipo:'Privado', part:60000, ll:[-31.44205,-64.19945], af:'media', esp:['Clínica médica','Pediatría','Traumatología','Cardiología','Oftalmología','Cirugía'], cob:['OSDE','Swiss Medical','Sancor Salud','Galeno','Medifé','APROSS','Federada Salud','Avalian','OSPJN (Poder Judicial)'] },
   { n:'Clínica Universitaria Reina Fabiola', tipo:'Privado', part:55000, ll:[-31.41000,-64.16804], af:'alta', esp:['Clínica médica','Pediatría','Traumatología'], cob:['OSDE','Sancor Salud','APROSS','Prevención Salud','Medifé','OSECAC','DASPU (UNC)','Avalian'] },
   { n:'Hospital Italiano de Córdoba', tipo:'Privado', part:50000, ll:[-31.40924,-64.16430], af:'baja', esp:['Clínica médica','Traumatología','Cardiología','Cirugía'], cob:['APROSS','PAMI','OSECAC','OSMATA','OSUOMRA','Unión Personal','Prevención Salud','IOSFA','Premedic'] },
-  { n:'Instituto Modelo de Cardiología', tipo:'Privado', part:60000, ll:[-31.39576,-64.23596], af:'baja', esp:['Cardiología'], cob:['OSDE','Swiss Medical','Sancor Salud','APROSS','PAMI','Galeno','Medifé'] }
+  { n:'Instituto Modelo de Cardiología', tipo:'Privado', part:60000, ll:[-31.39576,-64.23596], af:'baja', esp:['Cardiología'], cob:['OSDE','Swiss Medical','Sancor Salud','APROSS','PAMI','Galeno','Medifé'] },
+  /* Fuerzas Armadas: atienden a afiliados de IOSFA (y emergencias). */
+  { n:'Hospital Aeronáutico Córdoba', tipo:'Fuerzas Armadas', ll:[-31.41186,-64.18973], af:'baja', esp:['Clínica médica','Traumatología','Cirugía','Cardiología','Pediatría'], cob:['IOSFA'] },
+  { n:'Hospital Militar Regional Córdoba', tipo:'Fuerzas Armadas', ll:[-31.44031,-64.18084], af:'baja', esp:['Clínica médica','Traumatología','Cirugía','Cardiología','Oftalmología'], cob:['IOSFA'] },
+  /* Públicos provinciales y municipales. */
+  { n:'Hospital San Roque', tipo:'Público', ll:[-31.42828,-64.17009], af:'alta', esp:['Clínica médica','Traumatología','Cirugía','Oftalmología'] },
+  { n:'Hospital Tránsito Cáceres de Allende', tipo:'Público', ll:[-31.40523,-64.16953], af:'media', esp:['Clínica médica','Traumatología','Cirugía'] },
+  { n:'Hospital Florencio Díaz', tipo:'Público', ll:[-31.44564,-64.14718], af:'media', esp:['Clínica médica','Traumatología','Cirugía','Pediatría'] },
+  { n:'Hospital Príncipe de Asturias', tipo:'Público', ll:[-31.46933,-64.21939], af:'media', esp:['Clínica médica','Traumatología','Cirugía','Pediatría'] },
+  { n:'Hospital Pediátrico del Niño Jesús', tipo:'Público', ll:[-31.39894,-64.19719], af:'alta', esp:['Pediatría'] },
+  /* Privados. */
+  { n:'Sanatorio Mayo', tipo:'Privado', part:50000, ll:[-31.40790,-64.18857], af:'media', esp:['Clínica médica','Traumatología','Cirugía','Cardiología'], cob:['APROSS','PAMI','OSDE','Sancor Salud','Prevención Salud','OSECAC','Unión Personal','IOSFA'] },
+  { n:'Sanatorio del Salvador', tipo:'Privado', part:55000, ll:[-31.40904,-64.16337], af:'media', esp:['Clínica médica','Traumatología','Cirugía','Cardiología'], cob:['OSDE','Swiss Medical','Sancor Salud','Galeno','APROSS','Medifé','Federada Salud'] },
+  { n:'Clínica Romagosa', tipo:'Privado', part:50000, ll:[-31.41436,-64.18995], af:'baja', esp:['Clínica médica','Traumatología','Cirugía'], cob:['APROSS','OSDE','Sancor Salud','Prevención Salud','Jerárquicos Salud','OSPE'] },
+  { n:'Sanatorio Aconcagua', tipo:'Privado', part:55000, ll:[-31.42355,-64.18065], af:'media', esp:['Clínica médica','Traumatología','Cirugía','Cardiología','Pediatría'], cob:['OSDE','Swiss Medical','Sancor Salud','Galeno','Medifé','Omint','APROSS','DASPU (UNC)'] },
+  { n:'Clínica Sucre', tipo:'Privado', part:50000, ll:[-31.40940,-64.19291], af:'media', esp:['Clínica médica','Traumatología','Cirugía'], cob:['APROSS','PAMI','OSECAC','OSMATA','Prevención Salud','IOSFA','OSPRERA'] },
+  { n:'Clínica y Maternidad del Sol', tipo:'Privado', part:55000, ll:[-31.42582,-64.18338], af:'baja', esp:['Clínica médica','Pediatría'], cob:['OSDE','Swiss Medical','Sancor Salud','Galeno','Medifé','APROSS','Avalian'] },
+  { n:'Clínica Privada Vélez Sársfield', tipo:'Privado', part:50000, ll:[-31.44083,-64.20765], af:'media', esp:['Clínica médica','Traumatología','Cirugía','Pediatría'], cob:['APROSS','OSDE','Sancor Salud','Prevención Salud','OSECAC','Premedic','Accord Salud'] },
+  { n:'Sanatorio Francés', tipo:'Privado', part:50000, ll:[-31.39229,-64.18508], af:'baja', esp:['Clínica médica','Traumatología','Cirugía'], cob:['APROSS','PAMI','OSECAC','Unión Personal','OSPACP','OSDEPYM'] },
+  { n:'Clínica Privada Caraffa', tipo:'Privado', part:50000, ll:[-31.38758,-64.21304], af:'baja', esp:['Clínica médica','Traumatología','Pediatría'], cob:['APROSS','OSDE','Sancor Salud','Galeno','Medifé','Federada Salud'] }
 ];
 const AF = { baja:{t:'Afluencia baja', c:'#0E9A75', o:0}, media:{t:'Afluencia media', c:'#C98612', o:1}, alta:{t:'Afluencia alta', c:'#C8372F', o:2} };
 
@@ -828,7 +847,8 @@ function resultado(){
 function listaGuardias(r){
   return HOSP.filter(h=>h.esp.includes(r.esp))
     .map(h=>({...h, km:dist(st.loc.ll,h.ll), ok: r.nivel===1 || acepta(h)}))
-    .sort((a,b)=> r.nivel===1 ? a.km-b.km : ((b.ok-a.ok) || (AF[a.af].o*1.5 + a.km) - (AF[b.af].o*1.5 + b.km)));
+    .sort((a,b)=> r.nivel===1 ? a.km-b.km : ((b.ok-a.ok) || (AF[a.af].o*1.5 + a.km) - (AF[b.af].o*1.5 + b.km)))
+    .slice(0,8);
 }
 
 function renderGrave(r){
@@ -846,7 +866,7 @@ function renderGrave(r){
       <div class="card${h.ok?'':' off'}${i===st.sel?' sel':''}${i===0&&h.ok?' best':''}" data-i="${i}">
         <div class="nm">${i+1}. ${h.n}${i===0&&h.ok?'<small>'+(r.nivel===1?'Más cercana':'Recomendada')+'</small>':''}</div>
         <div class="meta"><span>${kmTxt(h.km)}</span><span class="${h.tipo==='Público'?'tag-pub':''}">${h.tipo}</span>
-          <span class="${h.ok?'ok':'no'}">${r.nivel===1&&!acepta(h)?'Emergencia: te atienden igual':h.tipo==='Público'?'Atiende a todas las personas':(h.ok?'Acepta '+esc(st.perfil.os):(sinCob()?'Solo como particular':'No acepta tu cobertura'))}</span>${!acepta(h)&&h.part?`<span>Particular aprox. ${money(h.part)}</span>`:''}</div>
+          <span class="${h.ok?'ok':'no'}">${r.nivel===1&&!acepta(h)?'Emergencia: te atienden igual':h.tipo==='Público'?'Atiende a todas las personas':(!h.ok&&h.tipo==='Fuerzas Armadas')?'Solo afiliados IOSFA':(h.ok?'Acepta '+esc(st.perfil.os):(sinCob()?'Solo como particular':'No acepta tu cobertura'))}</span>${!acepta(h)&&h.part?`<span>Particular aprox. ${money(h.part)}</span>`:''}</div>
         <div class="side"><span class="sema" style="color:${AF[h.af].c}"><i style="background:${AF[h.af].c}"></i>${AF[h.af].t}</span>
           <button class="mini-btn" type="button" data-go="${i}">Ver ruta</button></div>
       </div>`).join('')}</div>
