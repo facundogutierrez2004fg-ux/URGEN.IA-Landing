@@ -844,15 +844,16 @@ const CASOS = [
     ],
     leve:{ nivel:5, t:'Golpe leve en la cabeza', esp:['Clínica médica'], txt:'Que alguien te acompañe las próximas 24 horas. Si en los próximos días aparece alguna de estas señales, andá a la guardia.' } },
 
-  { id:'muela', chip:'Dolor de muela', esp:'Clínica médica',
-    kw:{ f:['muela','diente','encia','odontolog','dental','flemon','caries','me sacaron una'], d:['boca','mandibula'] },
+  { id:'muela', chip:'Dolor de muela o mandíbula', esp:'Clínica médica',
+    kw:{ f:['muela','diente','encia','odontolog','dental','flemon','caries','me sacaron una','mandibula','quijada','maxilar','al abrir la boca','al masticar','articulacion de la mandibula','atm','bruxismo'], d:['boca','mastic','mordida'] },
     senales:[
+      { s:'Viene con dolor u opresión en el pecho, sudor frío o falta de aire, o aparece al hacer esfuerzo', n:1, t:'Posible origen cardíaco', txt:'El dolor de mandíbula, sobre todo del lado izquierdo, puede venir del corazón. Llamá al 107 o andá a la guardia más cercana ya. No manejes vos.', esp:'Cardiología' },
       { s:'Te cuesta respirar o tragar tu saliva', n:1, t:'Infección que compromete la respiración', txt:'Puede ser una infección que se extiende al cuello. Andá a la guardia más cercana ya.' },
       { s:'Cara o cuello hinchados con fiebre, o no podés abrir bien la boca', n:2, t:'Posible infección odontológica extendida', txt:'La hinchazón con fiebre o la dificultad para abrir la boca se evalúan en guardia: puede necesitar antibióticos o drenaje.' },
       { s:'Sangra sin parar hace más de 20 minutos', n:3, t:'Sangrado que no para', txt:'Mordé una gasa doblada con fuerza y andá a una guardia si no para.' },
       { s:'Se partió o se salió un diente por un golpe', n:4, nota:'Si se salió un diente definitivo, agarralo por la corona (no por la raíz), guardalo en leche y andá a un odontólogo dentro de la hora.' }
     ],
-    leve:{ nivel:4, t:'Urgencia odontológica leve', esp:['Odontología'], txt:'Te conviene un odontólogo con turno hoy, no una guardia general.' } },
+    leve:{ nivel:4, t:'Dolor de muela o mandíbula sin signos de alarma', esp:['Odontología'], txt:'Te conviene un odontólogo con turno hoy, no una guardia general. Si duele al abrir la boca o al masticar, puede ser la articulación de la mandíbula: mientras tanto, comida blanda y calor local.' } },
 
   { id:'ojo', chip:'Me molesta un ojo', esp:'Oftalmología',
     kw:{ f:['ojo','ojos','vista','vision','conjuntiv','parpado','lagana','orzuelo','veo borroso','veo doble'], d:['lente','lentes'] },
