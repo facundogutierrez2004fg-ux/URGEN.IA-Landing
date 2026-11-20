@@ -960,36 +960,90 @@ function etiquetaPhoton(p){
   const lugar = p.name && p.name!==calle ? p.name : '';
   return [lugar, calle && (calle+(num?' '+num:'')), zona].filter(Boolean).join(', ');
 }
-/* Busca una dirección o lugar de Córdoba probando varios servicios. Devuelve hasta 3 opciones. */
+/* ¿El nombre de calle que devolvió el mapa es la calle que escribió la persona? */
+const GENERICAS = ['avenida','av','avda','bulevar','boulevard','bv','calle','pasaje','pje','doctor','dr','general','gral','presidente','pte','ingeniero','ing','de','del','la','las','los','el','y','e'];
+const tokCalle = t => tokens(t).filter(x=>!GENERICAS.includes(x));
+function coincideCalle(nombre, calle){
+  const a = tokCalle(nombre||''), b = tokCalle(calle||'');
+  if(!a.length || !b.length) return false;
+  const igual = (x,y) => x===y || (x.length>=4 && y.length>=4 && (x.startsWith(y) || y.startsWith(x)));
+  return b.every(y=>a.some(x=>igual(x,y)));
+}
+/* Lee un resultado de Nominatim o Photon como { ll, calle, num, zona, nombre, tipo }. */
+function leerResultado(srv, x){
+  let ll, calle, num, zona, nombre, tipo;
+  if(srv==='nom'){
+    const a = x.address||{};
+    ll = [+x.lat, +x.lon]; calle = a.road||a.pedestrian||''; num = a.house_number; zona = a.suburb||a.neighbourhood||a.quarter||a.city_district||'';
+    nombre = x.name||''; tipo = x.category+':'+x.type;
+  } else {
+    const p = x.properties||{};
+    ll = [x.geometry.coordinates[1], x.geometry.coordinates[0]]; num = p.housenumber; zona = p.district||p.locality||''; nombre = p.name||''; tipo = p.osm_key+':'+p.osm_value;
+    calle = p.street || (p.osm_key==='highway' && !/bus_stop|platform/.test(p.osm_value) ? p.name : '') || '';
+  }
+  /* En Córdoba muchas paradas de colectivo se llaman «Calle 1234»: sirven de referencia de altura. */
+  let calleNombre = '';
+  const m = !num && nombre.match(/^(.*?[a-záéíóúñ.])\s+(\d{1,5})$/i);
+  if(m){ calleNombre = m[1]; num = m[2]; }
+  return { ll, calle, calleNombre, num: num && /^\d{1,5}/.test(num) ? parseInt(num,10) : null, zona, nombre, tipo };
+}
+async function consultar(srv, q, limite){
+  const vb = `&viewbox=${CBA.w},${CBA.n},${CBA.e},${CBA.s}&bounded=1`;
+  const url = srv==='nom'
+    ? `https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&limit=${limite}&countrycodes=ar${vb}&q=${encodeURIComponent(q+', Córdoba')}`
+    : `https://photon.komoot.io/api/?limit=${limite}&lat=-31.416&lon=-64.183&bbox=${CBA.w},${CBA.s},${CBA.e},${CBA.n}&q=${encodeURIComponent(q+' Córdoba')}`;
+  const j = await pedirJSON(url);
+  return (srv==='nom' ? j : (j.features||[])).map(x=>leerResultado(srv,x)).filter(r=>enCordoba(r.ll));
+}
+const sinRepetir = (lista, km) => { const u = []; lista.forEach(x=>{ if(!u.some(y=>dist(y.ll,x.ll)<km)) u.push(x); }); return u; };
+/* Busca una dirección o lugar de Córdoba. Con altura: exacta si está en el mapa; si no, la estima
+   entre dos alturas conocidas de la misma calle (paradas, comercios, edificios); si tampoco, marca la calle. */
 async function buscarDireccion(q){
   const limpia = limpiarDireccion(q);
-  const m = limpia.match(/^(.*?)\s+(\d{1,5})\b(.*)$/);
-  const calle = m ? m[1].trim() : limpia, num = m ? m[2] : '';
-  const vb = `&viewbox=${CBA.w},${CBA.n},${CBA.e},${CBA.s}&bounded=1`;
-  const NOM = 'https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&limit=5&countrycodes=ar';
-  const intentos = [];
-  if(num) intentos.push(['nom', `${NOM}&street=${encodeURIComponent(num+' '+calle)}&city=C%C3%B3rdoba&state=C%C3%B3rdoba`, true]);
-  intentos.push(['nom', `${NOM}${vb}&q=${encodeURIComponent(limpia+', Córdoba')}`, !!num]);
-  intentos.push(['pho', `https://photon.komoot.io/api/?limit=5&lat=-31.416&lon=-64.183&bbox=${CBA.w},${CBA.s},${CBA.e},${CBA.n}&q=${encodeURIComponent(limpia+' Córdoba')}`, !!num]);
-  if(num) intentos.push(['nom', `${NOM}${vb}&q=${encodeURIComponent(calle+', Córdoba')}`, false], ['pho', `https://photon.komoot.io/api/?limit=5&lat=-31.416&lon=-64.183&bbox=${CBA.w},${CBA.s},${CBA.e},${CBA.n}&q=${encodeURIComponent(calle+' Córdoba')}`, false]);
-  let fallas = 0, aprox = null;
-  for(const [srv,url,conNum] of intentos){
-    let lista = [];
-    try{
-      const j = await pedirJSON(url);
-      lista = srv==='nom'
-        ? j.map(x=>({ ll:[+x.lat,+x.lon], label:etiquetaNominatim(x), exacto: !!(x.address&&x.address.house_number) || !num || ['amenity','building','shop','tourism','leisure','office'].includes(x.category) }))
-        : (j.features||[]).map(f=>({ ll:[f.geometry.coordinates[1], f.geometry.coordinates[0]], label:etiquetaPhoton(f.properties), exacto: !!f.properties.housenumber || !num || f.properties.osm_key!=='highway' }));
-    }catch(e){ fallas++; continue; }
-    lista = lista.filter(x=>enCordoba(x.ll) && x.label);
-    const unicas = []; lista.forEach(x=>{ if(!unicas.some(u=>dist(u.ll,x.ll)<0.15)) unicas.push(x); });
-    const exactas = unicas.filter(x=>x.exacto);
-    if(exactas.length) return { ok:true, opciones:exactas.slice(0,3) };
-    if(unicas.length && !aprox) aprox = unicas.slice(0,3).map(x=>({ ...x, exacto:false, label:x.label+(num?' (altura aproximada)':'') }));
-    if(!conNum && aprox) break;
+  const m = limpia.match(/^(.*?\D)\s*(\d{1,5})\b/);
+  const calle = m ? m[1].trim() : '', num = m ? parseInt(m[2],10) : null;
+  let fallas = 0, pedidos = 0;
+  const pedir = async (srv, txt, lim) => { pedidos++; try{ return await consultar(srv, txt, lim); }catch(e){ fallas++; return []; } };
+  const mismaCalle = r => coincideCalle(r.calle, calle) || (r.calleNombre && coincideCalle(r.calleNombre, calle));
+  if(num && tokCalle(calle).length){
+    const [a, b] = await Promise.all([pedir('pho', `${calle} ${num}`, 20), pedir('nom', `${calle} ${num}`, 10)]);
+    let todos = [...a, ...b].filter(mismaCalle);
+    const exactas = sinRepetir(todos.filter(r=>r.num===num), 0.3);
+    const nombreCalle = r => (r.calle || r.calleNombre).replace(/\s+\d+$/,'');
+    if(exactas.length) return { ok:true, opciones: exactas.slice(0,3).map(r=>({ ll:r.ll, label:`${nombreCalle(r)} ${num}${r.zona?', '+r.zona:''}`, exacto:true })) };
+    const [c, d] = await Promise.all([pedir('pho', calle, 50), pedir('nom', calle, 40)]);
+    todos = todos.concat([...c, ...d].filter(mismaCalle));
+    /* Estimar la altura con dos referencias numeradas cercanas de la misma calle. */
+    const conNum = todos.filter(r=>r.num!==null && r.num>0).sort((x,y)=>Math.abs(x.num-num)-Math.abs(y.num-num));
+    if(conNum.length){
+      const p1 = conNum[0];
+      const zona = conNum.filter(r=>dist(r.ll,p1.ll)<4);
+      const otroLado = zona.filter(r=>Math.sign(r.num-num)!==Math.sign(p1.num-num) && r.num!==p1.num);
+      const mismoLado = zona.filter(r=>Math.abs(r.num-p1.num)>=30 && dist(r.ll,p1.ll)>0.03);
+      const p2 = otroLado[0] || mismoLado[0];
+      let ll = null;
+      if(p1.num===num) ll = p1.ll;
+      else if(p2 && p2.num!==p1.num && dist(p1.ll,p2.ll)>0.02){
+        const t = (num-p1.num)/(p2.num-p1.num);
+        if(t>=-3 && t<=4) ll = [p1.ll[0]+t*(p2.ll[0]-p1.ll[0]), p1.ll[1]+t*(p2.ll[1]-p1.ll[1])];
+      }
+      else if(Math.abs(p1.num-num)<=150) ll = p1.ll;
+      if(ll && enCordoba(ll)) return { ok:true, estimada:true, opciones:[{ ll, label:`${nombreCalle(p1)} ${num}${p1.zona?', '+p1.zona:''}`, exacto:false }] };
+    }
+    /* Sin alturas de referencia: marcar la calle. */
+    const tramos = sinRepetir(todos.filter(r=>r.calle && /highway/.test(r.tipo)), 1.2);
+    if(tramos.length) return { ok:true, aprox:true, opciones: tramos.slice(0,3).map(r=>({ ll:r.ll, label:`${r.calle}${r.zona?', '+r.zona:''} (altura aproximada)`, exacto:false })) };
+    if(!tokCalle(calle).length) return { ok:false, motivo: fallas===pedidos ? 'red' : 'nada' };
   }
-  if(aprox) return { ok:true, opciones:aprox, aprox:true };
-  return { ok:false, motivo: fallas===intentos.length ? 'red' : 'nada' };
+  /* Lugar conocido, barrio o calle sin altura. */
+  const [e, f] = await Promise.all([pedir('nom', limpia, 8), pedir('pho', limpia, 8)]);
+  const lugares = sinRepetir([...e, ...f].filter(r=>{
+    if(num) return false;
+    const txt = [r.nombre, r.calle, r.zona].join(' ');
+    return tokCalle(limpia).every(t=>tokens(txt).some(x=>x.startsWith(t.slice(0,4))));
+  }), 0.3);
+  if(lugares.length) return { ok:true, opciones: lugares.slice(0,3).map(r=>({ ll:r.ll, label:[r.nombre && r.nombre!==r.calle ? r.nombre : '', r.calle && (r.calle+(r.num?' '+r.num:'')), r.zona].filter(Boolean).join(', '), exacto:true })) };
+  return { ok:false, motivo: fallas===pedidos ? 'red' : 'nada' };
 }
 /* Nombre de la calle de un punto (para confirmar la ubicación). */
 async function nombreDelLugar(ll){
@@ -1119,7 +1173,7 @@ function pantallaPerfil(){
     const r=await buscarDireccion(q);
     if(!r.ok){ estado(r.motivo==='red' ? 'No pudimos conectarnos con el buscador de direcciones. Probá de nuevo en unos segundos o usá tu ubicación.'
       : 'No encontramos esa dirección en Córdoba. Probá con calle y número (ej.: <i>Obispo Trejo 300</i>), un barrio (ej.: <i>Alta Córdoba</i>) o un lugar conocido (ej.: <i>Patio Olmos</i>).'); return; }
-    const nota = r.aprox ? 'No encontramos la altura exacta: te ubicamos sobre la calle. Mové el punto hasta tu ubicación.' : 'Si no es exacta, mové el punto.';
+    const nota = r.aprox ? 'No encontramos la altura exacta: te ubicamos sobre la calle. Mové el punto hasta tu ubicación.' : r.estimada ? 'Altura estimada con referencias de la misma calle. Si no es exacta, mové el punto.' : 'Si no es exacta, mové el punto.';
     if(r.opciones.length===1) return confirmar({...r.opciones[0], dir:q, real:true}, nota);
     estado('Encontramos varias. ¿Cuál es?');
     ops.innerHTML=r.opciones.map((o,i)=>`<button type="button" class="mini-btn out" data-o="${i}">📍 ${esc(o.label)}</button>`).join('');
@@ -1649,7 +1703,7 @@ document.querySelectorAll('[data-tab="pro"]').forEach(a=>a.addEventListener('cli
           : 'No encontré esa dirección en Córdoba. Probá con calle y número (ej.: <i>Obispo Trejo 300</i>), un barrio (ej.: <i>Alta Córdoba</i>) o un lugar conocido (ej.: <i>Patio Olmos</i>).');
         return chips(chipsLoc());
       }
-      const nota = r.aprox ? 'No encontré la altura exacta: te marqué sobre la calle. Mové el punto hasta donde estás.' : 'Si no es exacto, mové el punto.';
+      const nota = r.aprox ? 'No encontré la altura exacta: te marqué sobre la calle. Mové el punto hasta donde estás.' : r.estimada ? 'Calculé la altura con referencias de la misma calle. Si no es exacto, mové el punto.' : 'Si no es exacto, mové el punto.';
       if(r.opciones.length===1) return confirmarLugar({ ...r.opciones[0], real:true }, nota);
       di('Encontré varias. ¿Cuál es?');
       chips(r.opciones.map(o=>({ l:'📍 '+o.label, fn:()=>confirmarLugar({ ...o, real:true }, nota) })).concat([{ l:'Ninguna, escribir otra', cls:'alt', eco:false, fn:()=>di('Dale, escribime la dirección de nuevo.') }]));
