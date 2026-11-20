@@ -269,6 +269,126 @@
   .contact-row a{color:#F2F7FA;text-decoration:none;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:8px 12px;font-size:.85rem}
   .contact-row a:hover{background:rgba(255,255,255,.16)}
   @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+  .loc-st{margin:6px 0 0}
+  .loc-st:empty{display:none}
+  .loc-nota{font-weight:400;color:var(--muted)}
+  .loc-ops{display:flex;flex-direction:column;align-items:flex-start;gap:6px;margin-top:8px}
+  .loc-ops:empty{display:none}
+  .loc-ops .mini-btn{white-space:normal;text-align:left}
+  .loc-map{height:170px;border-radius:10px;border:1px solid var(--border);margin-top:10px;position:relative;z-index:1}
+  .dudas{background:var(--alt);border-radius:10px;padding:12px 14px;margin:12px 0 4px}
+  .dudas p{margin:0;font-size:.92rem;color:var(--deep)}
+  .dudas .chips{margin:10px 0 0}
+  .chip.mas{border-style:dashed;color:var(--muted)}
+  .entendi{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.86rem;color:var(--muted);margin:0 0 10px}
+  .entendi b{color:var(--deep)}
+  .entendi button{border:0;background:none;padding:0;color:var(--teal-d);font-weight:600;font-size:.86rem;text-decoration:underline;cursor:pointer}
+  .checks{display:flex;flex-direction:column;gap:8px}
+  .check{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--border-s);border-radius:10px;padding:12px 14px;background:var(--panel);font-size:.95rem;line-height:1.35;color:var(--text);cursor:pointer;transition:background .15s,border-color .15s}
+  .check:hover{border-color:var(--red)}
+  .check input{width:20px;height:20px;margin:0;flex:none;accent-color:var(--red)}
+  .check.on{border-color:var(--red);background:var(--red-soft)}
+  .crisis{background:var(--alt);border-radius:12px;padding:18px 18px 8px}
+  .crisis p{color:var(--text);font-size:.95rem}
+  .crisis .btn{margin:2px 0 4px}
+  /* ===================== URGENBOT (chat) ===================== */
+  .wa-float{right:auto;left:18px}
+  .ub-launch{position:fixed;right:18px;bottom:18px;z-index:70;display:flex;align-items:center;gap:12px;background:var(--deep);color:#F6FAF9;border:0;border-radius:999px;padding:6px 20px 6px 6px;cursor:pointer;box-shadow:0 16px 34px -12px rgba(13,58,92,.6);font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:.86rem;text-align:left;transition:transform .2s,opacity .2s}
+  .ub-launch:hover{transform:translateY(-2px)}
+  .ub-launch:focus-visible{outline:3px solid var(--mint);outline-offset:3px}
+  .ub-launch.hide{opacity:0;pointer-events:none;transform:scale(.85)}
+  .ub-launch .ub-face{position:relative;width:54px;height:54px;border-radius:50%;background:#D3F2E7;flex:none}
+  .ub-launch .ub-face img{position:absolute;left:3px;bottom:5px;width:48px;height:auto}
+  .ub-launch .ub-face::after{content:"";position:absolute;right:1px;bottom:3px;width:12px;height:12px;border-radius:50%;background:var(--mint);border:2px solid var(--deep)}
+  .ub-launch small{display:block;font-size:.66rem;font-weight:500;letter-spacing:.06em;color:var(--mint)}
+  @media(max-width:520px){.ub-launch{padding:5px}.ub-launch .ub-txt{display:none}}
+  .ub-teaser{position:fixed;right:18px;bottom:90px;z-index:70;max-width:250px;background:#fff;border:1px solid var(--border);border-radius:16px 16px 4px 16px;padding:12px 34px 12px 14px;font-size:.9rem;line-height:1.4;color:var(--text);box-shadow:0 14px 30px -12px rgba(13,58,92,.35);cursor:pointer;animation:ub-pop .35s ease-out}
+  .ub-teaser b{color:var(--deep)}
+  .ub-teaser .ub-x{position:absolute;top:4px;right:4px;width:28px;height:28px;border:0;background:none;color:var(--faint);font-size:1.1rem;cursor:pointer;border-radius:8px}
+  .ub-teaser .ub-x:hover{background:var(--alt)}
+  @keyframes ub-pop{from{opacity:0;transform:translateY(8px) scale(.96)}to{opacity:1;transform:none}}
+  .ub-panel{position:fixed;right:18px;bottom:18px;z-index:80;width:400px;height:min(680px,calc(100vh - 36px));background:var(--bg);border:1px solid var(--border);border-radius:18px;box-shadow:0 30px 70px -20px rgba(13,58,92,.5);display:flex;flex-direction:column;overflow:hidden;opacity:0;transform:translateY(14px) scale(.98);transform-origin:bottom right;transition:opacity .2s,transform .2s}
+  .ub-panel.on{opacity:1;transform:none}
+  .ub-panel[hidden]{display:none}
+  @media(max-width:600px){.ub-panel{inset:0;width:auto;height:100%;border-radius:0;border:0}
+    html.ub-open,html.ub-open body{overflow:hidden}}
+  html.ub-open .wa-float{display:none}
+  .ub-head{display:flex;align-items:center;gap:12px;background:var(--deep);color:#fff;padding:12px 12px 12px 14px;padding-top:max(12px,env(safe-area-inset-top))}
+  .ub-av{position:relative;width:48px;height:48px;border-radius:50%;background:#D3F2E7;flex:none}
+  .ub-av img{position:absolute;left:4px;bottom:5px;width:40px;height:auto}
+  .ub-id{flex:1;min-width:0}
+  .ub-id .nm{font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:1.45rem;letter-spacing:.03em;text-transform:uppercase;line-height:1}
+  .ub-id .sub{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:6px;margin-top:3px;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.05em;color:var(--mint)}
+  .ub-id .sub i{width:7px;height:7px;border-radius:50%;background:var(--mint)}
+  .ub-hbtn{width:38px;height:38px;border:0;border-radius:10px;background:rgba(255,255,255,.09);color:#fff;font-size:1rem;cursor:pointer;flex:none}
+  .ub-hbtn:hover{background:rgba(255,255,255,.18)}
+  .ub-log{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:16px 12px 8px;display:flex;flex-direction:column;gap:8px}
+  .ub-row{display:flex;gap:8px;align-items:flex-end}
+  .ub-row.yo{justify-content:flex-end}
+  .ub-mini{position:relative;width:30px;height:30px;border-radius:50%;background:#D3F2E7;flex:none;overflow:hidden}
+  .ub-mini img{position:absolute;left:2px;bottom:1px;width:26px;height:auto}
+  .ub-row.cont .ub-mini{visibility:hidden}
+  .ub-b{flex:0 1 auto;min-width:0;max-width:84%;background:#fff;border:1px solid var(--border);border-radius:16px 16px 16px 4px;padding:10px 13px;font-size:.92rem;line-height:1.45;color:var(--text);overflow-wrap:break-word}
+  .ub-row.yo .ub-b{background:var(--teal);border-color:transparent;color:#fff;border-radius:16px 16px 4px 16px}
+  .ub-b.wide{flex:1;max-width:none}
+  .ub-b p{margin:0 0 8px}.ub-b p:last-child{margin-bottom:0}
+  .ub-b a{color:var(--teal-d);font-weight:700}
+  .ub-qn{display:block;margin-bottom:3px;font-family:'IBM Plex Mono',monospace;font-size:.66rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-d)}
+  .ub-typing{display:inline-flex;gap:4px;padding:4px 2px}
+  .ub-typing i{width:7px;height:7px;border-radius:50%;background:var(--faint);animation:ub-dot 1s infinite}
+  .ub-typing i:nth-child(2){animation-delay:.15s}.ub-typing i:nth-child(3){animation-delay:.3s}
+  @keyframes ub-dot{0%,60%,100%{opacity:.3;transform:none}30%{opacity:1;transform:translateY(-3px)}}
+  .ub-chips{display:flex;flex-wrap:wrap;gap:6px;padding:2px 0 4px 38px}
+  .ub-chip{font-family:'Inter',sans-serif;font-size:.84rem;font-weight:600;line-height:1.2;background:#fff;color:var(--teal-d);border:1px solid var(--teal);border-radius:999px;padding:8px 13px;cursor:pointer;text-decoration:none}
+  .ub-chip:hover{background:var(--teal-soft)}
+  .ub-chip.alt{border-color:var(--border-s);color:var(--muted)}
+  .ub-chip.danger{background:var(--red);border-color:var(--red);color:#fff}
+  .ub-pose{display:flex;gap:12px;align-items:center}
+  .ub-pose img{width:74px;height:auto;flex:none}
+  .ub-lvl{display:inline-block;margin-bottom:5px;padding:3px 9px;border-radius:999px;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+  .ub-b h5{margin:0 0 4px;font-size:.98rem;line-height:1.3;color:var(--deep)}
+  .ub-b.alert{background:var(--red);border-color:var(--red);color:#fff}
+  .ub-b.alert a{color:#fff}
+  .ub-call{display:flex;gap:8px;margin-top:10px}
+  .ub-call a{flex:1;text-align:center;background:#fff;color:var(--red)!important;border-radius:10px;padding:9px 6px;text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:.86rem}
+  .ub-map{height:180px;border-radius:10px;border:1px solid var(--border);margin:4px 0 6px;position:relative;z-index:1}
+  .ub-card{border:1px solid var(--border);border-radius:10px;padding:9px 11px;margin-top:7px;background:#fff;cursor:pointer}
+  .ub-card.best{border-color:var(--teal);box-shadow:0 0 0 2px var(--teal-soft)}
+  .ub-card.off{background:#FAFBFB}
+  .ub-card .nm{font-weight:700;font-size:.88rem;line-height:1.3;color:var(--deep)}
+  .ub-card .nm small{margin-left:6px;padding:2px 7px;border-radius:999px;background:var(--teal);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.04em;vertical-align:2px}
+  .ub-card .mt{display:flex;flex-wrap:wrap;gap:3px 10px;margin-top:3px;font-size:.76rem;color:var(--muted)}
+  .ub-card .ok{color:var(--teal-d);font-weight:600}.ub-card .no{color:var(--red);font-weight:600}
+  .ub-card .sema{font-size:.7rem}
+  .ub-acts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .ub-act{display:inline-flex;align-items:center;gap:5px;font-family:'IBM Plex Mono',monospace;font-size:.74rem;font-weight:600;border:1px solid var(--teal);border-radius:6px;padding:6px 10px;background:#fff;color:var(--teal-d)!important;text-decoration:none;cursor:pointer}
+  .ub-act.p{background:var(--teal);color:#fff!important}
+  .ub-act:disabled{opacity:.5;cursor:default}
+  .ub-note{font-size:.72rem!important;line-height:1.4;color:var(--faint)}
+  .ub-sel{display:flex;gap:6px;margin-top:6px}
+  .ub-sel select{flex:1;min-width:0;border:1px solid var(--border-s);border-radius:8px;padding:8px;font:inherit;font-size:16px;background:#fff;color:var(--text)}
+  .ub-checks{display:flex;flex-direction:column;gap:6px;margin:8px 0 10px}
+  .ub-check{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--border-s);border-radius:10px;padding:9px 11px;font-size:.88rem;line-height:1.35;cursor:pointer;background:#fff}
+  .ub-check input{width:18px;height:18px;margin:1px 0 0;flex:none;accent-color:var(--red)}
+  .ub-check.on{border-color:var(--red);background:var(--red-soft)}
+  .ub-check:has(input:disabled){cursor:default}
+  .ub-go{width:100%;justify-content:center;padding:10px;font-size:.8rem}
+  .ub-dl{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;margin:8px 0 0;font-size:.84rem}
+  .ub-dl dt{color:var(--muted)}.ub-dl dd{margin:0;font-weight:600;color:var(--deep)}
+  .ub-foot{border-top:1px solid var(--border);background:#fff;padding:10px 10px max(8px,env(safe-area-inset-bottom))}
+  .ub-form{display:flex;gap:8px}
+  .ub-form input{flex:1;min-width:0;border:1px solid var(--border-s);border-radius:12px;padding:11px 13px;font-family:'Inter',sans-serif;font-size:16px;color:var(--text);background:var(--bg)}
+  .ub-form input:focus{outline:2px solid var(--teal);outline-offset:0;border-color:transparent}
+  .ub-form button{width:48px;border:0;border-radius:12px;background:var(--teal);color:#fff;font-size:1.05rem;cursor:pointer}
+  .ub-form button:hover{background:var(--teal-d)}
+  .ub-legal{margin:6px 0 0;text-align:center;font-size:.7rem;color:var(--faint)}
+  .ub-legal a{color:var(--red);font-weight:700}
+  .ub-cta{display:flex;gap:16px;align-items:center;margin-top:26px;padding:16px 18px;background:#fff;border:1px solid var(--border);border-radius:14px}
+  .ub-cta img{width:78px;height:auto;flex:none}
+  .ub-cta b{display:block;color:var(--deep);font-size:1rem}
+  .ub-cta p{margin:2px 0 10px;font-size:.9rem}
+  .ub-cta .btn{padding:10px 16px;font-size:.8rem}
+  @media(prefers-reduced-motion:reduce){.ub-panel,.ub-launch{transition:none}.ub-teaser{animation:none}.ub-typing i{animation:none;opacity:.6}}
 </style>
 </head>
 <body>
@@ -341,13 +461,17 @@
     <div class="demo-side">
       <div class="eyebrow">Probalo</div>
       <h2 class="h2">Así funciona Urgen.IA</h2>
-      <p>Creá tu perfil con tu obra social, contá qué te pasa y la IA te hace un par de preguntas para detectar señales de alarma. Después te muestra en el mapa a dónde conviene ir, según dónde estás y dónde te atienden con tu cobertura.</p>
+      <p>Creá tu perfil con tu obra social, contá qué te pasa y marcá si tenés alguna señal de alarma de una lista corta. Después te muestra en el mapa a dónde conviene ir, según dónde estás y dónde te atienden con tu cobertura.</p>
       <div class="legend">
         <div><i style="background:var(--red)"></i><span><b>Grave (triage 1 a 3):</b> mapa con tu ubicación y las guardias que aceptan tu obra social, con la ruta para llegar.</span></div>
         <div><i style="background:var(--teal)"></i><span><b>Leve (triage 4 y 5):</b> profesionales cerca tuyo, filtrados por obra social, presencial o virtual.</span></div>
         <div><i style="background:var(--blue)"></i><span><b>Ante la duda, siempre guardia.</b> Si marcás una señal de alarma, te derivamos a urgencias.</span></div>
       </div>
       <p class="note">Demo: los hospitales del mapa son reales y se usan como referencia de ubicación. La afluencia, los especialistas de turno, las coberturas y los profesionales son simulados.</p>
+      <div class="ub-cta">
+        <img src="urgenbot/hola.webp" alt="Urgenbot, el asistente de Urgen.IA, saludando" width="78" height="101" loading="lazy">
+        <div><b>¿Preferís contarlo charlando?</b><p>Urgenbot te hace las mismas preguntas en una conversación y te dice a dónde ir.</p><button type="button" class="btn btn-p js-ub-open">Hablá con Urgenbot →</button></div>
+      </div>
     </div>
 
     <div class="app" aria-live="polite">
@@ -489,6 +613,9 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
+/* Siempre por https: sin https el navegador no deja usar la ubicación. */
+if(location.protocol==='http:' && /urgenia\.com\.ar$/.test(location.hostname)) location.replace('https://'+location.host+location.pathname+location.search+location.hash);
+
 /* ================= CONFIGURACIÓN: editá solo este bloque ================= */
 const CONFIG = {
   // URL de la "aplicación web" de Google Apps Script que guarda los formularios en tu planilla.
@@ -574,109 +701,334 @@ const PROS = [
   { n:'Dr. Federico S.', esp:'Pediatría', barrio:'Jardín', os:['APROSS','Prevención Salud','OSECAC','IOSFA'], $:27000, mod:['Presencial'], turno:'Hoy 18:00' }
 ];
 
-/* Casos de la demo, revisados con criterio de guardia (señales de alarma de Manchester / Ottawa / NICE).
-   Cada pregunta está formulada para que "Sí" sea la señal de alarma.
-   n = nivel de triage si la respuesta es "Sí": 1-3 → guardia; 4 → sigue como leve pero suma una indicación (nota).
-   La pregunta más grave respondida con "Sí" define el resultado. */
+/* ============ MOTOR DE TRIAGE (lo usan la demo y Urgenbot) ============
+   Revisado con criterio de guardia (señales de alarma de Manchester / Ottawa / NICE).
+   Cada caso tiene una lista CORTA de señales de alarma: la persona marca las que tiene (o "Ninguna").
+   n = nivel de triage de esa señal: 1-3 → guardia (1 = emergencia, llamar al 107); 4 → sigue como leve pero suma una indicación (nota).
+   La señal más grave marcada define el resultado. */
 const CASOS = [
-  { id:'tobillo', chip:'Me doblé el tobillo', kw:['tobillo','esguince','torc','doblé','doble el','pie','rodilla','muñeca','muneca','golpe','fútbol','futbol','lesión','lesion','hinchad'],
-    esp:'Traumatología',
-    preg:[
-      {q:'¿Se ve deformado o torcido, o hay una herida abierta cerca del golpe?', n:2, t:'Posible fractura o luxación', txt:'La deformidad o una herida sobre el hueso necesitan guardia con traumatología. Inmovilizá la zona como esté y no intentes acomodarla.'},
-      {q:'¿El pie está frío, pálido o azulado, o se te duerme o te hormiguea?', n:2, t:'Posible compromiso de la circulación o de un nervio', txt:'Puede haber una lesión que comprime vasos o nervios. Andá a una guardia ahora.'},
-      {q:'¿Fue en un accidente de tránsito o una caída de más de un metro de altura?', n:2, t:'Golpe de alta energía', txt:'Por cómo fue el golpe, conviene una guardia que te revise completo, no solo el tobillo.'},
-      {q:'¿No podés apoyar el pie ni dar 4 pasos seguidos, aunque sea rengueando?', n:3, t:'Necesita radiografía hoy', txt:'No poder apoyar es un criterio para descartar fractura con una radiografía. Andá a una guardia con traumatología.'},
-      {q:'¿Te duele mucho al apretar el huesito del costado del tobillo o el borde externo del pie?', n:3, t:'Necesita radiografía hoy', txt:'El dolor al presionar esos huesos es un criterio para descartar fractura con una radiografía. Andá a una guardia con traumatología.'},
-      {q:'¿Está muy hinchado o se puso morado?', n:4, nota:'Como está hinchado o morado, puede ser un esguince moderado: pedí turno con traumatología en las próximas 24–48 horas.'}
-    ],
-    leve:{nivel:4, t:'Torcedura o esguince leve', esp:['Traumatología','Kinesiología'], txt:'No hay señales de fractura. Las primeras 48 horas: hielo envuelto en un trapo 15–20 minutos cada 2–3 horas, reposo y el pie en alto. Si en 3–5 días no mejora, consultá con traumatología; después, kinesiología.'} },
+  { id:'pecho', chip:'Dolor en el pecho', alarma:true,
+    kw:{ f:['pecho','torax','toracic','infarto','opresion','angina de pecho','me aprieta el pecho','puntada en el pecho','dolor en el corazon','me duele el corazon'], d:['corazon','palpitacion'] },
+    grave:{ nivel:1, t:'Posible emergencia cardiovascular', esp:'Cardiología', txt:'El dolor u opresión en el pecho siempre se evalúa en guardia, sobre todo si se va al brazo, el cuello o la mandíbula, o viene con sudor frío, náuseas o falta de aire. No manejes vos.' } },
 
-  { id:'pecho', chip:'Dolor en el pecho', kw:['pecho','corazón','corazon','infarto','opresión','opresion','puntada en el pecho','falta el aire','falta de aire','ahogo'],
-    alarma:true, grave:{nivel:1, t:'Posible emergencia cardiovascular', esp:'Cardiología', txt:'El dolor u opresión en el pecho siempre se evalúa en guardia, sobre todo si se va al brazo, el cuello o la mandíbula, o viene con sudor frío, náuseas o falta de aire. No manejes vos.'} },
-
-  { id:'gripe', chip:'Fiebre, tos o dolor de garganta', kw:['fiebre','gripe','resfr','garganta','tos','mocos','catarro','congest','covid','anginas'],
-    esp:'Clínica médica',
-    preg:[
-      {q:'¿Tenés los labios o las uñas morados, o estás confundido o muy somnoliento?', n:1, t:'Posible falta de oxígeno', txt:'Puede faltarte oxígeno. Llamá al 107 o andá a la guardia más cercana ya.'},
-      {q:'¿Te falta el aire, te agitás al hablar o te duele el pecho al respirar?', n:2, t:'Dificultad para respirar', txt:'La falta de aire con fiebre puede ser una neumonía. Conviene que te vean en una guardia hoy.'},
-      {q:'¿Te cuesta tragar incluso líquidos o tu propia saliva, o te cambió la voz?', n:2, t:'Posible infección profunda de garganta', txt:'No poder tragar la saliva o el cambio de voz pueden indicar un absceso. Andá a una guardia.'},
-      {q:'¿Tenés 39 °C o más hace más de 3 días?', n:3, t:'Fiebre persistente', txt:'La fiebre alta que no baja en 3 días necesita que te revisen hoy en una guardia.'},
-      {q:'¿Tenés más de 65 años, estás embarazada o tenés una enfermedad crónica (corazón, pulmón, diabetes, defensas bajas)?', n:4, nota:'Por tu grupo de riesgo, no esperes: hacé la consulta hoy y, si empeorás, andá a la guardia.'}
+  { id:'golpe', chip:'Golpe, torcedura o esguince', esp:'Traumatología',
+    kw:{ f:['tobillo','esguince','torcedura','torci','me doble','doble el','rodilla','muneca','hombro','fractur','quebre','me quebre','luxac','me cai','caida','me tropece','pisada','meniscos','ligamento'], d:['pie','mano','dedo','brazo','pierna','codo','golpe','golpee','futbol','hinchad','lesion','moreton'] },
+    senales:[
+      { s:'Está deformado, torcido o hay una herida abierta', n:2, t:'Posible fractura o luxación', txt:'La deformidad o una herida sobre el hueso necesitan guardia con traumatología. Inmovilizá la zona como está y no intentes acomodarla.' },
+      { s:'Está frío, pálido o azulado, o se duerme', n:2, t:'Posible compromiso de la circulación o de un nervio', txt:'Puede haber una lesión que comprime vasos o nervios. Andá a una guardia ahora.' },
+      { s:'Fue un accidente de tránsito o una caída de más de 1 metro', n:2, t:'Golpe de alta energía', txt:'Por cómo fue el golpe, conviene una guardia que te revise completo, no solo la zona que duele.' },
+      { s:'No podés apoyar ni mover la zona (ni dar 4 pasos)', n:3, t:'Necesita radiografía hoy', txt:'No poder apoyar ni mover es un criterio para descartar fractura con una radiografía. Andá a una guardia con traumatología.' },
+      { s:'Duele mucho al apretar justo sobre el hueso', n:3, t:'Necesita radiografía hoy', txt:'El dolor al presionar el hueso es un criterio para descartar fractura con una radiografía. Andá a una guardia con traumatología.' },
+      { s:'Está muy hinchado o morado', n:4, nota:'Como está hinchado o morado, puede ser un esguince moderado: pedí turno con traumatología en las próximas 24–48 horas.' }
     ],
-    leve:{nivel:5, t:'Cuadro respiratorio leve', esp:['Clínica médica'], txt:'Una teleconsulta con clínica médica resuelve la mayoría de estos cuadros sin salir de tu casa. Mientras tanto: reposo y mucho líquido.'} },
+    leve:{ nivel:4, t:'Torcedura o golpe leve', esp:['Traumatología','Kinesiología'], txt:'No hay señales de fractura. Las primeras 48 horas: hielo envuelto en un trapo 15–20 minutos cada 2–3 horas, reposo y la zona en alto. Si en 3–5 días no mejora, consultá con traumatología; después, kinesiología.' } },
 
-  { id:'fiebre', chip:'Fiebre en mi hijo', kw:['fiebre','hijo','hija','nene','nena','bebé','bebe','chico','chica','niño','nino','niña','nina'],
-    esp:'Pediatría',
-    preg:[
-      {q:'¿Tiene manchas en la piel que no desaparecen al apretarlas (o al apoyar un vaso encima)?', n:1, t:'Fiebre con manchas que no desaparecen', txt:'Es una señal de alarma que hay que ver de inmediato. Llamá al 107 o andá a la guardia pediátrica más cercana ya.'},
-      {q:'¿Cuesta despertarlo, no reacciona como siempre o tuvo una convulsión?', n:1, t:'Fiebre con alteración de la conciencia', txt:'Necesita atención inmediata. Llamá al 107 o andá a la guardia pediátrica más cercana ya.'},
-      {q:'¿Tiene menos de 3 meses?', n:2, t:'Fiebre en un bebé menor de 3 meses', txt:'En los bebés tan chiquitos la fiebre siempre se evalúa en guardia, aunque se lo vea bien.'},
-      {q:'¿Le cuesta respirar: respira muy rápido, se le hunden las costillas o hace ruido al respirar?', n:2, t:'Fiebre con dificultad para respirar', txt:'Necesita una guardia con pediatra de turno.'},
-      {q:'¿Toma muy poco líquido, hace mucho menos pis o no moja los pañales?', n:3, t:'Riesgo de deshidratación', txt:'Por la poca hidratación conviene que lo vean hoy en una guardia pediátrica.'},
-      {q:'¿Tiene fiebre hace más de 3 días?', n:4, nota:'Como lleva varios días con fiebre, que lo vea un pediatra hoy, mejor presencial.'}
+  { id:'resp', chip:'Fiebre, tos o dolor de garganta', esp:'Clínica médica',
+    kw:{ f:['tos','toso','gripe','engripad','resfri','garganta','anginas','mocos','catarro','congestion','congestionad','covid','bronquitis','neumonia','flema'], d:['fiebre','temperatura','febril','calentura','escalofrio','dolor de cuerpo','me duele el cuerpo','estornud'] },
+    senales:[
+      { s:'Labios o uñas morados, o mucha confusión o somnolencia', n:1, t:'Posible falta de oxígeno', txt:'Puede faltarte oxígeno. Llamá al 107 o andá a la guardia más cercana ya.' },
+      { s:'Te falta el aire o te agitás al hablar', n:2, t:'Dificultad para respirar', txt:'La falta de aire con fiebre puede ser una neumonía. Conviene que te vean en una guardia hoy.' },
+      { s:'No podés tragar ni tu saliva, o te cambió la voz', n:2, t:'Posible infección profunda de garganta', txt:'No poder tragar la saliva o el cambio de voz pueden indicar un absceso. Andá a una guardia.' },
+      { s:'Fiebre de 39 °C o más hace más de 3 días', n:3, t:'Fiebre persistente', txt:'La fiebre alta que no baja en 3 días necesita que te revisen hoy en una guardia.' },
+      { s:'Tenés más de 65 años, estás embarazada o tenés una enfermedad crónica', n:4, nota:'Por tu grupo de riesgo, no esperes: hacé la consulta hoy y, si empeorás, andá a la guardia.' }
     ],
-    leve:{nivel:4, t:'Fiebre sin signos de alarma', esp:['Pediatría'], txt:'Sin señales de alarma, una teleconsulta o el consultorio pediátrico suele alcanzar. Ofrecele líquido seguido y no lo abrigues de más. Si aparece alguna señal de alarma, andá a la guardia.'} },
+    leve:{ nivel:5, t:'Cuadro respiratorio leve', esp:['Clínica médica'], txt:'Una teleconsulta con clínica médica resuelve la mayoría de estos cuadros sin salir de tu casa. Mientras tanto: reposo y mucho líquido.' } },
 
-  { id:'panza', chip:'Dolor de panza', kw:['panza','abdomen','abdominal','estómago','estomago','barriga','apéndice','apendic','vesícula','vesicula','vómito','vomito','diarrea'],
-    esp:'Cirugía',
-    preg:[
-      {q:'¿Vomitás sangre o algo como borra de café, o la caca sale negra o con sangre?', n:2, t:'Posible sangrado digestivo', txt:'Es una señal de alarma: andá a una guardia ahora.', esp:'Clínica médica'},
-      {q:'¿El dolor es muy fuerte, empezó de golpe o la panza está dura como una tabla?', n:2, t:'Dolor abdominal agudo', txt:'Un dolor así puede necesitar cirugía. Andá a una guardia y no comas ni tomes nada hasta que te vean.'},
-      {q:'¿Podrías estar embarazada?', n:2, t:'Dolor abdominal con posible embarazo', txt:'El dolor de panza con posible embarazo se evalúa en guardia para descartar un embarazo fuera del útero.', esp:'Clínica médica'},
-      {q:'¿Empezó cerca del ombligo y se fue abajo a la derecha, o duele más al caminar o saltar?', n:3, t:'Posible apendicitis', txt:'Hay que descartar una apendicitis hoy. Andá a una guardia y no comas hasta que te vean.'},
-      {q:'¿Tenés fiebre alta o no podés retener nada de líquido?', n:3, t:'Riesgo de deshidratación o infección', txt:'Conviene que te vean hoy en una guardia.', esp:'Clínica médica'}
+  { id:'nino', chip:'Fiebre en un chico o bebé', esp:'Pediatría',
+    kw:{ f:['hijo','hija','nene','nena','bebe','bebito','bebita','nino','nina','chiquito','chiquita','mi peque','sobrino','sobrina','nieto','nieta','pediatr'], d:['chico','chica','fiebre','temperatura','calentura','febril'] },
+    need:[['fiebre','temperatura','calentura','febril','volando'],['hijo','hija','nene','nena','bebe','bebito','bebita','nino','nina','chiquito','chiquita','chico','chica','mi peque','sobrino','sobrina','nieto','nieta','pediatr']],
+    senales:[
+      { s:'Manchas en la piel que no se van al apretarlas', n:1, t:'Fiebre con manchas que no desaparecen', txt:'Es una señal de alarma que hay que ver de inmediato. Llamá al 107 o andá a la guardia pediátrica más cercana ya.' },
+      { s:'Cuesta despertarlo, está muy decaído o tuvo una convulsión', n:1, t:'Fiebre con alteración de la conciencia', txt:'Necesita atención inmediata. Llamá al 107 o andá a la guardia pediátrica más cercana ya.' },
+      { s:'Es un bebé de menos de 3 meses', n:2, t:'Fiebre en un bebé menor de 3 meses', txt:'En los bebés tan chiquitos la fiebre siempre se evalúa en guardia, aunque se lo vea bien.' },
+      { s:'Respira muy rápido, se le hunden las costillas o hace ruido al respirar', n:2, t:'Fiebre con dificultad para respirar', txt:'Necesita una guardia con pediatra de turno.' },
+      { s:'Toma muy poco líquido o casi no hace pis', n:3, t:'Riesgo de deshidratación', txt:'Por la poca hidratación conviene que lo vean hoy en una guardia pediátrica.' },
+      { s:'Tiene fiebre hace más de 3 días', n:4, nota:'Como lleva varios días con fiebre, que lo vea un pediatra hoy, mejor presencial.' }
     ],
-    leve:{nivel:4, t:'Dolor abdominal sin signos de alarma', esp:['Clínica médica'], txt:'Sin señales de alarma, una consulta con clínica médica es suficiente. Mientras tanto: comida liviana y líquido en sorbos chicos. Si el dolor aumenta o se concentra en un lugar, andá a la guardia.'} },
+    leve:{ nivel:4, t:'Fiebre sin signos de alarma', esp:['Pediatría'], txt:'Sin señales de alarma, una teleconsulta o el consultorio pediátrico suele alcanzar. Ofrecele líquido seguido y no lo abrigues de más. Si aparece alguna señal de alarma, andá a la guardia.' } },
 
-  { id:'corte', chip:'Me corté', kw:['corte','corté','cortadura','herida','sangra','sangrado','puntos','cuchillo','vidrio','mordi','mordió','mordedura'],
-    esp:'Cirugía',
-    preg:[
-      {q:'¿Sangra a chorro o no para después de apretar fuerte 10 minutos con una tela limpia?', n:1, t:'Sangrado que no se controla', txt:'Seguí apretando fuerte sin soltar y llamá al 107 o andá a la guardia más cercana ya.'},
-      {q:'¿No podés mover bien un dedo o sentís dormida la zona de la herida?', n:2, t:'Posible lesión de tendón o nervio', txt:'Puede haber un tendón o un nervio cortado. Andá a una guardia ahora.'},
-      {q:'¿Es profunda o los bordes quedan abiertos (se ve grasa o algo amarillento)?', n:3, t:'Necesita puntos', txt:'Los puntos se ponen idealmente en las primeras 6 a 8 horas. Andá a una guardia.'},
-      {q:'¿Es en la cara, cerca de un ojo o en los genitales?', n:3, t:'Herida en zona delicada', txt:'Conviene que la cierre un profesional en una guardia.'},
-      {q:'¿Fue una mordedura de animal o con algo sucio u oxidado?', n:3, t:'Herida con riesgo de infección', txt:'Necesita limpieza profesional y revisar la vacuna antitetánica (y la antirrábica si fue un animal). Andá a una guardia.'}
+  { id:'panza', chip:'Dolor de panza, vómitos o diarrea', esp:'Cirugía',
+    kw:{ f:['panza','abdomen','abdominal','estomago','barriga','apendic','vesicula','vomit','diarrea','nausea','descompuest','retorcijon','colico','gastritis','acidez','intoxicacion alimentaria','indigestion'], d:['me cayo mal','algo que comi','ombligo'] },
+    senales:[
+      { s:'Vomitás sangre o la caca sale negra o con sangre', n:2, t:'Posible sangrado digestivo', txt:'Es una señal de alarma: andá a una guardia ahora.', esp:'Clínica médica' },
+      { s:'Dolor muy fuerte, de golpe, o panza dura como una tabla', n:2, t:'Dolor abdominal agudo', txt:'Un dolor así puede necesitar cirugía. Andá a una guardia y no comas ni tomes nada hasta que te vean.' },
+      { s:'Podrías estar embarazada', n:2, t:'Dolor abdominal con posible embarazo', txt:'El dolor de panza con posible embarazo se evalúa en guardia para descartar un embarazo fuera del útero.', esp:'Clínica médica' },
+      { s:'Empezó en el ombligo y se fue abajo a la derecha, o duele más al caminar', n:3, t:'Posible apendicitis', txt:'Hay que descartar una apendicitis hoy. Andá a una guardia y no comas hasta que te vean.' },
+      { s:'Fiebre alta o no podés retener ni el agua', n:3, t:'Riesgo de deshidratación o infección', txt:'Conviene que te vean hoy en una guardia.', esp:'Clínica médica' }
     ],
-    leve:{nivel:5, t:'Herida superficial', esp:['Clínica médica'], txt:'Lavala con agua y jabón, secala y tapala con una gasa limpia. Revisá que tengas la vacuna antitetánica al día (se refuerza cada 10 años). Si se pone roja, caliente o con pus, consultá.'} },
+    leve:{ nivel:4, t:'Dolor de panza sin signos de alarma', esp:['Clínica médica'], txt:'Sin señales de alarma, una consulta con clínica médica es suficiente. Mientras tanto: comida liviana y líquido en sorbos chicos. Si el dolor aumenta o se concentra en un lugar, andá a la guardia.' } },
 
-  { id:'muela', chip:'Dolor de muela', kw:['muela','diente','encía','encia','odontolog','dental'],
-    esp:'Clínica médica',
-    preg:[
-      {q:'¿Te cuesta respirar o tragar tu propia saliva?', n:1, t:'Infección que compromete la respiración', txt:'Puede ser una infección que se extiende al cuello. Andá a la guardia más cercana ya.'},
-      {q:'¿Tenés la cara o el cuello hinchados con fiebre, o no podés abrir bien la boca?', n:2, t:'Posible infección odontológica extendida', txt:'La hinchazón con fiebre o la dificultad para abrir la boca se evalúan en guardia: puede necesitar antibióticos o drenaje.'},
-      {q:'¿Te sangra sin parar hace más de 20 minutos (por ejemplo, después de sacarte una muela)?', n:3, t:'Sangrado que no para', txt:'Mordé una gasa doblada con fuerza y andá a una guardia si no para.'},
-      {q:'¿Se te partió o se te salió un diente por un golpe?', n:4, nota:'Si se salió un diente definitivo, agarralo por la corona (no por la raíz), guardalo en leche y andá a un odontólogo dentro de la hora.'}
+  { id:'corte', chip:'Corte o herida', esp:'Cirugía',
+    kw:{ f:['corte','me corte','cortadura','tajo','herida','lastimadura','sangra','sangrado','puntos','cuchillo','vidrio','mordio','mordedura','me mordio','clave','clavo','astilla'], d:['sangre','perro','gato','lata'] },
+    senales:[
+      { s:'Sangra a chorro o no para después de apretar 10 minutos', n:1, t:'Sangrado que no se controla', txt:'Seguí apretando fuerte sin soltar y llamá al 107 o andá a la guardia más cercana ya.' },
+      { s:'No podés mover bien un dedo o la zona está dormida', n:2, t:'Posible lesión de tendón o nervio', txt:'Puede haber un tendón o un nervio cortado. Andá a una guardia ahora.' },
+      { s:'Es profunda o los bordes quedan abiertos', n:3, t:'Necesita puntos', txt:'Los puntos se ponen idealmente en las primeras 6 a 8 horas. Andá a una guardia.' },
+      { s:'Es en la cara, cerca de un ojo o en los genitales', n:3, t:'Herida en zona delicada', txt:'Conviene que la cierre un profesional en una guardia.' },
+      { s:'Fue una mordedura de animal o con algo sucio u oxidado', n:3, t:'Herida con riesgo de infección', txt:'Necesita limpieza profesional y revisar la vacuna antitetánica (y la antirrábica si fue un animal). Andá a una guardia.' }
     ],
-    leve:{nivel:4, t:'Urgencia odontológica leve', esp:['Odontología'], txt:'Te conviene un odontólogo con turno hoy, no una guardia general.'} },
+    leve:{ nivel:5, t:'Herida superficial', esp:['Clínica médica'], txt:'Lavala con agua y jabón, secala y tapala con una gasa limpia. Revisá que tengas la vacuna antitetánica al día (se refuerza cada 10 años). Si se pone roja, caliente o con pus, consultá.' } },
 
-  { id:'ojo', chip:'Me molesta un ojo', kw:['ojo','vista','visión','vision','conjuntiv','párpado','parpado','lagaña','lagana'],
-    esp:'Oftalmología',
-    preg:[
-      {q:'¿Te entró un químico (lavandina, cal, cemento, ácido)?', n:2, t:'Quemadura química en el ojo', txt:'Lavá el ojo con agua corriente durante 15 minutos antes de salir y andá a una guardia con oftalmología.'},
-      {q:'¿Perdiste la visión de golpe, total o parcial, o ves como una cortina o una sombra?', n:2, t:'Pérdida brusca de visión', txt:'Es una urgencia oftalmológica: andá a una guardia con oftalmología ahora.'},
-      {q:'¿Te golpeaste fuerte el ojo o se te clavó algo (vidrio, metal, astilla)?', n:2, t:'Traumatismo ocular', txt:'No te frotes ni intentes sacarlo. Tapá el ojo sin apretar y andá a una guardia con oftalmología.'},
-      {q:'¿Tenés dolor fuerte en el ojo con visión borrosa, náuseas o halos alrededor de las luces?', n:2, t:'Posible glaucoma agudo', txt:'Es una urgencia: andá a una guardia con oftalmología ahora.'},
-      {q:'¿Usás lentes de contacto y tenés el ojo rojo y con dolor?', n:3, t:'Posible infección de córnea', txt:'Sacate las lentes y que te vea un oftalmólogo hoy en una guardia.'}
+  { id:'quema', chip:'Me quemé', esp:'Cirugía',
+    kw:{ f:['queme','quemadura','quemo','quemaron','agua hirviendo','aceite caliente','escald','ampolla'], d:['plancha','horno','olla','fuego','sol'] },
+    senales:[
+      { s:'Es más grande que la palma de tu mano', n:2, t:'Quemadura extensa', txt:'Enfriala con agua corriente (no helada) unos 20 minutos, cubrila con un film o una tela limpia y andá a una guardia.' },
+      { s:'Es en la cara, las manos, los pies, los genitales o una articulación', n:2, t:'Quemadura en zona delicada', txt:'Estas zonas necesitan que las vea un profesional. Enfriá con agua corriente y andá a una guardia.' },
+      { s:'La piel quedó blanca, negra o dura, o no duele al tocarla', n:2, t:'Posible quemadura profunda', txt:'Una quemadura que no duele puede ser profunda. Cubrila con algo limpio y andá a una guardia.' },
+      { s:'Fue por electricidad o un químico, o respiraste humo', n:2, t:'Quemadura eléctrica, química o por humo', txt:'Pueden dañar por dentro aunque por fuera parezcan chicas. Andá a una guardia; si hay falta de aire, llamá al 107.' },
+      { s:'Es en un bebé, un chico o una persona mayor', n:3, t:'Quemadura en una persona vulnerable', txt:'En chicos y personas mayores conviene que la evalúen hoy en una guardia.' }
     ],
-    leve:{nivel:4, t:'Molestia ocular leve', esp:['Oftalmología'], txt:'Te conviene un oftalmólogo con turno cercano. Mientras tanto, no te frotes el ojo y lavate las manos seguido.'} },
+    leve:{ nivel:5, t:'Quemadura superficial', esp:['Clínica médica'], txt:'Enfriala con agua corriente (no helada) unos 20 minutos. No pongas hielo, pasta dental ni manteca, y no revientes las ampollas. Tapala con una gasa limpia. Si se pone roja, caliente o con pus, consultá.' } },
 
-  { id:'cabeza', chip:'Dolor de cabeza fuerte', kw:['cabeza','migraña','migrana','cefalea','jaqueca'],
-    esp:'Clínica médica',
-    preg:[
-      {q:'¿Tenés dificultad para hablar, la cara torcida, debilidad u hormigueo de un lado del cuerpo, o ves doble?', n:1, t:'Posible ACV', txt:'Llamá al 107 ya y anotá la hora en que empezó: en un ACV cada minuto cuenta.'},
-      {q:'¿Empezó de golpe y es el peor dolor de cabeza de tu vida?', n:1, t:'Cefalea súbita e intensa', txt:'Un dolor así hay que estudiarlo de inmediato. Llamá al 107 o andá a la guardia más cercana ya.'},
-      {q:'¿Tenés fiebre con la nuca dura (no podés tocarte el pecho con el mentón) o manchas en la piel?', n:2, t:'Fiebre con rigidez de nuca', txt:'Hay que descartar una meningitis. Andá a una guardia ahora.'},
-      {q:'¿Te golpeaste la cabeza hace poco o tomás anticoagulantes?', n:2, t:'Dolor de cabeza después de un golpe', txt:'Puede necesitar una tomografía. Andá a una guardia.'},
-      {q:'¿Tenés más de 50 años y es un dolor nuevo, distinto a los de siempre?', n:3, t:'Cefalea nueva después de los 50', txt:'Un dolor de cabeza nuevo a esta edad conviene evaluarlo hoy en una guardia.'}
+  { id:'alergia', chip:'Alergia o ronchas', esp:'Clínica médica',
+    kw:{ f:['alergia','alergic','ronchas','roncha','urticaria','picadura','me pico una','abeja','avispa','hinchazon de labios','se me hincharon los labios','se me hincho la cara','sarpullido','erupcion'], d:['picazon','me pica','pica','granitos','manchas'] },
+    senales:[
+      { s:'Se te hinchan los labios, la lengua o la garganta', n:1, t:'Posible reacción alérgica grave', txt:'Llamá al 107 ya. Si tenés una lapicera de adrenalina indicada por tu médico, usala.' },
+      { s:'Te cuesta respirar o tragar, o tenés la voz ronca', n:1, t:'Reacción alérgica con dificultad para respirar', txt:'Llamá al 107 o andá a la guardia más cercana ya.' },
+      { s:'Te mareás o sentís que te vas a desmayar', n:1, t:'Reacción alérgica con baja de presión', txt:'Acostate con las piernas en alto y llamá al 107 ya.' },
+      { s:'Vómitos o dolor de panza fuerte después de comer algo o de una picadura', n:2, t:'Reacción alérgica que avanza', txt:'Puede ser una reacción que se generaliza. Andá a una guardia ahora.' }
     ],
-    leve:{nivel:5, t:'Cefalea sin signos de alarma', esp:['Clínica médica'], txt:'Sin señales de alarma, una consulta clínica o teleconsulta es suficiente. Descansá en un lugar oscuro y tomá agua.'} }
+    leve:{ nivel:4, t:'Reacción alérgica leve', esp:['Clínica médica'], txt:'Sin ninguna de estas señales, alcanza con una consulta con clínica médica hoy (puede ser por videollamada). Alejate de lo que pudo causarla. Si se te hincha la cara o te falta el aire, andá a la guardia ya.' } },
+
+  { id:'orina', chip:'Ardor al hacer pis', esp:'Clínica médica',
+    kw:{ f:['pis','orinar','orino','orina','ardor al hacer','infeccion urinaria','cistitis','rinon','renal','calculo renal','calculos renales','piedra en el rinon'], d:['vejiga','ardor'] },
+    senales:[
+      { s:'Casi no podés hacer pis o no te sale nada', n:2, t:'Posible retención de orina', txt:'No poder orinar con la vejiga llena necesita una guardia.' },
+      { s:'Fiebre con escalofríos o dolor fuerte en la espalda, a un costado', n:3, t:'Posible infección del riñón o cálculo', txt:'Conviene que te vean hoy en una guardia.' },
+      { s:'Vómitos que no te dejan tomar líquido', n:3, t:'Riesgo de deshidratación', txt:'Conviene que te vean hoy en una guardia.' },
+      { s:'Estás embarazada', n:3, t:'Síntomas urinarios en el embarazo', txt:'En el embarazo conviene que te vean hoy.' }
+    ],
+    leve:{ nivel:4, t:'Posible infección urinaria baja', esp:['Clínica médica'], txt:'Una consulta con clínica médica hoy (presencial o virtual) suele alcanzar. Tomá bastante agua y no te automediques con antibióticos.' } },
+
+  { id:'espalda', chip:'Dolor de espalda', esp:'Traumatología',
+    kw:{ f:['espalda','lumbar','lumbago','ciatic','cintura','contractura','tortico','cervical','hernia de disco'], d:['cuello','columna'] },
+    senales:[
+      { s:'Se te duermen las piernas o la zona entre las piernas', n:2, t:'Posible compresión de nervios', txt:'Es una señal de alarma: andá a una guardia ahora.' },
+      { s:'No podés controlar el pis o la caca', n:2, t:'Posible compresión de nervios', txt:'Es una señal de alarma: andá a una guardia ahora.' },
+      { s:'Perdiste fuerza en una pierna', n:2, t:'Dolor de espalda con pérdida de fuerza', txt:'Necesita que te evalúen hoy en una guardia.' },
+      { s:'Fue después de un golpe fuerte o una caída', n:3, t:'Dolor de espalda después de un golpe', txt:'Conviene descartar una lesión de columna en una guardia.' },
+      { s:'Tenés fiebre o el dolor no calma ni acostado', n:3, t:'Dolor de espalda con signos de alarma', txt:'Conviene que te vean hoy en una guardia.', esp:'Clínica médica' }
+    ],
+    leve:{ nivel:4, t:'Dolor de espalda sin signos de alarma', esp:['Traumatología','Kinesiología'], txt:'Moverte de a poco ayuda más que el reposo total, y el calor local alivia. Si en una semana no mejora, consultá con traumatología o kinesiología.' } },
+
+  { id:'mareo', chip:'Mareo, desmayo o presión', esp:'Clínica médica',
+    kw:{ f:['mareo','marea','mareada','mareado','vertigo','desmay','me baje','presion','hipertens','tension alta','lipotimia','me voy a desmayar'], d:['todo me da vueltas','debil','debilidad','me siento mal','descompensad'] },
+    senales:[
+      { s:'Cara torcida, dificultad para hablar o debilidad de un lado', n:1, t:'Posible ACV', txt:'Llamá al 107 ya y anotá la hora en que empezó: en un ACV cada minuto cuenta.' },
+      { s:'Dolor en el pecho, falta de aire o el corazón muy acelerado', n:1, t:'Posible problema cardíaco', txt:'Llamá al 107 o andá a la guardia más cercana ya. No manejes vos.', esp:'Cardiología' },
+      { s:'Te desmayaste, aunque sea un momento', n:2, t:'Desmayo', txt:'Un desmayo hay que evaluarlo hoy en una guardia, sobre todo si fue haciendo esfuerzo o tenés algo del corazón.' },
+      { s:'Presión de 18/11 o más con dolor de cabeza fuerte o visión borrosa', n:2, t:'Presión muy alta con síntomas', txt:'Necesita control en una guardia hoy.', esp:'Cardiología' },
+      { s:'Vómitos que no paran o no podés mantenerte en pie', n:3, t:'Mareo intenso', txt:'Conviene que te vean hoy en una guardia.' }
+    ],
+    leve:{ nivel:4, t:'Mareo sin signos de alarma', esp:['Clínica médica'], txt:'Sentate o acostate hasta que se pase y tomá agua. Si tenés tensiómetro, medite la presión. Una consulta con clínica médica hoy te ayuda a encontrar la causa.' } },
+
+  { id:'cabeza', chip:'Dolor de cabeza fuerte', esp:'Clínica médica',
+    kw:{ f:['dolor de cabeza','me duele la cabeza','cabeza','migrana','cefalea','jaqueca'], d:[] },
+    senales:[
+      { s:'Cara torcida, dificultad para hablar, debilidad de un lado o visión doble', n:1, t:'Posible ACV', txt:'Llamá al 107 ya y anotá la hora en que empezó: en un ACV cada minuto cuenta.' },
+      { s:'Empezó de golpe y es el peor dolor de cabeza de tu vida', n:1, t:'Cefalea súbita e intensa', txt:'Un dolor así hay que estudiarlo de inmediato. Llamá al 107 o andá a la guardia más cercana ya.' },
+      { s:'Fiebre con la nuca dura o manchas en la piel', n:2, t:'Fiebre con rigidez de nuca', txt:'Hay que descartar una meningitis. Andá a una guardia ahora.' },
+      { s:'Te golpeaste la cabeza o tomás anticoagulantes', n:2, t:'Dolor de cabeza después de un golpe', txt:'Puede necesitar una tomografía. Andá a una guardia.' },
+      { s:'Tenés más de 50 años y es un dolor nuevo, distinto a los de siempre', n:3, t:'Cefalea nueva después de los 50', txt:'Un dolor de cabeza nuevo a esta edad conviene evaluarlo hoy en una guardia.' }
+    ],
+    leve:{ nivel:5, t:'Dolor de cabeza sin signos de alarma', esp:['Clínica médica'], txt:'Sin señales de alarma, una consulta clínica o teleconsulta es suficiente. Descansá en un lugar oscuro y tomá agua.' } },
+
+  { id:'craneo', chip:'Golpe en la cabeza', esp:'Traumatología',
+    kw:{ f:['golpe en la cabeza','golpee la cabeza','golpeo la cabeza','cabezazo','me pegue en la cabeza','se pego en la cabeza','traumatismo de craneo','golpe en la frente'], d:[] },
+    senales:[
+      { s:'Hubo desmayo, aunque sea un momento, o no se acuerda del golpe', n:2, t:'Golpe con pérdida de conciencia', txt:'Puede necesitar una tomografía. Andá a una guardia ahora.' },
+      { s:'Vomitó más de una vez, tiene mucho sueño o está confundido', n:2, t:'Golpe en la cabeza con signos de alarma', txt:'Andá a una guardia ahora; si empeora en el camino, llamá al 107.' },
+      { s:'Sale sangre o líquido por la nariz o el oído', n:2, t:'Posible fractura de cráneo', txt:'Andá a una guardia ahora sin sonarte la nariz.' },
+      { s:'Toma anticoagulantes o tiene más de 65 años', n:2, t:'Golpe en la cabeza en persona de riesgo', txt:'Aunque se lo vea bien, conviene una evaluación en guardia hoy.' },
+      { s:'El dolor de cabeza aumenta o tuvo una convulsión', n:2, t:'Golpe en la cabeza con signos de alarma', txt:'Andá a una guardia ahora; si empeora en el camino, llamá al 107.' }
+    ],
+    leve:{ nivel:5, t:'Golpe leve en la cabeza', esp:['Clínica médica'], txt:'Que alguien te acompañe las próximas 24 horas. Si en los próximos días aparece alguna de estas señales, andá a la guardia.' } },
+
+  { id:'muela', chip:'Dolor de muela', esp:'Clínica médica',
+    kw:{ f:['muela','diente','encia','odontolog','dental','flemon','caries','me sacaron una'], d:['boca','mandibula'] },
+    senales:[
+      { s:'Te cuesta respirar o tragar tu saliva', n:1, t:'Infección que compromete la respiración', txt:'Puede ser una infección que se extiende al cuello. Andá a la guardia más cercana ya.' },
+      { s:'Cara o cuello hinchados con fiebre, o no podés abrir bien la boca', n:2, t:'Posible infección odontológica extendida', txt:'La hinchazón con fiebre o la dificultad para abrir la boca se evalúan en guardia: puede necesitar antibióticos o drenaje.' },
+      { s:'Sangra sin parar hace más de 20 minutos', n:3, t:'Sangrado que no para', txt:'Mordé una gasa doblada con fuerza y andá a una guardia si no para.' },
+      { s:'Se partió o se salió un diente por un golpe', n:4, nota:'Si se salió un diente definitivo, agarralo por la corona (no por la raíz), guardalo en leche y andá a un odontólogo dentro de la hora.' }
+    ],
+    leve:{ nivel:4, t:'Urgencia odontológica leve', esp:['Odontología'], txt:'Te conviene un odontólogo con turno hoy, no una guardia general.' } },
+
+  { id:'ojo', chip:'Me molesta un ojo', esp:'Oftalmología',
+    kw:{ f:['ojo','ojos','vista','vision','conjuntiv','parpado','lagana','orzuelo','veo borroso','veo doble'], d:['lente','lentes'] },
+    senales:[
+      { s:'Te entró un químico (lavandina, cal, cemento, ácido)', n:2, t:'Quemadura química en el ojo', txt:'Lavá el ojo con agua corriente durante 15 minutos antes de salir y andá a una guardia con oftalmología.' },
+      { s:'Perdiste la visión de golpe o ves una sombra o cortina', n:2, t:'Pérdida brusca de visión', txt:'Es una urgencia oftalmológica: andá a una guardia con oftalmología ahora.' },
+      { s:'Te golpeaste fuerte el ojo o se te clavó algo', n:2, t:'Traumatismo ocular', txt:'No te frotes ni intentes sacarlo. Tapá el ojo sin apretar y andá a una guardia con oftalmología.' },
+      { s:'Dolor fuerte con visión borrosa, náuseas o halos en las luces', n:2, t:'Posible glaucoma agudo', txt:'Es una urgencia: andá a una guardia con oftalmología ahora.' },
+      { s:'Usás lentes de contacto y tenés el ojo rojo con dolor', n:3, t:'Posible infección de córnea', txt:'Sacate las lentes y que te vea un oftalmólogo hoy en una guardia.' }
+    ],
+    leve:{ nivel:4, t:'Molestia ocular leve', esp:['Oftalmología'], txt:'Te conviene un oftalmólogo con turno cercano. Mientras tanto, no te frotes el ojo y lavate las manos seguido.' } }
 ];
+const CASOS_DESTACADOS = ['golpe','pecho','resp','nino','panza','corte','cabeza','alergia'];
 const COLORES = {1:'#C8372F',2:'#D9641E',3:'#C98612',4:'#0E9A75',5:'#17568B'};
 const NOMBRE_NIVEL = {1:'Rojo',2:'Naranja',3:'Amarillo',4:'Verde',5:'Azul'};
 
+/* Señales de emergencia que se detectan en cualquier parte del texto. */
+const CRISIS = ['suicid','matarme','me quiero matar','me voy a matar','quiero morir','me quiero morir','no quiero vivir','no quiero seguir viviendo','quitarme la vida','terminar con todo','hacerme dano','lastimarme','autolesion'];
+const EMERG = [
+  { kw:['no puedo respirar','no puede respirar','no respira','me ahogo','se ahoga','me estoy ahogando','se esta ahogando','atragant'], t:'Dificultad grave para respirar', txt:'Llamá al 107 ya y seguí las indicaciones de quien te atienda.', esp:'Clínica médica' },
+  { kw:['inconsciente','perdio el conocimiento','no reacciona','no se despierta','convuls'], t:'Pérdida de conciencia o convulsión', txt:'Llamá al 107 ya. Poné a la persona de costado y no le des nada por la boca.', esp:'Clínica médica' },
+  { kw:['acv','derrame cerebral','cara torcida','se le torcio la cara','boca torcida','no puedo hablar','no puede hablar','habla raro','paralis','paraliz','no puedo mover el brazo','no puede mover el brazo'], t:'Posible ACV', txt:'Llamá al 107 ya y anotá la hora en que empezó: en un ACV cada minuto cuenta.', esp:'Clínica médica' },
+  { kw:['sobredosis','envenen','veneno','pastillas de mas','tome lavandina','tomo lavandina','trago lavandina'], t:'Posible intoxicación', txt:'Llamá al 107 ya. No provoques el vómito y, si podés, tené a mano el envase de lo que tomó.', esp:'Clínica médica' },
+  { kw:['accidente de auto','accidente de moto','accidente de transito','choque','me chocaron','lo chocaron','atropell','apunal','acuchill','disparo','balazo','baleado'], t:'Accidente o lesión grave', txt:'Llamá al 107 o al 911 ya. Si alguien se golpeó la cabeza, el cuello o la espalda, no lo muevas.', esp:'Traumatología' },
+  { kw:['sangra mucho','sangra muchisimo','hemorragia','no para de sangrar','perdi mucha sangre','pierde mucha sangre'], t:'Sangrado abundante', txt:'Apretá fuerte la herida con una tela limpia, sin soltar, y llamá al 107.', esp:'Cirugía' }
+];
+
+/* ---------- Entender lo que escribe la persona ---------- */
+const nrm = x => String(x).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+const tokens = t => nrm(t).replace(/[^a-z0-9]+/g,' ').trim().split(' ').filter(Boolean);
+const NEG = ['no','sin','nunca','ni','tampoco','nada'];
+/* Busca una palabra o frase (por prefijo) y devuelve si aparece SIN estar negada justo antes. */
+function aparece(tk, frase){
+  const f = tokens(frase); if(!f.length) return false;
+  for(let i=0;i+f.length<=tk.length;i++){
+    let ok = true;
+    for(let j=0;j<f.length;j++){ const a=tk[i+j], b=f[j]; if(j===f.length-1 ? !(b.length<=3 ? (a===b||a===b+'s') : a.startsWith(b)) : a!==b){ ok=false; break; } }
+    if(!ok) continue;
+    let prev = tk.slice(Math.max(0,i-4), i); const corte = Math.max(prev.lastIndexOf('y'), prev.lastIndexOf('pero'), prev.lastIndexOf('e')); if(corte>=0) prev = prev.slice(corte+1);
+    if(f[0]!=='no' && prev.some(p=>NEG.includes(p))) continue;   /* "no me duele el pecho" no cuenta como pecho */
+    return true;
+  }
+  return false;
+}
+const algunaEn = (tk, lista) => lista.some(k=>aparece(tk,k));
+/* Devuelve emergencia/crisis o los casos posibles ordenados por puntaje. */
+function analizar(txt){
+  const tk = tokens(txt);
+  if(algunaEn(tk, CRISIS)) return { crisis:true, candidatos:[] };
+  const em = EMERG.find(e=>algunaEn(tk, e.kw));
+  if(em) return { emergencia:em, candidatos:[] };
+  const candidatos = CASOS.map(c=>{
+    if(c.need && !c.need.every(g=>algunaEn(tk,g))) return { c, p:0 };
+    const fu = c.kw.f.filter(k=>aparece(tk,k));
+    const p = fu.reduce((a,k)=>a+2+(tokens(k).length>1?1:0),0) + c.kw.d.reduce((a,k)=>a+(aparece(tk,k)?1:0),0);
+    return { c, p, f:fu.length };
+  }).filter(x=>x.p>0).sort((a,b)=>b.p-a.p);
+  /* El dolor de pecho siempre gana: ante la duda, se evalúa como emergencia. */
+  const pecho = candidatos.find(x=>x.c.id==='pecho' && x.p>=2);
+  if(pecho) return { candidatos:[pecho, ...candidatos.filter(x=>x!==pecho)], seguro:true };
+  /* Golpe en la cabeza le gana a "dolor de cabeza" y a "golpe" en general. */
+  const cr = candidatos.find(x=>x.c.id==='craneo');
+  if(cr) return { candidatos:[cr, ...candidatos.filter(x=>x!==cr)], seguro:true };
+  const [a,b] = candidatos;
+  const seguro = !!a && (!b || a.p >= b.p+2 || (a.f>0 && b.f===0));
+  return { candidatos, seguro };
+}
+/* Resultado a partir de las señales marcadas (índices). */
+function evaluarSenales(c, marcadas){
+  if(c.alarma) return { grave:true, r:c.grave };
+  const si = c.senales.filter((s,i)=>marcadas.includes(i));
+  const g = si.filter(s=>s.n<=3).sort((a,b)=>a.n-b.n)[0];
+  if(g) return { grave:true, r:{ nivel:g.n, t:g.t, txt:g.txt, esp:g.esp||c.esp } };
+  return { grave:false, r:{ ...c.leve, notas:si.filter(s=>s.n===4).map(s=>s.nota) } };
+}
+
+/* ---------- Ubicación ---------- */
+const CBA = { s:-31.56, n:-31.24, w:-64.42, e:-63.98 };   /* Córdoba Capital y alrededores */
+const enCordoba = ll => ll[0]>CBA.s && ll[0]<CBA.n && ll[1]>CBA.w && ll[1]<CBA.e;
+function limpiarDireccion(q){
+  let t = ' '+String(q).replace(/\s+/g,' ').trim()+' ';
+  [[/[\s,](av|avda|avd|avenida)\.?\s/gi,' Avenida '],[/[\s,](bv|bvd|blvd|bvard|bulevard|boulevard)\.?\s/gi,' Bulevar '],[/[\s,]gral\.?\s/gi,' General '],
+   [/[\s,]pje\.?\s/gi,' Pasaje '],[/[\s,]dr\.?\s/gi,' Doctor '],[/[\s,]pte\.?\s/gi,' Presidente '],[/[\s,]sta\.?\s/gi,' Santa '],[/[\s,]sto\.?\s/gi,' Santo '],
+   [/[\s,]b[°º]\s?/gi,' Barrio '],[/[\s,](n[°º]|nro\.?|numero|núm\.?)\s?/gi,' '],[/[\s,]al\s(\d)/gi,' $1'],[/,?\s*(c[oó]rdoba(\s+capital)?|cba|capital|argentina)\s*$/i,' ']]
+    .forEach(([a,b])=>{ t = t.replace(a,b); });
+  return t.replace(/\s+/g,' ').replace(/\s,/g,',').trim();
+}
+async function pedirJSON(url){
+  const ctl = new AbortController(); const tm = setTimeout(()=>ctl.abort(), 8000);
+  try{ const r = await fetch(url, { signal:ctl.signal, headers:{ 'Accept-Language':'es' } }); if(!r.ok) throw new Error(r.status); return await r.json(); }
+  finally{ clearTimeout(tm); }
+}
+function etiquetaNominatim(x){
+  const a = x.address||{};
+  const calle = a.road||a.pedestrian||a.footway||a.square||'';
+  const zona = a.suburb||a.neighbourhood||a.quarter||a.city_district||'';
+  const lugar = x.name && x.name!==calle ? x.name : '';
+  return [lugar, calle && (calle+(a.house_number?' '+a.house_number:'')), zona].filter(Boolean).filter((v,i,arr)=>arr.indexOf(v)===i).join(', ') || x.display_name.split(',').slice(0,2).join(',');
+}
+function etiquetaPhoton(p){
+  const calle = p.street||'', num = p.housenumber||'';
+  const zona = p.district||p.locality||'';
+  const lugar = p.name && p.name!==calle ? p.name : '';
+  return [lugar, calle && (calle+(num?' '+num:'')), zona].filter(Boolean).join(', ');
+}
+/* Busca una dirección o lugar de Córdoba probando varios servicios. Devuelve hasta 3 opciones. */
+async function buscarDireccion(q){
+  const limpia = limpiarDireccion(q);
+  const m = limpia.match(/^(.*?)\s+(\d{1,5})\b(.*)$/);
+  const calle = m ? m[1].trim() : limpia, num = m ? m[2] : '';
+  const vb = `&viewbox=${CBA.w},${CBA.n},${CBA.e},${CBA.s}&bounded=1`;
+  const NOM = 'https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&limit=5&countrycodes=ar';
+  const intentos = [];
+  if(num) intentos.push(['nom', `${NOM}&street=${encodeURIComponent(num+' '+calle)}&city=C%C3%B3rdoba&state=C%C3%B3rdoba`, true]);
+  intentos.push(['nom', `${NOM}${vb}&q=${encodeURIComponent(limpia+', Córdoba')}`, !!num]);
+  intentos.push(['pho', `https://photon.komoot.io/api/?limit=5&lat=-31.416&lon=-64.183&bbox=${CBA.w},${CBA.s},${CBA.e},${CBA.n}&q=${encodeURIComponent(limpia+' Córdoba')}`, !!num]);
+  if(num) intentos.push(['nom', `${NOM}${vb}&q=${encodeURIComponent(calle+', Córdoba')}`, false], ['pho', `https://photon.komoot.io/api/?limit=5&lat=-31.416&lon=-64.183&bbox=${CBA.w},${CBA.s},${CBA.e},${CBA.n}&q=${encodeURIComponent(calle+' Córdoba')}`, false]);
+  let fallas = 0, aprox = null;
+  for(const [srv,url,conNum] of intentos){
+    let lista = [];
+    try{
+      const j = await pedirJSON(url);
+      lista = srv==='nom'
+        ? j.map(x=>({ ll:[+x.lat,+x.lon], label:etiquetaNominatim(x), exacto: !!(x.address&&x.address.house_number) || !num || ['amenity','building','shop','tourism','leisure','office'].includes(x.category) }))
+        : (j.features||[]).map(f=>({ ll:[f.geometry.coordinates[1], f.geometry.coordinates[0]], label:etiquetaPhoton(f.properties), exacto: !!f.properties.housenumber || !num || f.properties.osm_key!=='highway' }));
+    }catch(e){ fallas++; continue; }
+    lista = lista.filter(x=>enCordoba(x.ll) && x.label);
+    const unicas = []; lista.forEach(x=>{ if(!unicas.some(u=>dist(u.ll,x.ll)<0.15)) unicas.push(x); });
+    const exactas = unicas.filter(x=>x.exacto);
+    if(exactas.length) return { ok:true, opciones:exactas.slice(0,3) };
+    if(unicas.length && !aprox) aprox = unicas.slice(0,3).map(x=>({ ...x, exacto:false, label:x.label+(num?' (altura aproximada)':'') }));
+    if(!conNum && aprox) break;
+  }
+  if(aprox) return { ok:true, opciones:aprox, aprox:true };
+  return { ok:false, motivo: fallas===intentos.length ? 'red' : 'nada' };
+}
+/* Nombre de la calle de un punto (para confirmar la ubicación). */
+async function nombreDelLugar(ll){
+  try{ const x = await pedirJSON(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&addressdetails=1&zoom=18&lat=${ll[0]}&lon=${ll[1]}`); return etiquetaNominatim(x); }
+  catch(e){ try{ const j = await pedirJSON(`https://photon.komoot.io/reverse?lat=${ll[0]}&lon=${ll[1]}`); return j.features&&j.features[0] ? etiquetaPhoton(j.features[0].properties) : ''; }catch(e2){ return ''; } }
+}
+/* GPS: escucha varios segundos y se queda con la lectura más precisa. */
+function geolocalizar(){
+  return new Promise(res=>{
+    if(!window.isSecureContext) return res({ err:'insegura' });
+    if(!navigator.geolocation) return res({ err:'sin' });
+    let mejor = null, listo = false, id = null;
+    const fin = r => { if(listo) return; listo = true; if(id!==null) navigator.geolocation.clearWatch(id); clearTimeout(tm); res(r); };
+    id = navigator.geolocation.watchPosition(p=>{
+      const c = { ll:[p.coords.latitude, p.coords.longitude], acc:Math.round(p.coords.accuracy||99999) };
+      if(!mejor || c.acc < mejor.acc) mejor = c;
+      if(mejor.acc <= 50) fin(mejor);
+    }, e=>{ fin(mejor || { err: e.code===1 ? 'denegado' : e.code===3 ? 'tiempo' : 'no-disponible' }); }, { enableHighAccuracy:true, maximumAge:0, timeout:20000 });
+    const tm = setTimeout(()=>fin(mejor || { err:'tiempo' }), 12000);
+  });
+}
+const esIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
+const precision = m => m>=1000 ? (m/1000).toFixed(1).replace('.',',')+' km' : m+' m';
+/* Mensajes claros para cada problema de ubicación. */
+function mensajeUbicacion(r){
+  if(r.err==='denegado') return esIOS
+    ? 'No tengo permiso para ver tu ubicación. En iPhone/iPad: Ajustes → Privacidad y seguridad → Localización → activala y elegí Safari (o tu navegador) → «Al usar la app». Después recargá la página. O escribí tu dirección.'
+    : 'No tengo permiso para ver tu ubicación. Tocá el candado o el ícono al lado de la dirección de la página → Permisos → Ubicación → Permitir, y probá de nuevo. O escribí tu dirección.';
+  if(r.err==='no-disponible') return 'Tu dispositivo no pudo calcular dónde estás (pasa seguido en computadoras sin GPS o con el wifi apagado). Escribí tu dirección y la busco.';
+  if(r.err==='tiempo') return 'Tardó demasiado en encontrarte. Probá de nuevo cerca de una ventana o escribí tu dirección.';
+  if(r.err==='insegura') return 'Para usar tu ubicación, abrí la página desde https://urgenia.com.ar. Mientras tanto, escribí tu dirección.';
+  if(r.err==='sin') return 'Tu navegador no permite compartir la ubicación. Escribí tu dirección y la busco.';
+  if(r.err==='lejos') return r.acc>3000
+    ? `Tu dispositivo me da una ubicación muy imprecisa (±${precision(r.acc)}) que cae fuera de Córdoba. Pasa en computadoras y tablets sin GPS, que se ubican por internet. Escribí tu dirección y queda exacta.`
+    : 'Tu dispositivo te ubica fuera de Córdoba. La demo funciona en Córdoba Capital: escribí una dirección de acá.';
+  return 'No pude obtener tu ubicación. Escribí tu dirección y la busco.';
+}
+
 /* ---------- Utilidades ---------- */
 const app = document.getElementById('app');
-const st = { perfil:null, loc:null, texto:'', caso:null, resp:[], soloCob:true, mod:'Todas', sel:0 };
+const st = { perfil:null, loc:null, texto:'', caso:null, marcadas:[], soloCob:true, mod:'Todas', sel:0 };
 let mapa=null, capaRuta=null;
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const money = v => '$' + v.toLocaleString('es-AR');
@@ -696,6 +1048,7 @@ function perfilChip(){
 function bindChip(){ const b=document.getElementById('edit-perfil'); if(b) b.onclick=pantallaPerfil; }
 
 /* ---------- Paso 1: perfil ---------- */
+let mapaPerfil = null;
 function pantallaPerfil(){
   step(1);
   const p=st.perfil||{};
@@ -709,15 +1062,15 @@ function pantallaPerfil(){
     </div>
     <div class="field"><label for="u-os">Obra social o prepaga</label><select id="u-os"><option value="">Elegí tu cobertura</option>${opts}</select></div>
     <div class="field" id="u-otra-w" style="display:${p.os==='Otra obra social'?'flex':'none'}"><label for="u-otra">¿Cuál?</label><input id="u-otra" value="${esc(p.otra||'')}"></div>
-    <div class="field"><label>¿Dónde estás?</label>
-      <div class="loc-row">
-        <button class="mini-btn" type="button" id="u-geo">📍 Usar mi ubicación</button>
-        <span class="loc-st${st.loc&&st.loc.real?' ok':''}" id="u-geo-st">${st.loc&&st.loc.real?esc(st.loc.label)+' ✓':'o escribí tu dirección:'}</span>
-      </div>
+    <div class="field"><label for="u-dir">¿Dónde estás?</label>
       <div class="loc-row" style="flex-wrap:nowrap">
-        <input id="u-dir" placeholder="Ej.: Av. Colón 500" value="${esc(st.loc&&st.loc.dir||'')}" style="flex:1;min-width:0" autocomplete="street-address">
+        <input id="u-dir" placeholder="Calle y número, barrio o un lugar conocido" value="${esc(st.loc&&st.loc.dir||'')}" style="flex:1;min-width:0" autocomplete="street-address" enterkeyhint="search">
         <button class="mini-btn out" type="button" id="u-buscar">Buscar</button>
       </div>
+      <div class="loc-row"><button class="mini-btn" type="button" id="u-geo">📍 Usar mi ubicación</button></div>
+      <p class="loc-st" id="u-geo-st" role="status"></p>
+      <div class="loc-ops" id="u-ops"></div>
+      <div id="u-map" class="loc-map" hidden></div>
     </div>
     <button class="btn btn-p" id="go0" type="button" style="width:100%;margin-top:6px">Continuar →</button>
     <div class="err" id="err0"></div>
@@ -725,106 +1078,141 @@ function pantallaPerfil(){
   const osSel=document.getElementById('u-os');
   osSel.onchange=()=>{ document.getElementById('u-otra-w').style.display = osSel.value==='Otra obra social'?'flex':'none'; };
   let geo = st.loc || null;
-  const gst=()=>document.getElementById('u-geo-st');
-  document.getElementById('u-geo').onclick=()=>{
-    const s=gst();
-    if(!navigator.geolocation){ s.textContent='Tu navegador no permite ubicación: escribí tu dirección.'; return; }
-    s.textContent='Buscando tu ubicación…'; s.className='loc-st';
-    navigator.geolocation.getCurrentPosition(pos=>{
-      const acc=Math.round(pos.coords.accuracy||0);
-      const cand={ll:[pos.coords.latitude,pos.coords.longitude], label:'Tu ubicación', real:true};
-      if(dist(cand.ll,BARRIOS['Centro'])>40){ s.textContent='Estás fuera de Córdoba: escribí una dirección de Córdoba para la demo.'; return; }
-      geo=cand;
-      document.getElementById('err0').textContent='';
-      if(acc>150){ s.textContent='Ubicación aproximada (±'+(acc>=1000?(acc/1000).toFixed(1).replace('.',',')+' km':acc+' m')+'). Si no es correcta, escribí tu dirección o mové el pin en el mapa.'; s.className='loc-st'; }
-      else { s.textContent='Ubicación detectada ✓'; s.className='loc-st ok'; }
-      document.getElementById('err0').textContent='';
-    }, ()=>{ s.textContent='No pudimos acceder a tu ubicación: escribí tu dirección.'; }, {enableHighAccuracy:true,timeout:12000,maximumAge:0});
+  const S=document.getElementById('u-geo-st'), ops=document.getElementById('u-ops'), err0=document.getElementById('err0');
+  const estado=(t,ok)=>{ S.innerHTML=t; S.className='loc-st'+(ok?' ok':''); };
+  /* Mapa chico para confirmar la ubicación: el punto se puede mover. */
+  const confirmar=(l, nota)=>{
+    geo=l; err0.textContent=''; ops.innerHTML='';
+    estado(`📍 <b>${esc(l.label)}</b>${nota?'<br><span class="loc-nota">'+nota+'</span>':''}`, true);
+    const el=document.getElementById('u-map'); el.hidden=false;
+    if(typeof L==='undefined'){ el.hidden=true; return; }
+    if(mapaPerfil){ mapaPerfil.remove(); mapaPerfil=null; }
+    mapaPerfil=L.map(el,{scrollWheelZoom:false,zoomControl:true}).setView(l.ll,16);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(mapaPerfil);
+    const mk=L.marker(l.ll,{draggable:true,icon:L.divIcon({className:'',html:'<div class="me"></div>',iconSize:[18,18],iconAnchor:[9,9]})}).addTo(mapaPerfil);
+    const mover=async ll=>{
+      mk.setLatLng(ll); geo={ll:[ll.lat,ll.lng], label:'Punto marcado en el mapa', real:true, dir:l.dir};
+      estado('📍 <b>Punto marcado en el mapa</b> ✓', true);
+      const n=await nombreDelLugar(geo.ll); if(n && geo.label==='Punto marcado en el mapa'){ geo.label=n; estado(`📍 <b>${esc(n)}</b> ✓`, true); }
+    };
+    mk.on('dragend',()=>mover(mk.getLatLng()));
+    mapaPerfil.on('click',e=>mover(e.latlng));
+    setTimeout(()=>mapaPerfil&&mapaPerfil.invalidateSize(),120);
+  };
+  if(geo) confirmar(geo);
+  document.getElementById('u-geo').onclick=async()=>{
+    ops.innerHTML=''; estado('Buscando tu ubicación… (puede tardar unos segundos)');
+    const r=await geolocalizar();
+    if(r.err){ estado(mensajeUbicacion(r)); return; }
+    if(!enCordoba(r.ll)){ estado(mensajeUbicacion({err:'lejos', acc:r.acc})); return; }
+    const l={ll:r.ll, label:'Tu ubicación', real:true, acc:r.acc};
+    confirmar(l, r.acc>150 ? `Ubicación aproximada (±${precision(r.acc)}). Si no es correcta, mové el punto o escribí tu dirección.` : 'Si no es exacta, mové el punto.');
+    const n=await nombreDelLugar(r.ll); if(n && geo===l){ l.label='Cerca de '+n; estado(`📍 <b>${esc(l.label)}</b>${r.acc>150?'<br><span class="loc-nota">Ubicación aproximada (±'+precision(r.acc)+'). Si no es correcta, mové el punto o escribí tu dirección.</span>':''}`, true); }
   };
   const buscar=async()=>{
-    const q=document.getElementById('u-dir').value.trim(), s=gst();
-    if(q.length<4){ s.textContent='Escribí calle y número.'; return; }
-    s.textContent='Buscando la dirección…'; s.className='loc-st';
-    try{
-      const url='https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=ar&viewbox=-64.35,-31.28,-64.05,-31.53&bounded=1&q='+encodeURIComponent(q+', Córdoba');
-      const j=await (await fetch(url,{headers:{'Accept-Language':'es'}})).json();
-      if(!j.length){ s.textContent='No encontramos esa dirección. Probá con "calle número" (ej.: Obispo Trejo 300).'; return; }
-      geo={ll:[+j[0].lat,+j[0].lon], label:q, dir:q, real:true};
-      s.textContent='📍 '+j[0].display_name.split(',').slice(0,3).join(',')+' ✓'; s.className='loc-st ok'; document.getElementById('err0').textContent='';
-    }catch(e){ s.textContent='No pudimos buscar la dirección ahora. Probá de nuevo o usá tu ubicación.'; }
+    const q=document.getElementById('u-dir').value.trim();
+    ops.innerHTML='';
+    if(q.length<3){ estado('Escribí calle y número (ej.: Obispo Trejo 300), un barrio o un lugar conocido.'); return; }
+    estado('Buscando la dirección…');
+    const r=await buscarDireccion(q);
+    if(!r.ok){ estado(r.motivo==='red' ? 'No pudimos conectarnos con el buscador de direcciones. Probá de nuevo en unos segundos o usá tu ubicación.'
+      : 'No encontramos esa dirección en Córdoba. Probá con calle y número (ej.: <i>Obispo Trejo 300</i>), un barrio (ej.: <i>Alta Córdoba</i>) o un lugar conocido (ej.: <i>Patio Olmos</i>).'); return; }
+    const nota = r.aprox ? 'No encontramos la altura exacta: te ubicamos sobre la calle. Mové el punto hasta tu ubicación.' : 'Si no es exacta, mové el punto.';
+    if(r.opciones.length===1) return confirmar({...r.opciones[0], dir:q, real:true}, nota);
+    estado('Encontramos varias. ¿Cuál es?');
+    ops.innerHTML=r.opciones.map((o,i)=>`<button type="button" class="mini-btn out" data-o="${i}">📍 ${esc(o.label)}</button>`).join('');
+    ops.querySelectorAll('[data-o]').forEach(b=>b.onclick=()=>confirmar({...r.opciones[+b.dataset.o], dir:q, real:true}, nota));
   };
   document.getElementById('u-buscar').onclick=buscar;
   document.getElementById('u-dir').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); buscar(); } });
   document.getElementById('go0').onclick=()=>{
     const nom=document.getElementById('u-nom').value.trim(), dni=document.getElementById('u-dni').value.replace(/\D/g,''), os=osSel.value;
-    const err=document.getElementById('err0');
-    if(!nom){ err.textContent='Contanos tu nombre.'; return; }
-    if(dni.length<7||dni.length>8){ err.textContent='Revisá el DNI: tiene que tener 7 u 8 números.'; return; }
-    if(!os){ err.textContent='Elegí tu obra social o "Sin cobertura".'; return; }
+    if(!nom){ err0.textContent='Contanos tu nombre.'; return; }
+    if(dni.length<7||dni.length>8){ err0.textContent='Revisá el DNI: tiene que tener 7 u 8 números.'; return; }
+    if(!os){ err0.textContent='Elegí tu obra social o "Sin cobertura".'; return; }
     const otra=document.getElementById('u-otra').value.trim();
     st.perfil={nombre:nom, dni, os: os==='Otra obra social' && otra ? otra : os, otra};
-    if(!geo){ err.textContent='Contanos dónde estás: usá tu ubicación o escribí tu dirección y tocá Buscar.'; return; }
+    if(!geo){ err0.textContent='Contanos dónde estás: escribí tu dirección y tocá Buscar, o usá tu ubicación.'; return; }
     st.loc = geo;
+    if(mapaPerfil){ mapaPerfil.remove(); mapaPerfil=null; }
     pantalla1();
   };
 }
 
 /* ---------- Paso 2: síntoma ---------- */
-const norm = x => x.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-const DEBIL = ['fiebre','golpe','dolor'];  /* palabras que aparecen en varios casos: suman menos */
-function detectar(txt){
-  const t=' '+norm(txt).replace(/[^a-zñ0-9]+/g,' ')+' '; let best=null, score=0;
-  CASOS.forEach(c=>{
-    const s=[...new Set(c.kw.map(norm))].reduce((a,k)=>a+(t.includes(' '+k)?(DEBIL.includes(k)?0.5:1):0),0);
-    if(s>score){score=s;best=c;}
-  });
-  return best;
-}
-function pantalla1(){
+function pantalla1(opciones){
   step(2);
+  const verTodos = st.verTodos;
+  const lista = verTodos ? CASOS : CASOS.filter(c=>CASOS_DESTACADOS.includes(c.id));
   app.innerHTML = `${perfilChip()}
     <p class="q-title">¿Qué te pasa, ${esc(st.perfil.nombre.split(' ')[0])}?</p>
     <p class="q-sub">Contalo con tus palabras o elegí un ejemplo.</p>
     <label for="sint" class="hp">Describí tu síntoma</label>
     <textarea id="sint" placeholder="Ej.: me doblé el tobillo jugando al fútbol y está hinchado">${esc(st.texto)}</textarea>
-    <div class="chips">${CASOS.map(c=>`<button type="button" class="chip${st.caso&&st.caso.id===c.id?' sel':''}" data-id="${c.id}">${c.chip}</button>`).join('')}</div>
+    ${opciones ? `<div class="dudas"><p><b>¿Cuál se parece más a lo que te pasa?</b></p><div class="chips">${opciones.map(c=>`<button type="button" class="chip sel" data-id="${c.id}">${c.chip}</button>`).join('')}<button type="button" class="chip" id="ninguno">Otra cosa</button></div></div>` : ''}
     <button class="btn btn-p" id="go1" type="button" style="width:100%">Analizar →</button>
-    <div class="err" id="err1"></div>`;
+    <div class="err" id="err1"></div>
+    <p class="q-sub" style="margin:16px 0 8px">O elegí un ejemplo:</p>
+    <div class="chips">${lista.map(c=>`<button type="button" class="chip" data-id="${c.id}">${c.chip}</button>`).join('')}${verTodos?'':'<button type="button" class="chip mas" id="ver-mas">Ver más…</button>'}</div>`;
   bindChip();
-  app.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{ const c=CASOS.find(x=>x.id===b.dataset.id); st.caso=c; st.texto=c.chip; pantalla1(); });
+  app.querySelectorAll('.chip[data-id]').forEach(b=>b.onclick=()=>{ st.caso=CASOS.find(x=>x.id===b.dataset.id); st.texto=document.getElementById('sint').value.trim()||st.caso.chip; empezarCaso(); });
+  const mas=document.getElementById('ver-mas'); if(mas) mas.onclick=()=>{ st.texto=document.getElementById('sint').value; st.verTodos=true; pantalla1(opciones); };
+  const nin=document.getElementById('ninguno'); if(nin) nin.onclick=()=>{ st.texto=document.getElementById('sint').value; pantalla1(); document.getElementById('err1').innerHTML='Elegí el ejemplo más parecido de la lista. Si sentís que es grave o empeora, no esperes: andá a una guardia o llamá al <a href="tel:107">107</a>.'; };
   document.getElementById('go1').onclick=()=>{
     const txt=document.getElementById('sint').value.trim();
-    if(txt && (!st.caso || txt!==st.caso.chip)){ st.texto=txt; st.caso=detectar(txt); }
-    if(!st.caso){ document.getElementById('err1').textContent='No pudimos identificar el síntoma en esta demo. Probá con uno de los ejemplos.'; return; }
-    st.resp=[]; st.sel=0;
-    if(st.caso.alarma) resultado(); else pantalla2();
+    const e1=document.getElementById('err1');
+    if(txt.length<3){ e1.textContent='Contanos qué te pasa o elegí un ejemplo.'; return; }
+    st.texto=txt;
+    const a=analizar(txt);
+    if(a.crisis) return pantallaCrisis();
+    if(a.emergencia){ st.caso=null; st.marcadas=[]; st.emerg=a.emergencia; step(4); return renderGrave({nivel:1, t:a.emergencia.t, txt:a.emergencia.txt, esp:a.emergencia.esp}); }
+    if(!a.candidatos.length){ e1.innerHTML='No pudimos reconocer el síntoma. Elegí el ejemplo más parecido. Si sentís que es grave, no esperes: andá a una guardia o llamá al <a href="tel:107">107</a>.'; return; }
+    if(!a.seguro) return pantalla1(a.candidatos.slice(0,3).map(x=>x.c));
+    st.caso=a.candidatos[0].c; empezarCaso();
   };
 }
+function empezarCaso(){ st.marcadas=[]; st.sel=0; st.emerg=null; if(st.caso.alarma) resultado(); else pantalla2(); }
+function pantallaCrisis(){
+  step(4);
+  app.innerHTML = `${perfilChip()}
+    <div class="crisis">
+      <p class="q-title">Gracias por contárnoslo</p>
+      <p>Lo que sentís importa, y no tenés que pasar por esto sin ayuda. Ahora mismo podés hablar gratis con alguien que sabe escuchar, a cualquier hora:</p>
+      <a class="btn btn-p" href="tel:08009990091">📞 0800 999 0091</a>
+      <p class="note">Línea de Salud Mental del Ministerio de Salud de la Nación · las 24 horas, en todo el país.</p>
+      <p>Si estás en peligro ahora, llamá al <a href="tel:107">107</a> o al <a href="tel:911">911</a>, o andá a la guardia más cercana. Si podés, avisale también a alguien de confianza que esté cerca.</p>
+    </div>
+    <div class="app-actions"><button class="btn btn-g" id="cr-g" type="button">Ver la guardia más cercana</button><button class="btn btn-g" id="again" type="button">↺ Volver</button></div>`;
+  bindChip();
+  document.getElementById('again').onclick=reiniciar;
+  document.getElementById('cr-g').onclick=()=>renderGrave({nivel:1, t:'Acompañamiento en salud mental', txt:'Si estás en peligro ahora, llamá al 107 o al 911, o andá a la guardia más cercana.', esp:'Clínica médica'});
+}
 
-/* ---------- Paso 3: preguntas de alarma ---------- */
+/* ---------- Paso 3: señales de alarma ---------- */
 function pantalla2(){
   step(3);
   const c=st.caso;
   app.innerHTML = `${perfilChip()}
-    <p class="q-title">Unas preguntas rápidas</p>
-    <p class="q-sub">Buscamos señales de alarma. Ante la duda, marcá "Sí".</p>
-    <div class="yn">${c.preg.map((p,i)=>`
-      <div class="yn-row"><p>${p.q}</p><div class="yn-btns">
-        <button type="button" data-i="${i}" data-v="si" class="${st.resp[i]==='si'?'sel-si':''}">Sí</button>
-        <button type="button" data-i="${i}" data-v="no" class="${st.resp[i]==='no'?'sel-no':''}">No</button>
-      </div></div>`).join('')}</div>
+    <p class="entendi">Entendimos: <b>${c.chip}</b> <button type="button" id="cambiar">Cambiar</button></p>
+    <p class="q-title">¿Tenés alguna de estas señales?</p>
+    <p class="q-sub">Marcá todas las que correspondan. Ante la duda, marcala.</p>
+    <div class="checks">${c.senales.map((s,i)=>`
+      <label class="check${st.marcadas.includes(i)?' on':''}"><input type="checkbox" data-i="${i}"${st.marcadas.includes(i)?' checked':''}><span>${s.s}</span></label>`).join('')}</div>
     <div class="app-actions">
       <button class="btn btn-g" id="back2" type="button">← Volver</button>
-      <button class="btn btn-p" id="go2" type="button" style="flex:1">Ver a dónde ir →</button>
-    </div>
-    <div class="err" id="err2"></div>`;
+      <button class="btn btn-p" id="go2" type="button" style="flex:1"></button>
+    </div>`;
   bindChip();
-  app.querySelectorAll('.yn-btns button').forEach(b=>b.onclick=()=>{ st.resp[+b.dataset.i]=b.dataset.v; pantalla2(); });
-  document.getElementById('back2').onclick=pantalla1;
-  document.getElementById('go2').onclick=()=>{
-    if(c.preg.some((_,i)=>!st.resp[i])){ document.getElementById('err2').textContent='Respondé todas las preguntas para seguir.'; return; }
-    resultado();
-  };
+  const go=document.getElementById('go2');
+  const label=()=>{ go.textContent = st.marcadas.length ? 'Ver a dónde ir →' : 'No tengo ninguna →'; };
+  label();
+  app.querySelectorAll('.check input').forEach(x=>x.onchange=()=>{
+    const i=+x.dataset.i; st.marcadas = x.checked ? [...new Set([...st.marcadas,i])] : st.marcadas.filter(v=>v!==i);
+    x.closest('.check').classList.toggle('on', x.checked); label();
+  });
+  document.getElementById('back2').onclick=()=>pantalla1();
+  document.getElementById('cambiar').onclick=()=>pantalla1();
+  go.onclick=resultado;
 }
 
 /* ---------- Paso 4: resultado ---------- */
@@ -832,15 +1220,7 @@ function triBox(r, grave){
   return `<div class="tri ${grave?'grave':'leve'}"><div class="dot" style="background:${COLORES[r.nivel]}">${r.nivel}</div>
     <div><h4>Triage ${r.nivel} · ${NOMBRE_NIVEL[r.nivel]} — ${r.t}</h4><p>${r.txt}</p>${(r.notas||[]).map(n=>`<p style="margin-top:8px;font-weight:600">⚠️ ${n}</p>`).join('')}</div></div>`;
 }
-function evaluar(){
-  const c=st.caso;
-  if(c.alarma) return {grave:true, r:c.grave};
-  const si=c.preg.filter((p,i)=>st.resp[i]==='si');
-  const g=si.filter(p=>p.n<=3).sort((a,b)=>a.n-b.n)[0];
-  if(g) return {grave:true, r:{nivel:g.n, t:g.t, txt:g.txt, esp:g.esp||c.esp}};
-  const notas=si.filter(p=>p.n===4).map(p=>p.nota);
-  return {grave:false, r:{...c.leve, notas}};
-}
+function evaluar(){ return evaluarSenales(st.caso, st.marcadas||[]); }
 function resultado(){
   step(4);
   const {grave, r} = evaluar();
@@ -981,7 +1361,7 @@ function confirmar(p, r){
   document.getElementById('again').onclick=reiniciar;
 }
 
-function reiniciar(){ if(mapa){mapa.remove();mapa=null;} st.texto=''; st.caso=null; st.resp=[]; st.mod='Todas'; st.soloCob=true; pantalla1(); }
+function reiniciar(){ if(mapa){mapa.remove();mapa=null;} st.texto=''; st.caso=null; st.marcadas=[]; st.emerg=null; st.verTodos=false; st.mod='Todas'; st.soloCob=true; pantalla1(); }
 pantallaPerfil();
 
 
@@ -1024,6 +1404,414 @@ document.querySelectorAll('.js-copy').forEach(b=>b.addEventListener('click',asyn
 }));
 document.querySelectorAll('.js-wa').forEach(a=>{ a.href='https://wa.me/'+CONFIG.WHATSAPP+'?text='+encodeURIComponent(a.dataset.msg||'Hola'); a.target='_blank'; a.rel='noopener'; });
 document.querySelectorAll('[data-tab="pro"]').forEach(a=>a.addEventListener('click',()=>setTimeout(()=>document.getElementById('pro-nom').focus({preventScroll:true}),400)));
+</script>
+<script>
+/* ===================== URGENBOT: el triage de la demo, como conversación =====================
+   Usa los mismos casos, hospitales, coberturas y profesionales de la demo (CASOS, HOSP, PROS...).
+   No usa ningún servidor ni guarda datos: todo queda en esta pestaña. */
+(function(){
+  const IMG = n => 'urgenbot/'+n+'.webp';
+  const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const wait = ms => new Promise(r=>setTimeout(r,ms));
+  const TEL107 = '<a href="tel:107">107</a>', TEL911 = '<a href="tel:911">911</a>';
+  const OS_RAPIDAS = ['APROSS','PAMI','OSDE','Swiss Medical','Sancor Salud','IOSFA'];
+  const OS_TODAS = Object.values(OBRAS_SOCIALES).flat();
+
+  const cb = { stage:'inicio', caso:null, marcadas:[], os:null, loc:null, r:null, grave:false, extra:0, sync:false };
+  let q = Promise.resolve(), started = false, last = null;
+
+  /* ---------- Interfaz ---------- */
+  const root = document.createElement('div');
+  root.id = 'urgenbot';
+  root.innerHTML = `
+    <button class="ub-launch" type="button" aria-haspopup="dialog" aria-controls="ub-panel">
+      <span class="ub-face"><img src="${IMG('cara_feliz')}" alt="" width="48" height="45"></span>
+      <span class="ub-txt"><small>¿Qué te pasa?</small>Hablá con Urgenbot</span>
+      <span class="hp">Abrir el chat con Urgenbot</span>
+    </button>
+    <div class="ub-teaser" hidden><button type="button" class="ub-x" aria-label="Cerrar mensaje">×</button><b>¡Hola! Soy Urgenbot.</b> ¿Te ayudo a saber a qué guardia ir?</div>
+    <div class="ub-panel" id="ub-panel" role="dialog" aria-label="Chat con Urgenbot" hidden>
+      <div class="ub-head">
+        <span class="ub-av"><img id="ub-face" src="${IMG('cara_feliz')}" alt="" width="40" height="38"></span>
+        <div class="ub-id"><div class="nm">Urgenbot</div><div class="sub"><i></i>Asistente de Urgen.IA · demo</div></div>
+        <button type="button" class="ub-hbtn" id="ub-restart" aria-label="Empezar de nuevo" title="Empezar de nuevo">↺</button>
+        <button type="button" class="ub-hbtn" id="ub-close" aria-label="Cerrar el chat" title="Cerrar">✕</button>
+      </div>
+      <div class="ub-log" id="ub-log" aria-live="polite"></div>
+      <div class="ub-foot">
+        <form class="ub-form" id="ub-form" autocomplete="off">
+          <label for="ub-in" class="hp">Escribile a Urgenbot</label>
+          <input id="ub-in" maxlength="300" placeholder="Escribí acá qué te pasa…" enterkeyhint="send">
+          <button type="submit" aria-label="Enviar">➤</button>
+        </form>
+        <p class="ub-legal">Urgenbot orienta, no diagnostica. Emergencias: ${TEL107} · ${TEL911}</p>
+      </div>
+    </div>`;
+  document.body.appendChild(root);
+  const launch = root.querySelector('.ub-launch'), teaser = root.querySelector('.ub-teaser'), panel = root.querySelector('.ub-panel');
+  const log = root.querySelector('#ub-log'), input = root.querySelector('#ub-in');
+
+  const bajar = () => { log.scrollTop = log.scrollHeight; };
+  const setFace = n => { root.querySelector('#ub-face').src = IMG('cara_'+n); };
+  function fila(quien, html, cls){
+    const row = document.createElement('div');
+    row.className = 'ub-row '+quien+(last===quien?' cont':'');
+    row.innerHTML = (quien==='bot'?`<span class="ub-mini"><img src="${IMG('cara_feliz')}" alt="" width="26" height="25"></span>`:'')+`<div class="ub-b ${cls||''}">${html}</div>`;
+    log.appendChild(row); last = quien; bajar(); return row;
+  }
+  function limpiarChips(){ log.querySelectorAll('.ub-chips').forEach(x=>x.remove()); }
+  function yo(texto){ limpiarChips(); fila('yo', esc(texto)); }
+
+  /* Todo lo que dice Urgenbot pasa por una cola, para que hable en orden y "escriba" un ratito. */
+  function di(html, o){
+    o = o || {};
+    q = q.then(async()=>{
+      if(o.face) setFace(o.face);
+      const row = fila('bot', '<span class="ub-typing" aria-label="Urgenbot está escribiendo"><i></i><i></i><i></i></span>');
+      const largo = html.replace(/<[^>]+>/g,'').length;
+      await wait(REDUCE ? 120 : Math.min(1100, 350 + largo*8));
+      const b = row.querySelector('.ub-b'); b.className = 'ub-b '+(o.cls||''); b.innerHTML = html;
+      bajar();
+      if(o.after) o.after(row);
+    });
+    return q;
+  }
+  function chips(lista){
+    q = q.then(()=>{
+      limpiarChips();
+      const d = document.createElement('div'); d.className = 'ub-chips';
+      lista.forEach(c=>{
+        const b = document.createElement(c.href?'a':'button');
+        b.className = 'ub-chip'+(c.cls?' '+c.cls:''); b.textContent = c.l;
+        if(c.href){ b.href = c.href; }
+        else { b.type = 'button'; b.onclick = ()=>{ limpiarChips(); q = q.then(()=>{ if(c.eco!==false) yo(c.eco||c.l); c.fn(); }); }; }
+        d.appendChild(b);
+      });
+      log.appendChild(d); last = 'chips'; bajar();
+    });
+  }
+
+  /* ---------- Conversación ---------- */
+  const chipsSintoma = todos => (todos ? CASOS : CASOS.filter(c=>CASOS_DESTACADOS.includes(c.id))).map(c=>({ l:c.chip, fn:()=>elegirCaso(c) }))
+    .concat(todos ? [] : [{ l:'Ver más…', eco:false, cls:'alt', fn:()=>{ di('Estos son todos los casos que reconozco en la demo:'); chips(chipsSintoma(true)); } }]);
+  function bienvenida(){
+    setFace('feliz');
+    di(`<div class="ub-pose"><img src="${IMG('hola')}" alt="Urgenbot saludando" width="74" height="96"><div><p><b>¡Hola! Soy Urgenbot</b> 👋</p><p>Te ayudo a saber si lo tuyo es para la guardia o para un turno, y a dónde ir con tu obra social.</p></div></div>`);
+    di(`Si es una emergencia, no esperes: llamá al ${TEL107} o al ${TEL911}.`);
+    pedirSintoma('¿Qué te pasa? Contámelo con tus palabras o elegí un ejemplo.');
+  }
+  function pedirSintoma(txt){ cb.stage = 'sintoma'; di(txt); chips(chipsSintoma()); }
+
+  function entender(t){
+    const tk = tokens(t), a = analizar(t);
+    if(a.crisis) return crisis();
+    if(a.emergencia) return emergencia(a.emergencia);
+    if(cb.stage==='senales'){
+      if(algunaEn(tk, ['ninguna','ninguno','nada','no tengo','no'])) return marcar([]);
+      if(!a.candidatos.length){ di('Marcá en la lista las señales que tengas y tocá el botón. Si no tenés ninguna, tocá «No tengo ninguna».'); return; }
+    }
+    if(cb.stage==='os'){
+      const os = buscarOS(tk); if(os) return setOS(os);
+      di('No encontré esa cobertura. Elegila de la lista:'); return listaOS();
+    }
+    if(cb.stage==='loc') return buscarLugar(t);
+    if(a.candidatos.length){
+      if(a.seguro) return elegirCaso(a.candidatos[0].c);
+      setFace('piensa');
+      di('Quiero entenderte bien. ¿Cuál se parece más a lo que te pasa?');
+      return chips(a.candidatos.slice(0,3).map(x=>({ l:x.c.chip, fn:()=>elegirCaso(x.c) })).concat([{ l:'Otra cosa', cls:'alt', fn:()=>{ di('Elegí el ejemplo más parecido. Si sentís que es grave, no esperes: andá a una guardia o llamá al '+TEL107+'.'); chips(chipsSintoma(true)); } }]));
+    }
+    if(algunaEn(tk, ['hola','buenas','buen dia','buenos dias','buenas tardes','buenas noches','hey','que tal'])){ di('¡Hola! 😊 Contame qué te pasa y te ayudo a ver a dónde ir.'); return chips(chipsSintoma()); }
+    if(algunaEn(tk, ['gracias','genial','buenisimo','perfecto','joya','barbaro'])){ setFace('guino'); return di('¡De nada! Cuidate mucho. Si algo cambia o empeora, escribime de nuevo. 💚'); }
+    if(algunaEn(tk, ['quien sos','que sos','que haces','como funciona','sos un robot','sos una ia','sos real','que podes hacer'])){
+      di('Soy Urgenbot, el asistente de Urgen.IA. Te muestro las señales de alarma de lo que te pasa para ver si es urgente, y te digo a dónde ir según dónde estás y tu cobertura.');
+      di('No diagnostico ni reemplazo a un médico: te oriento para que llegues al lugar indicado. ¿Qué te pasa?');
+      return chips(chipsSintoma());
+    }
+    setFace('piensa');
+    di('No llegué a entenderte 🤔 Contámelo con otras palabras (por ejemplo, <i>«me duele la panza»</i>) o elegí el ejemplo más parecido.');
+    di(`Si sentís que es grave o empeora, no esperes: andá a una guardia o llamá al ${TEL107}.`);
+    chips(chipsSintoma(true));
+  }
+
+  function elegirCaso(c){
+    Object.assign(cb, { caso:c, marcadas:[], r:null, extra:0, crisis:false });
+    if(c.alarma) return concluir();
+    cb.stage = 'senales';
+    setFace('piensa');
+    di(`Entendí: <b>${esc(c.chip.toLowerCase())}</b>.`);
+    di(`<p><b>¿Tenés alguna de estas señales?</b> Marcá todas las que correspondan. Ante la duda, marcala.</p>
+      <div class="ub-checks">${c.senales.map((s,i)=>`<label class="ub-check"><input type="checkbox" value="${i}"><span>${s.s}</span></label>`).join('')}</div>
+      <button type="button" class="ub-act p ub-go">No tengo ninguna →</button>`, { cls:'wide', after:row=>{
+        const go = row.querySelector('.ub-go'), boxes = [...row.querySelectorAll('input')];
+        const act = ()=>{ const n = boxes.filter(b=>b.checked).length; go.textContent = n ? 'Listo, ver a dónde ir →' : 'No tengo ninguna →'; boxes.forEach(b=>b.closest('.ub-check').classList.toggle('on', b.checked)); };
+        boxes.forEach(b=>b.onchange=act);
+        go.onclick = ()=>{ if(cb.stage!=='senales' || cb.caso!==c) return; limpiarChips(); boxes.forEach(b=>b.disabled=true); go.disabled = true; const m = boxes.filter(b=>b.checked).map(b=>+b.value); q = q.then(()=>{ yo(m.length ? 'Marqué: '+m.map(i=>c.senales[i].s.toLowerCase()).join(' · ') : 'No tengo ninguna'); marcar(m); }); };
+        row.dataset.caso = c.id;
+      }});
+    chips([{ l:'No es esto', cls:'alt', fn:()=>pedirSintoma('Dale. Contámelo de otra forma o elegí un ejemplo.') }]);
+  }
+  function marcar(m){
+    log.querySelectorAll('.ub-row[data-caso] input, .ub-row[data-caso] .ub-go').forEach(x=>x.disabled = true);
+    cb.marcadas = m; concluir();
+  }
+  function concluir(){
+    const { grave, r } = evaluarSenales(cb.caso, cb.marcadas||[]);
+    Object.assign(cb, { grave, r, extra:0, stage:'resultado' });
+    mostrarTriage(); seguir();
+  }
+  function emergencia(em){
+    Object.assign(cb, { caso:null, grave:true, extra:0, stage:'resultado', crisis:false, r:{ nivel:1, t:em.t, txt:em.txt, esp:em.esp } });
+    mostrarTriage(); seguir();
+  }
+  function crisis(){
+    cb.stage = 'sintoma'; setFace('feliz');
+    di('Gracias por contármelo. Lo que sentís importa, y no tenés que pasar por esto sin ayuda.');
+    di(`<p>Ahora mismo podés hablar gratis con alguien que sabe escuchar, a cualquier hora:</p><p><a class="ub-act p" href="tel:08009990091">📞 0800 999 0091</a></p><p class="ub-note">Línea de Salud Mental del Ministerio de Salud de la Nación · las 24 horas, en todo el país.</p>`);
+    di(`Si estás en peligro ahora, llamá al ${TEL107} o al ${TEL911}, o andá a la guardia más cercana. Si podés, avisale también a alguien de confianza que esté cerca.`);
+    chips([
+      { l:'Llamar al 0800 999 0091', href:'tel:08009990091', cls:'danger' },
+      { l:'Ver la guardia más cercana', fn:()=>{ Object.assign(cb, { caso:null, grave:true, extra:0, stage:'resultado', r:{ nivel:1, t:'Salud mental', txt:'', esp:'Clínica médica' }, crisis:true }); seguir(); } }
+    ]);
+  }
+
+  function mostrarTriage(){
+    const r = cb.r, n = r.nivel;
+    const lvl = `<span class="ub-lvl" style="background:${COLORES[n]}">Triage ${n} · ${NOMBRE_NIVEL[n]}</span>`;
+    const notas = (r.notas||[]).map(x=>`<p><b>⚠️ ${x}</b></p>`).join('');
+    if(n===1) di(`<p><b>⚠️ Esto puede ser una emergencia.</b> Llamá ahora mismo:</p><div class="ub-call"><a href="tel:107">📞 107</a><a href="tel:911">📞 911</a></div>`, { cls:'alert', face:'wow' });
+    if(cb.grave) di(`<div class="ub-pose"><img src="${IMG('alerta')}" alt="Urgenbot en alerta" width="74" height="92"><div>${lvl}<h5>${r.t}</h5><p>${r.txt}</p></div></div>`, { face:'wow' });
+    else di(`<div class="ub-pose"><img src="${IMG('feliz')}" alt="Urgenbot contento" width="74" height="96"><div><p><b>Buenas noticias:</b> no veo señales de alarma.</p>${lvl}<h5>${r.t}</h5></div></div><p style="margin-top:8px">${r.txt}</p>${notas}`, { face:'feliz' });
+  }
+
+  /* Pide lo que falte (cobertura, ubicación) y después muestra a dónde ir. */
+  function seguir(){
+    if(!cb.sync && st.perfil){
+      cb.sync = true;
+      if(!cb.os && st.perfil.os) cb.os = st.perfil.os;
+      if(!cb.loc && st.loc) cb.loc = st.loc;
+      if(cb.os || cb.loc) di(`Uso lo que cargaste en la demo: ${[cb.os && `<b>${esc(cb.os)}</b>`, cb.loc && `📍 ${esc(cb.loc.label)}`].filter(Boolean).join(' · ')}.`);
+    }
+    if(cb.r.nivel!==1 && !cb.os) return pedirOS();
+    if(!cb.loc) return pedirLoc();
+    mostrar(true);
+  }
+  function pedirOS(){
+    cb.stage = 'os';
+    di('¿Qué obra social o prepaga tenés? Así te muestro solo dónde te atienden.', { face:'feliz' });
+    chips(OS_RAPIDAS.map(o=>({ l:o, fn:()=>setOS(o) })).concat([{ l:'No tengo', fn:()=>setOS(SIN_COB) }, { l:'Otra…', eco:false, cls:'alt', fn:listaOS }]));
+  }
+  function listaOS(){
+    const opts = Object.entries(OBRAS_SOCIALES).map(([g,l])=>`<optgroup label="${g}">${l.map(o=>`<option>${o}</option>`).join('')}</optgroup>`).join('');
+    di(`<label>Elegí tu cobertura<div class="ub-sel"><select><option value="">Elegí…</option>${opts}</select><button type="button" class="ub-act p">Listo</button></div></label>`, { cls:'wide', after:row=>{
+      const sel = row.querySelector('select'), ok = row.querySelector('button');
+      ok.onclick = e=>{ e.preventDefault(); if(!sel.value) return sel.focus(); sel.disabled = ok.disabled = true; q = q.then(()=>{ yo(sel.value); setOS(sel.value); }); };
+    }});
+  }
+  function buscarOS(tk){
+    if(algunaEn(tk, ['no tengo','ninguna','ninguno','sin cobertura','sin obra','particular'])) return SIN_COB;
+    const w = ' '+tk.join(' ')+' ';
+    return OS_TODAS.find(o=>{
+      const k = tokens(o.replace(/\(.*?\)/g,'')).join(' ');
+      return w.includes(' '+k+' ') || (k.split(' ')[0].length>=4 && w.includes(' '+k.split(' ')[0]+' '));
+    }) || null;
+  }
+  function setOS(os){
+    cb.os = os;
+    di(os===SIN_COB ? 'Perfecto. Sin cobertura te priorizo los hospitales públicos, que atienden a todas las personas.' : `Perfecto, <b>${esc(os)}</b> 👍`);
+    seguir();
+  }
+
+  /* ---------- Ubicación ---------- */
+  const chipsLoc = () => [{ l:'📍 Usar mi ubicación', fn:geo }].concat(['Nueva Córdoba','Centro','General Paz','Cerro de las Rosas'].map(b=>({ l:b, eco:'Estoy en '+b, fn:()=>setLoc({ ll:BARRIOS[b], label:b+' (aprox.)' }, true) })));
+  function pedirLoc(){
+    cb.stage = 'loc';
+    di('¿Dónde estás? Escribime la dirección (calle y número), un barrio o un lugar conocido, o compartí tu ubicación.');
+    chips(chipsLoc());
+  }
+  function geo(){
+    di('Buscando tu ubicación… puede tardar unos segundos.');
+    q = q.then(()=>geolocalizar()).then(async r=>{
+      if(r.err){ di(mensajeUbicacion(r)); return chips(chipsLoc()); }
+      if(!enCordoba(r.ll)){ di(mensajeUbicacion({ err:'lejos', acc:r.acc })); return chips(chipsLoc()); }
+      const n = await nombreDelLugar(r.ll);
+      confirmarLugar({ ll:r.ll, label: n || 'tu ubicación', real:true, acc:r.acc, gps:!!n },
+        r.acc>150 ? `Tu dispositivo me da una ubicación aproximada (±${precision(r.acc)}). Si no es acá, mové el punto o escribime la dirección.` : 'Si no es exacto, mové el punto.');
+    });
+  }
+  function buscarLugar(t){
+    if(t.trim().length<3){ di('Escribime calle y número (ej.: <i>Obispo Trejo 300</i>), un barrio o un lugar conocido.'); return chips(chipsLoc()); }
+    q = q.then(()=>buscarDireccion(t)).then(r=>{
+      if(!r.ok){
+        di(r.motivo==='red' ? 'No pude conectarme con el buscador de direcciones. Probá de nuevo en unos segundos, o compartí tu ubicación.'
+          : 'No encontré esa dirección en Córdoba. Probá con calle y número (ej.: <i>Obispo Trejo 300</i>), un barrio (ej.: <i>Alta Córdoba</i>) o un lugar conocido (ej.: <i>Patio Olmos</i>).');
+        return chips(chipsLoc());
+      }
+      const nota = r.aprox ? 'No encontré la altura exacta: te marqué sobre la calle. Mové el punto hasta donde estás.' : 'Si no es exacto, mové el punto.';
+      if(r.opciones.length===1) return confirmarLugar({ ...r.opciones[0], real:true }, nota);
+      di('Encontré varias. ¿Cuál es?');
+      chips(r.opciones.map(o=>({ l:'📍 '+o.label, fn:()=>confirmarLugar({ ...o, real:true }, nota) })).concat([{ l:'Ninguna, escribir otra', cls:'alt', eco:false, fn:()=>di('Dale, escribime la dirección de nuevo.') }]));
+    });
+  }
+  /* Muestra el punto en un mapa para confirmar; se puede mover. */
+  function confirmarLugar(l, nota){
+    let lugar = { ...l };
+    di(`<p>Te ubiqué ${l.gps?'cerca de':'en'} <b class="ub-lugar">${esc(l.label)}</b>.</p><div class="ub-map ub-map-conf" role="img" aria-label="Mapa para confirmar tu ubicación"></div><p class="ub-note">${nota} También podés tocar el mapa.</p>`, { cls:'wide', after:row=>{
+      const el = row.querySelector('.ub-map');
+      if(typeof L==='undefined'){ el.remove(); return; }
+      const m = L.map(el, { scrollWheelZoom:false, zoomControl:false }).setView(l.ll, 16);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom:19, attribution:'© OpenStreetMap' }).addTo(m);
+      const mk = L.marker(l.ll, { draggable:true, icon:L.divIcon({ className:'', html:'<div class="me"></div>', iconSize:[18,18], iconAnchor:[9,9] }) }).addTo(m);
+      const mover = async ll=>{ mk.setLatLng(ll); lugar = { ll:[ll.lat, ll.lng], label:'el punto que marcaste', real:true }; row.querySelector('.ub-lugar').textContent = lugar.label;
+        const n = await nombreDelLugar(lugar.ll); if(n && lugar.label==='el punto que marcaste'){ lugar.label = n; row.querySelector('.ub-lugar').textContent = n; } };
+      mk.on('dragend', ()=>mover(mk.getLatLng())); m.on('click', e=>mover(e.latlng));
+      setTimeout(()=>m.invalidateSize(), 250);
+    }});
+    chips([{ l:'✓ Sí, es acá', fn:()=>setLoc(lugar) }, { l:'Escribir otra dirección', cls:'alt', eco:false, fn:()=>di('Dale, escribime la dirección (calle y número), un barrio o un lugar conocido.') }]);
+  }
+  function setLoc(l, aprox){
+    cb.loc = l;
+    if(aprox) di(`Listo, te ubico en <b>${esc(l.label)}</b> 📍`);
+    seguir();
+  }
+
+  /* ---------- A dónde ir ---------- */
+  const aceptaOS = h => h.tipo==='Público' || (!!cb.os && cb.os!==SIN_COB && (h.cob||[]).includes(cb.os));
+  function guardias(){
+    const r = cb.r;
+    return HOSP.filter(h=>h.esp.includes(r.esp))
+      .map(h=>({ ...h, km:dist(cb.loc.ll,h.ll), ok: r.nivel===1 || aceptaOS(h) }))
+      .sort((a,b)=> r.nivel===1 ? a.km-b.km : ((b.ok-a.ok) || (AF[a.af].o*1.5 + a.km) - (AF[b.af].o*1.5 + b.km)));
+  }
+  function estado(h){
+    const sc = cb.os===SIN_COB;
+    return cb.r.nivel===1 && !aceptaOS(h) ? 'Emergencia: te atienden igual'
+      : h.tipo==='Público' ? 'Atiende a todas las personas'
+      : (!h.ok && h.tipo==='Fuerzas Armadas') ? 'Solo afiliados IOSFA'
+      : (!h.ok && h.inc && !sc) ? 'Cobertura a confirmar'
+      : h.ok ? 'Acepta '+esc(cb.os)
+      : (sc ? 'Solo como particular' : 'No acepta tu cobertura');
+  }
+  function mostrar(primera){
+    cb.stage = 'resultado';
+    if(cb.grave) mostrarGuardias(primera); else mostrarPros(primera);
+  }
+  function mostrarGuardias(primera){
+    const r = cb.r, lista = guardias(), top = lista.slice(cb.extra, cb.extra+3), best = lista.find(h=>h.ok);
+    const [la,lo] = cb.loc.ll;
+    if(primera && best){
+      const porque = r.nivel===1 ? 'es la más cercana. Ante una emergencia, andá a la más cercana: la cobertura se resuelve después'
+        : `está a ${kmTxt(best.km)}, tiene ${AF[best.af].t.toLowerCase()} y ${estado(best).charAt(0).toLowerCase()+estado(best).slice(1)}`;
+      di(`<div class="ub-pose"><img src="${IMG('senala')}" alt="Urgenbot señalando" width="74" height="94"><div><p>Te recomiendo ir a <b>${best.n}</b>: ${porque}.</p></div></div>`, { face:'feliz' });
+    }
+    const intro = r.nivel===1 ? 'Guardias más cercanas a vos:' : `Guardias con ${r.esp.toLowerCase()} de turno${cb.os===SIN_COB?' (primero, hospitales públicos)':''}:`;
+    const card = (h,i) => {
+      const g = `https://www.google.com/maps/dir/?api=1&origin=${la},${lo}&destination=${h.ll[0]},${h.ll[1]}&travelmode=driving`;
+      const wz = `https://waze.com/ul?ll=${h.ll[0]},${h.ll[1]}&navigate=yes`;
+      return `<div class="ub-card${h.ok?'':' off'}${h===best?' best':''}">
+        <div class="nm">${cb.extra+i+1}. ${h.n}${h===best?'<small>'+(r.nivel===1?'Más cercana':'Recomendada')+'</small>':''}</div>
+        <div class="mt"><span>${kmTxt(h.km)}</span><span>${h.tipo}</span><span class="sema" style="color:${AF[h.af].c}"><i style="background:${AF[h.af].c}"></i>${AF[h.af].t}</span></div>
+        <div class="mt"><span class="${h.ok?'ok':'no'}">${estado(h)}</span>${!aceptaOS(h)&&h.part&&r.nivel!==1?`<span>Particular aprox. ${money(h.part)}</span>`:''}</div>
+        <div class="ub-acts"><a class="ub-act p" href="${g}" target="_blank" rel="noopener">Cómo llegar</a><a class="ub-act" href="${wz}" target="_blank" rel="noopener">Waze</a></div>
+      </div>`;
+    };
+    di(`<p><b>${intro}</b></p><div class="ub-map" role="img" aria-label="Mapa con tu ubicación y las guardias"></div>${top.map(card).join('')}
+      <p class="ub-note" style="margin-top:8px">Hospitales reales (ubicación: OpenStreetMap). Coberturas según los listados oficiales (04/11/2026): confirmá siempre con tu plan. La afluencia y los especialistas de turno son simulados.</p>`,
+      { cls:'wide', after:row=>miniMapa(row, top) });
+    const op = [];
+    if(lista.length > cb.extra+3) op.push({ l:'Ver más guardias', fn:()=>{ cb.extra += 3; mostrar(false); } });
+    op.push({ l:'Probar otro síntoma', fn:otro });
+    op.push({ l:'Cambiar ubicación', cls:'alt', fn:()=>{ cb.loc = null; cb.extra = 0; seguir(); } });
+    if(r.nivel!==1) op.push({ l:'Cambiar obra social', cls:'alt', fn:()=>{ cb.os = null; cb.extra = 0; seguir(); } });
+    chips(op);
+  }
+  function miniMapa(row, hs){
+    const el = row.querySelector('.ub-map');
+    if(typeof L==='undefined'){ el.remove(); return; }
+    const m = L.map(el, { scrollWheelZoom:false, zoomControl:false });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom:19, attribution:'© OpenStreetMap' }).addTo(m);
+    L.marker(cb.loc.ll, { icon:L.divIcon({ className:'', html:'<div class="me"></div>', iconSize:[18,18], iconAnchor:[9,9] }) }).addTo(m).bindPopup('Estás acá');
+    const pts = [cb.loc.ll];
+    const marks = hs.map((h,i)=>{ pts.push(h.ll); return L.marker(h.ll, { icon:L.divIcon({ className:'', html:`<div class="pin" style="background:${h.ok?AF[h.af].c:'#9AA6AD'}"><span>${cb.extra+i+1}</span></div>`, iconSize:[30,30], iconAnchor:[15,30] }) }).addTo(m).bindPopup(`<b>${esc(h.n)}</b><br>${kmTxt(h.km)}`); });
+    m.fitBounds(L.latLngBounds(pts).pad(0.25));
+    setTimeout(()=>{ m.invalidateSize(); m.fitBounds(L.latLngBounds(pts).pad(0.25)); }, 250);
+    row.querySelectorAll('.ub-card').forEach((c,i)=>c.addEventListener('click', e=>{ if(e.target.closest('a')) return; m.setView(hs[i].ll, 15); marks[i].openPopup(); }));
+  }
+  function mostrarPros(primera){
+    const r = cb.r, sc = !cb.os || cb.os===SIN_COB;
+    const lista = PROS.filter(p=>r.esp.includes(p.esp))
+      .map(p=>({ ...p, km:p.barrio ? dist(cb.loc.ll, BARRIOS[p.barrio]) : 0, ok: !sc && p.os.includes(cb.os) }))
+      .sort((a,b)=>(b.ok-a.ok) || (a.km-b.km));
+    const top = lista.slice(cb.extra, cb.extra+3), algunoOk = lista.some(p=>p.ok);
+    if(primera) di(algunoOk ? `Estos profesionales te atienden con <b>${esc(cb.os)}</b>, cerca tuyo o por videollamada:`
+      : sc ? 'Estos profesionales te pueden atender cerca tuyo o por videollamada (con valor particular):'
+      : `Ninguno de la demo atiende con <b>${esc(cb.os)}</b> para esto, pero estos te pueden ver como particular:`, { face:'feliz' });
+    di(top.map((p,i)=>`<div class="ub-card${p.ok&&i===0&&cb.extra===0?' best':''}" style="cursor:default">
+        <div class="nm">${p.n}</div>
+        <div class="mt"><span>${p.esp}</span><span>${p.barrio ? p.barrio+' · '+kmTxt(p.km) : 'Teleconsulta'}</span><span>${p.mod.join(' · ')}</span></div>
+        <div class="mt"><span class="${p.ok?'ok':''}">${p.ok ? 'Con tu cobertura' : 'Particular '+money(p.$)}</span></div>
+        <div class="ub-acts"><button type="button" class="ub-act p" data-p="${PROS.findIndex(x=>x.n===p.n)}">Pedir turno · ${p.turno}</button></div>
+      </div>`).join('')+'<p class="ub-note" style="margin-top:8px">Profesionales, coberturas y precios simulados para esta demo.</p>',
+      { cls:'wide', after:row=>row.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{ limpiarChips(); const p = PROS[+b.dataset.p]; q = q.then(()=>{ yo('Quiero el turno con '+p.n); turno(p); }); }) });
+    di('Si empeorás o aparece una señal de alarma, no esperes: andá a la guardia.');
+    const op = [];
+    if(lista.length > cb.extra+3) op.push({ l:'Ver más profesionales', fn:()=>{ cb.extra += 3; mostrar(false); } });
+    op.push({ l:'Probar otro síntoma', fn:otro });
+    op.push({ l:'Cambiar obra social', cls:'alt', fn:()=>{ cb.os = null; cb.extra = 0; seguir(); } });
+    chips(op);
+  }
+  function turno(p){
+    const ok = !!cb.os && cb.os!==SIN_COB && p.os.includes(cb.os);
+    di(`<div class="ub-pose"><img src="${IMG('guino')}" alt="Urgenbot guiñando el ojo" width="62" height="105"><div><p><b>¡Listo! Así se vería tu turno.</b></p>
+      <dl class="ub-dl"><dt>Profesional</dt><dd>${p.n}</dd><dt>Especialidad</dt><dd>${p.esp}</dd><dt>Cuándo</dt><dd>${p.turno}</dd><dt>Dónde</dt><dd>${p.barrio ? p.barrio+', Córdoba' : 'Videollamada'}</dd><dt>Cobertura</dt><dd>${ok ? esc(cb.os) : 'Particular · '+money(p.$)}</dd></dl></div></div>
+      <p class="ub-note" style="margin-top:8px">Es una demo: no se reservó ningún turno real.</p>`, { face:'guino' });
+    chips([{ l:'Probar otro síntoma', fn:otro }, { l:'¡Gracias, Urgenbot!', fn:()=>{ setFace('guino'); di('¡De nada! Cuidate mucho. 💚'); } }]);
+  }
+  function otro(){ Object.assign(cb, { caso:null, r:null, extra:0, crisis:false }); setFace('feliz'); pedirSintoma('Dale. ¿Qué otro síntoma querés probar?'); }
+
+  /* ---------- Abrir, cerrar, escribir ---------- */
+  const tactil = matchMedia('(pointer:coarse)').matches;
+  function abrir(texto){
+    panel.hidden = false;
+    requestAnimationFrame(()=>panel.classList.add('on'));
+    launch.classList.add('hide'); teaser.hidden = true;
+    document.documentElement.classList.add('ub-open');
+    try{ sessionStorage.setItem('ub-visto','1'); }catch(e){}
+    if(!started){ started = true; bienvenida(); }
+    if(typeof texto==='string' && texto){ q = q.then(()=>{ yo(texto); entender(texto); }); }
+    if(!tactil) setTimeout(()=>input.focus(), 260);
+  }
+  function cerrar(){
+    panel.classList.remove('on');
+    setTimeout(()=>{ panel.hidden = true; }, REDUCE ? 0 : 200);
+    launch.classList.remove('hide');
+    document.documentElement.classList.remove('ub-open');
+    launch.focus({ preventScroll:true });
+  }
+  function reiniciar(){
+    q = q.then(()=>{ log.innerHTML = ''; last = null; Object.assign(cb, { stage:'inicio', caso:null, marcadas:[], r:null, grave:false, extra:0, crisis:false }); bienvenida(); });
+  }
+  launch.onclick = ()=>abrir();
+  root.querySelector('#ub-close').onclick = cerrar;
+  root.querySelector('#ub-restart').onclick = reiniciar;
+  panel.addEventListener('keydown', e=>{ if(e.key==='Escape') cerrar(); });
+  root.querySelector('#ub-form').addEventListener('submit', e=>{
+    e.preventDefault();
+    const t = input.value.trim(); if(!t) return;
+    input.value = '';
+    limpiarChips();
+    q = q.then(()=>{ yo(t); entender(t); });
+  });
+  document.querySelectorAll('.js-ub-open').forEach(b=>b.addEventListener('click', e=>{ e.preventDefault(); abrir(); }));
+
+  /* Saludo corto la primera vez que alguien entra (una vez por visita). */
+  let visto = false; try{ visto = sessionStorage.getItem('ub-visto')==='1'; }catch(e){}
+  if(!visto) setTimeout(()=>{ if(!started && panel.hidden) teaser.hidden = false; }, 6000);
+  teaser.addEventListener('click', e=>{
+    if(e.target.closest('.ub-x')){ teaser.hidden = true; try{ sessionStorage.setItem('ub-visto','1'); }catch(err){} return; }
+    abrir();
+  });
+})();
 </script>
 </body>
 </html>
