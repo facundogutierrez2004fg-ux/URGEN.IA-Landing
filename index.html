@@ -280,6 +280,7 @@
   .dudas p{margin:0;font-size:.92rem;color:var(--deep)}
   .dudas .chips{margin:10px 0 0}
   .chip.mas{border-style:dashed;color:var(--muted)}
+  .cat-t{margin:14px 0 6px;font-family:'IBM Plex Mono',monospace;font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-d)}
   .entendi{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.86rem;color:var(--muted);margin:0 0 10px}
   .entendi b{color:var(--deep)}
   .entendi button{border:0;background:none;padding:0;color:var(--teal-d);font-weight:600;font-size:.86rem;text-decoration:underline;cursor:pointer}
@@ -699,7 +700,14 @@ const PROS = [
   { n:'Dr. Ramiro A.', esp:'Clínica médica', barrio:'General Paz', os:['APROSS','Sancor Salud','PAMI','OSECAC','Unión Personal'], $:24000, mod:['Presencial','Virtual'], turno:'Hoy 20:00' },
   { n:'Dra. Valeria N.', esp:'Oftalmología', barrio:'Centro', os:['OSDE','APROSS','Avalian','Medifé'], $:36000, mod:['Presencial'], turno:'Mañana 10:00' },
   { n:'Dra. Inés C.', esp:'Pediatría', barrio:null, os:['OSDE','Sancor Salud','Swiss Medical','APROSS'], $:20000, mod:['Virtual'], turno:'En 15 min' },
-  { n:'Dr. Federico S.', esp:'Pediatría', barrio:'Jardín', os:['APROSS','Prevención Salud','OSECAC','IOSFA'], $:27000, mod:['Presencial'], turno:'Hoy 18:00' }
+  { n:'Dr. Federico S.', esp:'Pediatría', barrio:'Jardín', os:['APROSS','Prevención Salud','OSECAC','IOSFA'], $:27000, mod:['Presencial'], turno:'Hoy 18:00' },
+  { n:'Dra. Paula D.', esp:'Dermatología', barrio:'Nueva Córdoba', os:['OSDE','Sancor Salud','APROSS','Swiss Medical'], $:34000, mod:['Presencial','Virtual'], turno:'Mañana 16:00' },
+  { n:'Dr. Matías H.', esp:'Otorrinolaringología', barrio:'Centro', os:['APROSS','OSDE','Prevención Salud','PAMI'], $:33000, mod:['Presencial'], turno:'Mañana 10:30' },
+  { n:'Dra. Florencia T.', esp:'Ginecología', barrio:'General Paz', os:['APROSS','OSDE','Sancor Salud','Medifé'], $:32000, mod:['Presencial','Virtual'], turno:'Hoy 19:00' },
+  { n:'Dr. Gustavo V.', esp:'Urología', barrio:'Alto Alberdi', os:['OSDE','Swiss Medical','APROSS','Galeno'], $:35000, mod:['Presencial'], turno:'Mañana 12:00' },
+  { n:'Lic. Camila O.', esp:'Salud mental', barrio:null, os:['OSDE','APROSS','Sancor Salud','Swiss Medical','OSECAC'], $:22000, mod:['Virtual'], turno:'Hoy 21:00' },
+  { n:'Dr. Andrés K.', esp:'Neurología', barrio:'Cerro de las Rosas', os:['OSDE','APROSS','Swiss Medical'], $:40000, mod:['Presencial'], turno:'Mañana 9:30' },
+  { n:'Dra. Lorena P.', esp:'Cardiología', barrio:'Güemes', os:['APROSS','OSDE','Sancor Salud','PAMI','Galeno'], $:36000, mod:['Presencial'], turno:'Mañana 15:00' }
 ];
 
 /* ============ MOTOR DE TRIAGE (lo usan la demo y Urgenbot) ============
@@ -708,12 +716,12 @@ const PROS = [
    n = nivel de triage de esa señal: 1-3 → guardia (1 = emergencia, llamar al 107); 4 → sigue como leve pero suma una indicación (nota).
    La señal más grave marcada define el resultado. */
 const CASOS = [
-  { id:'pecho', chip:'Dolor en el pecho', alarma:true,
+  { id:'pecho', cat:'corazon', chip:'Dolor en el pecho', alarma:true,
     kw:{ f:['pecho','torax','toracic','infarto','opresion','angina de pecho','me aprieta el pecho','puntada en el pecho','dolor en el corazon','me duele el corazon'], d:['corazon','palpitacion'] },
     grave:{ nivel:1, t:'Posible emergencia cardiovascular', esp:'Cardiología', txt:'El dolor u opresión en el pecho siempre se evalúa en guardia, sobre todo si se va al brazo, el cuello o la mandíbula, o viene con sudor frío, náuseas o falta de aire. No manejes vos.' } },
 
-  { id:'golpe', chip:'Golpe, torcedura o esguince', esp:'Traumatología',
-    kw:{ f:['tobillo','esguince','torcedura','torci','me doble','doble el','rodilla','muneca','hombro','fractur','quebre','me quebre','luxac','me cai','caida','me tropece','pisada','meniscos','ligamento','me pegue','me golpee','martillo','aplast','me agarre el dedo','me machuque','machucon','contusion'], d:['pie','mano','dedo','brazo','pierna','codo','golpe','golpee','futbol','hinchad','lesion','moreton'] },
+  { id:'golpe', cat:'huesos', chip:'Golpe, torcedura o esguince', esp:'Traumatología',
+    kw:{ f:['esguince','torcedura','torci','me doble','doble el','fractur','quebre','me quebre','luxac','me cai','caida','me tropece','pisada','meniscos','ligamento','me pegue','me golpee','me pegaron','golpiza','pelea','me asaltaron','me patearon','martillo','aplast','me agarre el dedo','me machuque','machucon','contusion','me di un golpe','golpe en la','me golpee la','canilla'], d:['tobillo','rodilla','muneca','hombro','golpe','golpee','futbol','hinchad','lesion','moreton'] },
     senales:[
       { s:'Está deformado, torcido o hay una herida abierta', n:2, t:'Posible fractura o luxación', txt:'La deformidad o una herida sobre el hueso necesitan guardia con traumatología. Inmovilizá la zona como está y no intentes acomodarla.' },
       { s:'Está frío, pálido o azulado, o se duerme', n:2, t:'Posible compromiso de la circulación o de un nervio', txt:'Puede haber una lesión que comprime vasos o nervios. Andá a una guardia ahora.' },
@@ -724,8 +732,8 @@ const CASOS = [
     ],
     leve:{ nivel:4, t:'Torcedura o golpe leve', esp:['Traumatología','Kinesiología'], txt:'No hay señales de fractura. Las primeras 48 horas: hielo envuelto en un trapo 15–20 minutos cada 2–3 horas, reposo y la zona en alto. Si en 3–5 días no mejora, consultá con traumatología; después, kinesiología.' } },
 
-  { id:'resp', chip:'Fiebre, tos o dolor de garganta', esp:'Clínica médica',
-    kw:{ f:['tos','toso','gripe','engripad','resfri','garganta','anginas','mocos','catarro','congestion','congestionad','covid','bronquitis','neumonia','flema','fiebre','febril'], d:['temperatura','calentura','escalofrio','dolor de cuerpo','me duele el cuerpo','estornud'] },
+  { id:'resp', cat:'corazon', chip:'Fiebre, tos o dolor de garganta', esp:'Clínica médica',
+    kw:{ f:['tos','toso','gripe','engripad','resfri','garganta','anginas','mocos','catarro','congestion','congestionad','covid','bronquitis','neumonia','flema','sinusitis','me duele al tragar','placas en la garganta','disfonia','afonia'], d:['fiebre','febril','temperatura','calentura','escalofrio','dolor de cuerpo','me duele el cuerpo','estornud'] },
     senales:[
       { s:'Labios o uñas morados, o mucha confusión o somnolencia', n:1, t:'Posible falta de oxígeno', txt:'Puede faltarte oxígeno. Llamá al 107 o andá a la guardia más cercana ya.' },
       { s:'Te falta el aire o te agitás al hablar', n:2, t:'Dificultad para respirar', txt:'La falta de aire con fiebre puede ser una neumonía. Conviene que te vean en una guardia hoy.' },
@@ -735,7 +743,7 @@ const CASOS = [
     ],
     leve:{ nivel:5, t:'Cuadro respiratorio leve', esp:['Clínica médica'], txt:'Una teleconsulta con clínica médica resuelve la mayoría de estos cuadros sin salir de tu casa. Mientras tanto: reposo y mucho líquido.' } },
 
-  { id:'nino', chip:'Fiebre en un chico o bebé', esp:'Pediatría',
+  { id:'nino', cat:'chicos', chip:'Fiebre en un chico o bebé', esp:'Pediatría',
     kw:{ f:['hijo','hija','nene','nena','bebe','bebito','bebita','nino','nina','chiquito','chiquita','mi peque','sobrino','sobrina','nieto','nieta','pediatr','fiebre','febril'], d:['chico','chica','temperatura','calentura'] },
     need:[['fiebre','temperatura','calentura','febril','volando'],['hijo','hija','nene','nena','bebe','bebito','bebita','nino','nina','chiquito','chiquita','chico','chica','mi peque','sobrino','sobrina','nieto','nieta','pediatr']],
     senales:[
@@ -748,8 +756,8 @@ const CASOS = [
     ],
     leve:{ nivel:4, t:'Fiebre sin signos de alarma', esp:['Pediatría'], txt:'Sin señales de alarma, una teleconsulta o el consultorio pediátrico suele alcanzar. Ofrecele líquido seguido y no lo abrigues de más. Si aparece alguna señal de alarma, andá a la guardia.' } },
 
-  { id:'panza', chip:'Dolor de panza, vómitos o diarrea', esp:'Cirugía',
-    kw:{ f:['panza','abdomen','abdominal','estomago','barriga','apendic','vesicula','vomit','diarrea','nausea','descompuest','retorcijon','colico','gastritis','acidez','intoxicacion alimentaria','indigestion'], d:['me cayo mal','algo que comi','ombligo'] },
+  { id:'panza', cat:'panza', chip:'Dolor de panza, vómitos o diarrea', esp:'Cirugía',
+    kw:{ f:['panza','abdomen','abdominal','estomago','barriga','apendic','vesicula','vomit','diarrea','nausea','descompuest','retorcijon','colico','gastritis','acidez','intoxicacion alimentaria','indigestion','me cayo mal','algo que comi','me hizo mal la comida','intoxique','me intoxique con','comida en mal estado'], d:['ombligo','asado','comida'] },
     senales:[
       { s:'Vomitás sangre o la caca sale negra o con sangre', n:2, t:'Posible sangrado digestivo', txt:'Es una señal de alarma: andá a una guardia ahora.', esp:'Clínica médica' },
       { s:'Dolor muy fuerte, de golpe, o panza dura como una tabla', n:2, t:'Dolor abdominal agudo', txt:'Un dolor así puede necesitar cirugía. Andá a una guardia y no comas ni tomes nada hasta que te vean.' },
@@ -759,8 +767,8 @@ const CASOS = [
     ],
     leve:{ nivel:4, t:'Dolor de panza sin signos de alarma', esp:['Clínica médica'], txt:'Sin señales de alarma, una consulta con clínica médica es suficiente. Mientras tanto: comida liviana y líquido en sorbos chicos. Si el dolor aumenta o se concentra en un lugar, andá a la guardia.' } },
 
-  { id:'corte', chip:'Corte o herida', esp:'Cirugía',
-    kw:{ f:['corte','me corte','cortadura','tajo','herida','lastimadura','sangra','sangrado','puntos','cuchillo','vidrio','mordio','mordedura','me mordio','clave','clavo','astilla'], d:['sangre','perro','gato','lata'] },
+  { id:'corte', cat:'piel', chip:'Corte o herida', esp:'Cirugía',
+    kw:{ f:['corte','me corte','cortadura','tajo','herida','lastimadura','sangra','sangrado','puntos','cuchillo','vidrio','navaja','trincheta','cutter','tijera','me abri la','me abri el','se abrio la','raspon','me raspe','raspadura'], d:['sangre','lata'] },
     senales:[
       { s:'Sangra a chorro o no para después de apretar 10 minutos', n:1, t:'Sangrado que no se controla', txt:'Seguí apretando fuerte sin soltar y llamá al 107 o andá a la guardia más cercana ya.' },
       { s:'No podés mover bien un dedo o la zona está dormida', n:2, t:'Posible lesión de tendón o nervio', txt:'Puede haber un tendón o un nervio cortado. Andá a una guardia ahora.' },
@@ -770,8 +778,8 @@ const CASOS = [
     ],
     leve:{ nivel:5, t:'Herida superficial', esp:['Clínica médica'], txt:'Lavala con agua y jabón, secala y tapala con una gasa limpia. Revisá que tengas la vacuna antitetánica al día (se refuerza cada 10 años). Si se pone roja, caliente o con pus, consultá.' } },
 
-  { id:'quema', chip:'Me quemé', esp:'Cirugía',
-    kw:{ f:['queme','quemadura','quemo','quemaron','agua hirviendo','agua caliente','aceite caliente','leche caliente','cafe caliente','te caliente','hirviendo','escald','ampolla','me tire agua','se me volco','me volque','me salpico','vapor de la pava','pava','termo','cera caliente','me queme con'], d:['plancha','horno','olla','fuego','sol','caliente','mate','mates','hervir','vapor','estufa','brasa','parrilla'] },
+  { id:'quema', cat:'piel', chip:'Me quemé', esp:'Cirugía',
+    kw:{ f:['queme','quemadura','quemo','quemaron','agua hirviendo','agua caliente','aceite caliente','leche caliente','cafe caliente','te caliente','hirviendo','escald','ampolla','me tire agua','se me volco','me volque','me salpico','vapor de la pava','pava','termo','cera caliente','me queme con','me dio corriente','me dio la corriente','electrocut','descarga electrica','patada electrica','me quemo un quimico','soda caustica'], d:['plancha','horno','olla','fuego','sol','caliente','mate','mates','hervir','vapor','estufa','brasa','parrilla'] },
     senales:[
       { s:'Es más grande que la palma de tu mano', n:2, t:'Quemadura extensa', txt:'Enfriala con agua corriente (no helada) unos 20 minutos, cubrila con un film o una tela limpia y andá a una guardia.' },
       { s:'Hizo ampollas o la piel se abrió en la cara, las manos, los pies, los genitales o una articulación', n:3, t:'Quemadura con ampollas en zona delicada', txt:'En estas zonas conviene que la vea un profesional hoy. Enfriala con agua corriente unos 20 minutos, no revientes las ampollas, tapala con algo limpio y andá a una guardia.' },
@@ -781,8 +789,8 @@ const CASOS = [
     ],
     leve:{ nivel:5, t:'Quemadura superficial', esp:['Clínica médica'], txt:'Enfriala con agua corriente (no helada) unos 20 minutos. No pongas hielo, pasta dental ni manteca, y no revientes las ampollas. Tapala con una gasa limpia. Si se pone roja, caliente o con pus, consultá.' } },
 
-  { id:'alergia', chip:'Alergia, ronchas o picadura', esp:'Clínica médica',
-    kw:{ f:['alergia','alergic','ronchas','roncha','urticaria','picadura','me pico una','me pico un','abeja','avispa','alacran','escorpion','arana','hormiga colorada','mosquito','hinchazon de labios','se me hincharon los labios','se me hincho la cara','sarpullido','erupcion'], d:['picazon','me pica','pica','granitos','manchas'] },
+  { id:'alergia', cat:'piel', chip:'Alergia, ronchas o picadura', esp:'Clínica médica',
+    kw:{ f:['alergia','alergic','ronchas','roncha','urticaria','picadura de abeja','picadura de avispa','abeja','avispa','hormiga colorada','mosquito','hinchazon de labios','se me hincharon los labios','se me hincho la cara'], d:['picazon','me pica','pica','granitos','manchas'] },
     senales:[
       { s:'Se te hinchan los labios, la lengua o la garganta', n:1, t:'Posible reacción alérgica grave', txt:'Llamá al 107 ya. Si tenés una lapicera de adrenalina indicada por tu médico, usala.' },
       { s:'Te cuesta respirar o tragar, o tenés la voz ronca', n:1, t:'Reacción alérgica con dificultad para respirar', txt:'Llamá al 107 o andá a la guardia más cercana ya.' },
@@ -792,8 +800,8 @@ const CASOS = [
     ],
     leve:{ nivel:4, t:'Reacción alérgica leve', esp:['Clínica médica'], txt:'Sin ninguna de estas señales, alcanza con una consulta con clínica médica hoy (puede ser por videollamada). Alejate de lo que pudo causarla. Si se te hincha la cara o te falta el aire, andá a la guardia ya.' } },
 
-  { id:'orina', chip:'Ardor al hacer pis', esp:'Clínica médica',
-    kw:{ f:['pis','orinar','orino','orina','ardor al hacer','infeccion urinaria','cistitis','rinon','renal','calculo renal','calculos renales','piedra en el rinon'], d:['vejiga','ardor'] },
+  { id:'orina', cat:'orina', chip:'Ardor al hacer pis', esp:'Clínica médica',
+    kw:{ f:['pis','orinar','orino','orina','ardor al hacer','infeccion urinaria','cistitis','rinon','renal','calculo renal','calculos renales','piedra en el rinon','sangre en la orina','orino sangre','pis con sangre','colico renal','me arde al orinar','me arde al hacer pis','ganas de orinar todo el tiempo'], d:['vejiga','ardor'] },
     senales:[
       { s:'Casi no podés hacer pis o no te sale nada', n:2, t:'Posible retención de orina', txt:'No poder orinar con la vejiga llena necesita una guardia.' },
       { s:'Fiebre con escalofríos o dolor fuerte en la espalda, a un costado', n:3, t:'Posible infección del riñón o cálculo', txt:'Conviene que te vean hoy en una guardia.' },
@@ -802,8 +810,8 @@ const CASOS = [
     ],
     leve:{ nivel:4, t:'Posible infección urinaria baja', esp:['Clínica médica'], txt:'Una consulta con clínica médica hoy (presencial o virtual) suele alcanzar. Tomá bastante agua y no te automediques con antibióticos.' } },
 
-  { id:'espalda', chip:'Dolor de espalda', esp:'Traumatología',
-    kw:{ f:['espalda','lumbar','lumbago','ciatic','cintura','contractura','tortico','cervical','hernia de disco'], d:['cuello','columna'] },
+  { id:'espalda', cat:'huesos', chip:'Dolor de espalda', esp:'Traumatología',
+    kw:{ f:['espalda','lumbar','lumbago','ciatic','cintura','contractura','hernia de disco'], d:['columna'] },
     senales:[
       { s:'Se te duermen las piernas o la zona entre las piernas', n:2, t:'Posible compresión de nervios', txt:'Es una señal de alarma: andá a una guardia ahora.' },
       { s:'No podés controlar el pis o la caca', n:2, t:'Posible compresión de nervios', txt:'Es una señal de alarma: andá a una guardia ahora.' },
@@ -813,8 +821,8 @@ const CASOS = [
     ],
     leve:{ nivel:4, t:'Dolor de espalda sin signos de alarma', esp:['Traumatología','Kinesiología'], txt:'Moverte de a poco ayuda más que el reposo total, y el calor local alivia. Si en una semana no mejora, consultá con traumatología o kinesiología.' } },
 
-  { id:'mareo', chip:'Mareo, desmayo o presión', esp:'Clínica médica',
-    kw:{ f:['mareo','marea','mareada','mareado','vertigo','desmay','me baje','presion','hipertens','tension alta','lipotimia','me voy a desmayar'], d:['todo me da vueltas','debil','debilidad','me siento mal','descompensad'] },
+  { id:'mareo', cat:'cabeza', chip:'Mareo, desmayo o presión', esp:'Clínica médica',
+    kw:{ f:['mareo','marea','mareada','mareado','vertigo','desmay','me baje','presion','hipertens','tension alta','lipotimia','me voy a desmayar','todo me da vueltas','me da vueltas','me gira todo'], d:['debil','debilidad','me siento mal','descompensad'] },
     senales:[
       { s:'Cara torcida, dificultad para hablar o debilidad de un lado', n:1, t:'Posible ACV', txt:'Llamá al 107 ya y anotá la hora en que empezó: en un ACV cada minuto cuenta.' },
       { s:'Dolor en el pecho, falta de aire o el corazón muy acelerado', n:1, t:'Posible problema cardíaco', txt:'Llamá al 107 o andá a la guardia más cercana ya. No manejes vos.', esp:'Cardiología' },
@@ -824,7 +832,7 @@ const CASOS = [
     ],
     leve:{ nivel:4, t:'Mareo sin signos de alarma', esp:['Clínica médica'], txt:'Sentate o acostate hasta que se pase y tomá agua. Si tenés tensiómetro, medite la presión. Una consulta con clínica médica hoy te ayuda a encontrar la causa.' } },
 
-  { id:'cabeza', chip:'Dolor de cabeza fuerte', esp:'Clínica médica',
+  { id:'cabeza', cat:'cabeza', chip:'Dolor de cabeza fuerte', esp:'Clínica médica',
     kw:{ f:['dolor de cabeza','me duele la cabeza','cabeza','migrana','cefalea','jaqueca'], d:[] },
     senales:[
       { s:'Cara torcida, dificultad para hablar, debilidad de un lado o visión doble', n:1, t:'Posible ACV', txt:'Llamá al 107 ya y anotá la hora en que empezó: en un ACV cada minuto cuenta.' },
@@ -835,7 +843,7 @@ const CASOS = [
     ],
     leve:{ nivel:5, t:'Dolor de cabeza sin signos de alarma', esp:['Clínica médica'], txt:'Sin señales de alarma, una consulta clínica o teleconsulta es suficiente. Descansá en un lugar oscuro y tomá agua.' } },
 
-  { id:'craneo', chip:'Golpe en la cabeza', esp:'Traumatología',
+  { id:'craneo', cat:'cabeza', chip:'Golpe en la cabeza', esp:'Traumatología',
     kw:{ f:['golpe en la cabeza','golpee la cabeza','golpeo la cabeza','cabezazo','me pegue en la cabeza','se pego en la cabeza','traumatismo de craneo','golpe en la frente'], d:[] },
     senales:[
       { s:'Hubo desmayo, aunque sea un momento, o no se acuerda del golpe', n:2, t:'Golpe con pérdida de conciencia', txt:'Puede necesitar una tomografía. Andá a una guardia ahora.' },
@@ -846,8 +854,8 @@ const CASOS = [
     ],
     leve:{ nivel:5, t:'Golpe leve en la cabeza', esp:['Clínica médica'], txt:'Que alguien te acompañe las próximas 24 horas. Si en los próximos días aparece alguna de estas señales, andá a la guardia.' } },
 
-  { id:'nariz', chip:'Me sangra la nariz', esp:'Clínica médica',
-    kw:{ f:['sangra la nariz','sangrado de nariz','sangrado nasal','epistaxis','me sale sangre de la nariz','sangre por la nariz','hemorragia nasal'], d:['nariz'] },
+  { id:'nariz', cat:'ojos', chip:'Me sangra la nariz', esp:'Clínica médica',
+    kw:{ f:['sangra la nariz','sangrado de nariz','sangrado nasal','epistaxis','me sale sangre de la nariz','sangre por la nariz','hemorragia nasal','sangro por la nariz','sangro de la nariz','sangre de la nariz'], d:['nariz'] },
     senales:[
       { s:'No para después de apretar la nariz 20 minutos', n:2, t:'Sangrado de nariz que no para', txt:'Seguí apretando la parte blanda de la nariz, sentado e inclinado hacia adelante, y andá a una guardia.' },
       { s:'Te mareás, estás muy pálido o te falta el aire', n:2, t:'Sangrado de nariz con signos de alarma', txt:'Andá a una guardia ahora; si empeora, llamá al 107.' },
@@ -856,8 +864,8 @@ const CASOS = [
     ],
     leve:{ nivel:5, t:'Sangrado de nariz leve', esp:['Clínica médica'], txt:'Sentate inclinado hacia adelante (no tires la cabeza para atrás) y apretá la parte blanda de la nariz 10 a 15 minutos sin soltar. Si se repite seguido, consultá con clínica médica.' } },
 
-  { id:'muela', chip:'Dolor de muela o mandíbula', esp:'Clínica médica',
-    kw:{ f:['muela','diente','encia','odontolog','dental','flemon','caries','me sacaron una','mandibula','quijada','maxilar','al abrir la boca','al masticar','articulacion de la mandibula','atm','bruxismo'], d:['boca','mastic','mordida'] },
+  { id:'muela', cat:'ojos', chip:'Dolor de muela, boca o mandíbula', esp:'Clínica médica',
+    kw:{ f:['muela','diente','encia','odontolog','dental','flemon','caries','me sacaron una','mandibula','quijada','maxilar','al abrir la boca','al masticar','articulacion de la mandibula','atm','bruxismo','aftas','afta','llaga en la boca','me sangran las encias','sangrado de encias','flemon'], d:['boca','mastic','mordida'] },
     senales:[
       { s:'Viene con dolor u opresión en el pecho, sudor frío o falta de aire, o aparece al hacer esfuerzo', n:1, t:'Posible origen cardíaco', txt:'El dolor de mandíbula, sobre todo del lado izquierdo, puede venir del corazón. Llamá al 107 o andá a la guardia más cercana ya. No manejes vos.', esp:'Cardiología' },
       { s:'Te cuesta respirar o tragar tu saliva', n:1, t:'Infección que compromete la respiración', txt:'Puede ser una infección que se extiende al cuello. Andá a la guardia más cercana ya.' },
@@ -867,7 +875,7 @@ const CASOS = [
     ],
     leve:{ nivel:4, t:'Dolor de muela o mandíbula sin signos de alarma', esp:['Odontología'], txt:'Te conviene un odontólogo con turno hoy, no una guardia general. Si duele al abrir la boca o al masticar, puede ser la articulación de la mandíbula: mientras tanto, comida blanda y calor local.' } },
 
-  { id:'ojo', chip:'Me molesta un ojo', esp:'Oftalmología',
+  { id:'ojo', cat:'ojos', chip:'Me molesta un ojo', esp:'Oftalmología',
     kw:{ f:['ojo','ojos','vista','vision','conjuntiv','parpado','lagana','orzuelo','veo borroso','veo doble'], d:['lente','lentes'] },
     senales:[
       { s:'Te entró un químico (lavandina, cal, cemento, ácido)', n:2, t:'Quemadura química en el ojo', txt:'Lavá el ojo con agua corriente durante 15 minutos antes de salir y andá a una guardia con oftalmología.' },
@@ -876,19 +884,361 @@ const CASOS = [
       { s:'Dolor fuerte con visión borrosa, náuseas o halos en las luces', n:2, t:'Posible glaucoma agudo', txt:'Es una urgencia: andá a una guardia con oftalmología ahora.' },
       { s:'Usás lentes de contacto y tenés el ojo rojo con dolor', n:3, t:'Posible infección de córnea', txt:'Sacate las lentes y que te vea un oftalmólogo hoy en una guardia.' }
     ],
-    leve:{ nivel:4, t:'Molestia ocular leve', esp:['Oftalmología'], txt:'Te conviene un oftalmólogo con turno cercano. Mientras tanto, no te frotes el ojo y lavate las manos seguido.' } }
+    leve:{ nivel:4, t:'Molestia ocular leve', esp:['Oftalmología'], txt:'Te conviene un oftalmólogo con turno cercano. Mientras tanto, no te frotes el ojo y lavate las manos seguido.' } },
+  /* ===== Corazón y respiración ===== */
+  { id:'palpita', cat:'corazon', chip:'Palpitaciones o corazón acelerado', esp:'Cardiología',
+    kw:{ f:['palpitacion','taquicardia','corazon acelerado','el corazon me late','me late rapido','me late fuerte','arritmia','me late raro','se me acelera el corazon','latidos','late rapido','late muy rapido','late re rapido','late a mil','corazon a mil','late fuerte','corazon re rapido','corazon muy rapido','corazon rapido','corazon acelerado'], d:['acelerado','pulso','late'] },
+    senales:[
+      { s:'Viene con dolor en el pecho, falta de aire o te desmayaste', n:1, t:'Palpitaciones con signos de alarma', txt:'Llamá al 107 o andá a la guardia más cercana ya. No manejes vos.' },
+      { s:'Sigue rápido hace más de 20 minutos o sentís que te vas a desmayar', n:2, t:'Palpitaciones que no ceden', txt:'Necesita un electrocardiograma en una guardia ahora.' },
+      { s:'Tenés una enfermedad del corazón, marcapasos o tomás anticoagulantes', n:2, t:'Palpitaciones en persona con cardiopatía', txt:'Conviene que te vean en una guardia con cardiología hoy.' },
+      { s:'Empezó después de tomar alguna sustancia, bebida energizante o medicamento nuevo', n:3, t:'Palpitaciones por sustancia o medicamento', txt:'Conviene que te evalúen hoy en una guardia.' }
+    ],
+    leve:{ nivel:4, t:'Palpitaciones que ya pasaron', esp:['Cardiología','Clínica médica'], txt:'Si fueron cortas y ya pasaron, pedí un turno con cardiología o clínica médica para hacerte un electrocardiograma. Evitá el café y las bebidas energizantes mientras tanto.' } },
+
+  { id:'aire', cat:'corazon', chip:'Me falta el aire', esp:'Clínica médica',
+    kw:{ f:['me falta el aire','falta de aire','me cuesta respirar','dificultad para respirar','me agito','me ahogo al','silbido en el pecho','asma','broncoespasmo','me silba el pecho','disnea','no me entra el aire','respiro mal','tos con sangre','escupo sangre','toso sangre','sangre cuando toso'], d:['agitad','respirar','puf','inhalador','ahogo'] },
+    senales:[
+      { s:'No podés hablar de corrido o tenés los labios o las uñas morados', n:1, t:'Dificultad respiratoria grave', txt:'Llamá al 107 ya. Sentate erguido y, si tenés inhalador indicado, usalo.' },
+      { s:'Viene con dolor en el pecho o empezó de golpe', n:1, t:'Falta de aire súbita o con dolor de pecho', txt:'Puede ser del corazón o de los pulmones. Llamá al 107 o andá a la guardia más cercana ya.' },
+      { s:'Usaste el inhalador y no mejoraste', n:2, t:'Crisis de asma que no responde', txt:'Andá a una guardia ahora.' },
+      { s:'Tenés fiebre o la pierna hinchada y dolorida', n:2, t:'Falta de aire con fiebre o pierna hinchada', txt:'Puede ser una neumonía o un coágulo. Andá a una guardia hoy.' },
+      { s:'Tosés o escupís sangre', n:2, t:'Tos con sangre', txt:'Andá a una guardia hoy; si es mucha cantidad, llamá al 107.' }
+    ],
+    leve:{ nivel:4, t:'Falta de aire leve', esp:['Clínica médica'], txt:'Si es leve y mejora en reposo, consultá con clínica médica hoy (puede ser por videollamada). Si empeora, aparece dolor de pecho o te cuesta hablar, andá a la guardia.' } },
+
+  { id:'aire_nino', cat:'chicos', chip:'Un chico o bebé respira mal', esp:'Pediatría',
+    kw:{ f:['bronquiolitis','respira rapido','respira mal','le cuesta respirar','se le hunden las costillas','le silba el pecho','le silba','ronca al respirar','broncoespasmo'], d:['tos','mocos','agitado','respirar'] },
+    need:[['hijo','hija','nene','nena','bebe','bebito','bebita','nino','nina','chiquito','chiquita','chico','chica','mi peque','sobrino','sobrina','nieto','nieta']],
+    senales:[
+      { s:'Se pone morado, hace pausas al respirar o está muy decaído', n:1, t:'Dificultad respiratoria grave en un chico', txt:'Llamá al 107 o andá a la guardia pediátrica más cercana ya.' },
+      { s:'Se le hunden las costillas o el cuello al respirar', n:2, t:'Tiraje: está haciendo mucho esfuerzo para respirar', txt:'Necesita una guardia pediátrica ahora.' },
+      { s:'Es un bebé de menos de 3 meses', n:2, t:'Dificultad respiratoria en un bebé chico', txt:'En bebés tan chiquitos siempre se evalúa en guardia.' },
+      { s:'No quiere comer ni tomar el pecho o la mamadera', n:2, t:'Dificultad respiratoria que no lo deja alimentarse', txt:'Andá a una guardia pediátrica hoy.' }
+    ],
+    leve:{ nivel:4, t:'Cuadro respiratorio leve en un chico', esp:['Pediatría'], txt:'Lavados nasales con solución fisiológica antes de comer y dormir, y mucho líquido. Pedí una consulta pediátrica (puede ser virtual). Si aparece alguna de estas señales, andá a la guardia.' } },
+
+  /* ===== Cabeza y nervios ===== */
+  { id:'hormigueo', cat:'cabeza', chip:'Hormigueo o debilidad en el cuerpo', esp:'Clínica médica',
+    kw:{ f:['hormigueo','adormecid','se me duerme','se me durmio','no siento','perdi fuerza','debilidad en','cosquilleo','entumecid','calambre en la cara'], d:['debil','dormido','dormida'] },
+    senales:[
+      { s:'Es de un solo lado del cuerpo, o hay cara torcida o dificultad para hablar', n:1, t:'Posible ACV', txt:'Llamá al 107 ya y anotá la hora en que empezó: en un ACV cada minuto cuenta.' },
+      { s:'Empezó de golpe en las últimas horas', n:2, t:'Pérdida de fuerza o sensibilidad reciente', txt:'Andá a una guardia ahora.' },
+      { s:'Fue después de un golpe en la cabeza, el cuello o la espalda', n:2, t:'Hormigueo después de un golpe', txt:'No muevas el cuello y andá a una guardia (si no podés moverte, llamá al 107).' },
+      { s:'No podés controlar el pis o la caca', n:2, t:'Posible compresión de nervios', txt:'Es una señal de alarma: andá a una guardia ahora.' }
+    ],
+    leve:{ nivel:4, t:'Hormigueo sin signos de alarma', esp:['Neurología','Clínica médica'], txt:'Si es en manos o pies, de los dos lados y desde hace días, pedí un turno con clínica médica o neurología. Si aparece de golpe o de un solo lado, andá a la guardia.' } },
+
+  { id:'confusion', cat:'cabeza', chip:'Está confundido o raro', esp:'Clínica médica',
+    kw:{ f:['confundid','desorientad','no sabe donde esta','dice cosas sin sentido','esta raro','no me reconoce','delira','delirio','muy somnolient','no se puede despertar'], d:['raro','perdido'] },
+    senales:[
+      { s:'No se lo puede despertar bien o no responde', n:1, t:'Alteración grave de la conciencia', txt:'Llamá al 107 ya.' },
+      { s:'Empezó de golpe, o tiene la cara torcida o no puede hablar', n:1, t:'Confusión súbita', txt:'Puede ser un ACV. Llamá al 107 ya.' },
+      { s:'Tiene fiebre, se golpeó la cabeza o es diabético', n:2, t:'Confusión con fiebre, golpe o diabetes', txt:'Andá a una guardia ahora.' },
+      { s:'Pudo haber tomado alcohol, drogas o medicamentos de más', n:2, t:'Confusión por posible intoxicación', txt:'Andá a una guardia ahora; si se duerme y no reacciona, llamá al 107.' }
+    ],
+    leve:{ nivel:3, guardia:true, t:'Cambio en la forma de estar', esp:['Clínica médica'], txt:'Un cambio en la forma de estar de una persona siempre se evalúa el mismo día. Si es una persona mayor, conviene una guardia hoy.' } },
+
+  /* ===== Panza ===== */
+  { id:'estrenimiento', cat:'panza', chip:'No puedo ir de cuerpo', esp:'Cirugía',
+    kw:{ f:['estrenid','constipad','no puedo ir de cuerpo','no voy de cuerpo','no puedo hacer caca','no hago caca','no evacuo'], d:['caca','evacuar','ir al bano'] },
+    senales:[
+      { s:'Tenés vómitos y la panza hinchada y dura', n:2, t:'Posible obstrucción intestinal', txt:'Andá a una guardia ahora y no comas hasta que te vean.' },
+      { s:'Tampoco largás gases hace más de un día', n:2, t:'Posible obstrucción intestinal', txt:'Andá a una guardia hoy.' },
+      { s:'Sale sangre o la caca es negra', n:2, t:'Sangrado digestivo', txt:'Andá a una guardia ahora.', esp:'Clínica médica' },
+      { s:'Dolor muy fuerte de panza', n:3, t:'Constipación con dolor fuerte', txt:'Conviene que te vean hoy en una guardia.' }
+    ],
+    leve:{ nivel:5, t:'Constipación', esp:['Clínica médica'], txt:'Tomá bastante agua, sumá fibra (frutas, verduras, avena) y caminá. Si dura más de una semana o se repite seguido, consultá con clínica médica.' } },
+
+  { id:'anal', cat:'panza', chip:'Dolor o sangrado en la cola', esp:'Cirugía',
+    kw:{ f:['hemorroid','almorrana','fisura','dolor en la cola','dolor anal','me duele el ano','me duele la cola','sangre en el papel','bulto en la cola','absceso anal','sangra la cola','me sangra el ano','sangre al ir al bano','sangre en la caca'], d:['cola','ano','culo'] },
+    senales:[
+      { s:'Sangra mucho o la caca es negra', n:2, t:'Sangrado importante', txt:'Andá a una guardia ahora.' },
+      { s:'Hay un bulto duro, muy doloroso, con fiebre', n:3, t:'Posible absceso', txt:'Puede necesitar drenaje. Andá a una guardia hoy.' },
+      { s:'Te mareás o estás muy pálido', n:2, t:'Sangrado con signos de alarma', txt:'Andá a una guardia ahora.' }
+    ],
+    leve:{ nivel:5, t:'Hemorroides o fisura leve', esp:['Clínica médica'], txt:'Baños de asiento con agua tibia, fibra y mucho líquido. Si no mejora en unos días, consultá con clínica médica o cirugía.' } },
+
+  { id:'ingle', cat:'panza', chip:'Bulto en la ingle u ombligo', esp:'Cirugía',
+    kw:{ f:['hernia','bulto en la ingle','bulto en el ombligo','se me salio el ombligo','bulto que sale','ingle'], d:['bulto'] },
+    senales:[
+      { s:'Está duro, muy doloroso y no vuelve a entrar', n:2, t:'Posible hernia atascada', txt:'Puede necesitar cirugía urgente. Andá a una guardia ahora y no comas.' },
+      { s:'Tenés vómitos o la panza hinchada', n:2, t:'Hernia con posible obstrucción', txt:'Andá a una guardia ahora.' },
+      { s:'La piel encima está roja o morada', n:2, t:'Hernia con posible sufrimiento', txt:'Andá a una guardia ahora.' }
+    ],
+    leve:{ nivel:5, t:'Hernia que entra sola', esp:['Clínica médica'], txt:'Si el bulto entra solo al acostarte y no duele mucho, pedí un turno con cirugía general. Evitá hacer fuerza.' } },
+
+  /* ===== Huesos y músculos ===== */
+  { id:'mano', cat:'huesos', region:true, chip:'Dolor en la mano o un dedo', esp:'Traumatología',
+    kw:{ f:['dedo de la mano','de la mano','punta del dedo','yema del dedo','me duele la mano','pulgar','dedo gordo de la mano','nudillo','tunel carpiano'], d:['dedo','dedos','mano','manos','pulgar','muneca','palma'] },
+    senales:[
+      { s:'Está deformado, no lo podés mover o hay una herida profunda', n:2, t:'Posible fractura, luxación o lesión de tendón', txt:'Inmovilizalo como está y andá a una guardia.' },
+      { s:'Está frío, blanco o morado, o se te duerme', n:2, t:'Posible problema de circulación o de nervio', txt:'Andá a una guardia ahora. Si tenés anillos, sacátelos.' },
+      { s:'Está rojo, caliente, hinchado y con pus o fiebre', n:3, t:'Posible infección (panadizo o celulitis)', txt:'Puede necesitar drenaje o antibiótico. Andá a una guardia hoy.' },
+      { s:'Fue un golpe o un apretón fuerte y duele al apretar el hueso', n:3, t:'Necesita radiografía', txt:'Conviene descartar una fractura hoy.' },
+      { s:'Tenés un anillo que no sale y el dedo se hincha', n:3, t:'Anillo atrapado', txt:'Levantá la mano y andá a una guardia: se puede cortar el anillo de forma segura.' }
+    ],
+    leve:{ nivel:5, t:'Dolor leve en la mano o un dedo', esp:['Traumatología','Kinesiología'], txt:'Hielo envuelto en un trapo 15 minutos varias veces al día y reposo de la mano. Si la uña está roja e hinchada, baños de agua tibia con sal. Si en unos días no mejora, consultá con traumatología.' } },
+
+  { id:'pierna', cat:'huesos', region:true, chip:'Dolor en la pierna, rodilla o pie', esp:'Traumatología',
+    kw:{ f:['me duele la rodilla','me duele la pierna','me duele el pie','dolor de rodilla','dolor en la pantorrilla','gemelo','talon','planta del pie','juanete','dedo del pie','dedo gordo del pie','del pie','rodilla hinchada','rodilla inflamada','pierna hinchada','piernas hinchadas','pantorrilla','tendon de aquiles','calambre','esguince de rodilla'], d:['pierna','piernas','rodilla','pie','pies','tobillo','muslo','cadera','gemelo'] },
+    senales:[
+      { s:'La pierna está fría, pálida o morada, o se duerme', n:1, t:'Posible falta de circulación', txt:'Es una urgencia vascular. Andá a la guardia más cercana ya.' },
+      { s:'Una pantorrilla hinchada, caliente y dolorida (de un solo lado)', n:2, t:'Posible trombosis', txt:'Hay que descartar un coágulo hoy en una guardia. Si te falta el aire, llamá al 107.' },
+      { s:'No podés apoyar ni dar 4 pasos', n:3, t:'No poder apoyar', txt:'Conviene una radiografía hoy en una guardia con traumatología.' },
+      { s:'Una articulación roja, caliente y muy hinchada, o con fiebre', n:3, t:'Posible articulación infectada o gota', txt:'Conviene que te vean hoy en una guardia.' },
+      { s:'Herida o úlcera que no cura y sos diabético', n:3, t:'Pie diabético', txt:'Conviene que te vean hoy.' }
+    ],
+    leve:{ nivel:4, t:'Dolor en la pierna sin signos de alarma', esp:['Traumatología','Kinesiología'], txt:'Reposo relativo, hielo envuelto en un trapo y la pierna en alto. Si en unos días no mejora, consultá con traumatología o kinesiología.' } },
+
+  { id:'brazo', cat:'huesos', region:true, chip:'Dolor en el hombro, brazo o codo', esp:'Traumatología',
+    kw:{ f:['me duele el hombro','me duele el brazo','me duele el codo','dolor de hombro','codo de tenista','tendinitis','manguito rotador','no puedo levantar el brazo'], d:['hombro','brazo','codo','antebrazo','clavicula'] },
+    senales:[
+      { s:'Es el brazo izquierdo y viene con dolor de pecho, sudor o falta de aire', n:1, t:'Posible origen cardíaco', txt:'Llamá al 107 o andá a la guardia más cercana ya.', esp:'Cardiología' },
+      { s:'Está deformado o se salió el hombro', n:2, t:'Posible fractura o luxación', txt:'No intentes acomodarlo. Inmovilizalo y andá a una guardia.' },
+      { s:'Está frío, pálido o se duerme la mano', n:2, t:'Posible compromiso de circulación o nervio', txt:'Andá a una guardia ahora.' },
+      { s:'Fue un golpe fuerte y no lo podés mover', n:3, t:'Necesita radiografía', txt:'Conviene descartar una fractura hoy.' }
+    ],
+    leve:{ nivel:4, t:'Dolor de hombro o brazo leve', esp:['Traumatología','Kinesiología'], txt:'Hielo o calor local y reposo relativo. Si en una semana no mejora, consultá con traumatología o kinesiología.' } },
+
+  { id:'cuello', cat:'huesos', chip:'Dolor de cuello o tortícolis', esp:'Traumatología',
+    kw:{ f:['torticolis','me duele el cuello','dolor de cuello','cuello duro','nuca','cervical','no puedo girar el cuello'], d:['cuello'] },
+    senales:[
+      { s:'Fue un accidente o una caída fuerte', n:2, t:'Posible lesión de columna cervical', txt:'No muevas el cuello. Llamá al 107 si no te podés mover, o andá a una guardia.' },
+      { s:'Fiebre con la nuca dura o manchas en la piel', n:2, t:'Fiebre con rigidez de nuca', txt:'Hay que descartar una meningitis. Andá a una guardia ahora.' },
+      { s:'Se te duermen o pierden fuerza los brazos', n:2, t:'Dolor de cuello con síntomas en los brazos', txt:'Andá a una guardia hoy.' },
+      { s:'Viene con dolor de pecho o de mandíbula', n:1, t:'Posible origen cardíaco', txt:'Llamá al 107 o andá a la guardia más cercana ya.', esp:'Cardiología' }
+    ],
+    leve:{ nivel:5, t:'Tortícolis o contractura', esp:['Kinesiología','Traumatología'], txt:'Calor local y movimientos suaves. Suele mejorar en pocos días. Si no mejora en una semana, consultá con kinesiología.' } },
+
+  { id:'caida_mayor', cat:'huesos', chip:'Se cayó una persona mayor', esp:'Traumatología',
+    kw:{ f:['se cayo mi abuela','se cayo mi abuelo','mi abuela se cayo','mi abuelo se cayo','se cayo mi mama','se cayo mi papa','se cayo en el bano','no se puede levantar','mi mama se cayo','mi papa se cayo','se cayo y le duele','se cayo y no','caida de mi abuela','caida de mi abuelo'], d:['abuela','abuelo','anciano','anciana','cayo'] },
+    senales:[
+      { s:'No se puede levantar o tiene una pierna más corta o rotada', n:2, t:'Posible fractura de cadera', txt:'No la levantes a la fuerza. Llamá al 107 o andá a una guardia.' },
+      { s:'Se golpeó la cabeza o toma anticoagulantes', n:2, t:'Golpe en la cabeza en persona mayor', txt:'Aunque se la vea bien, conviene una guardia hoy.' },
+      { s:'Se desmayó antes de caerse o está confundida', n:2, t:'Caída con posible causa médica', txt:'Andá a una guardia hoy.' },
+      { s:'Le duele mucho al mover un brazo o una pierna', n:3, t:'Necesita radiografía', txt:'Conviene una guardia con traumatología hoy.' }
+    ],
+    leve:{ nivel:4, t:'Caída sin lesiones aparentes', esp:['Clínica médica'], txt:'Que alguien la acompañe las próximas 24 horas. Una caída en una persona mayor conviene consultarla con clínica médica para ver por qué pasó.' } },
+
+  /* ===== Piel y heridas ===== */
+  { id:'picadura_veneno', cat:'piel', chip:'Picadura de alacrán, araña o víbora', esp:'Clínica médica',
+    kw:{ f:['alacran','escorpion','arana','vibora','yarara','serpiente','me pico una arana','me mordio una vibora','arana de rincon','viuda negra'], d:['pico','picadura','mordio'] },
+    senales:[
+      { s:'Es un chico, o hay sudor, vómitos, babeo o mucho dolor', n:2, t:'Posible envenenamiento', txt:'Andá a una guardia ahora: puede necesitar antídoto. Si podés, llevá el bicho en un frasco cerrado.' },
+      { s:'Fue una víbora', n:1, t:'Mordedura de víbora', txt:'Llamá al 107 o andá a la guardia más cercana ya. No hagas torniquete ni cortes; mantené quieta la zona.' },
+      { s:'Se pone oscura, se ampolla o el dolor aumenta', n:2, t:'Picadura que avanza', txt:'Puede ser una araña de rincón. Andá a una guardia hoy.' },
+      { s:'Cuesta respirar o hay hinchazón de cara o lengua', n:1, t:'Reacción grave', txt:'Llamá al 107 ya.' }
+    ],
+    leve:{ nivel:4, guardia:true, t:'Picadura en un adulto, sin síntomas por ahora', esp:['Clínica médica'], txt:'Lavá con agua y jabón y poné frío local. Conviene que te controlen unas horas en una guardia o centro de salud, sobre todo si fue un alacrán. Si aparece sudor, vómitos o mucho dolor, avisá enseguida.' } },
+
+  { id:'mordedura', cat:'piel', chip:'Mordedura de perro o gato', esp:'Cirugía',
+    kw:{ f:['me mordio un perro','me mordio el perro','me mordio un gato','mordedura de perro','mordedura de gato','me mordio mi perro','lo mordio un perro','la mordio un perro','mordedura','me mordio'], d:['perro','gato','murcielago'] },
+    senales:[
+      { s:'Es profunda, en la cara o en la mano, o sangra mucho', n:2, t:'Mordedura de riesgo', txt:'Lavá con mucha agua y jabón 10 minutos y andá a una guardia.' },
+      { s:'El animal es callejero, desconocido o fue un murciélago', n:2, t:'Riesgo de rabia', txt:'Necesita evaluar la vacuna antirrábica hoy. Andá a una guardia.' },
+      { s:'Está roja, caliente, hinchada o con pus', n:3, t:'Mordedura infectada', txt:'Conviene que te vean hoy.' },
+      { s:'No tenés la antitetánica al día', n:3, t:'Necesita vacuna antitetánica', txt:'Conviene ir hoy a una guardia o vacunatorio.' }
+    ],
+    leve:{ nivel:4, t:'Mordedura superficial de un animal conocido y vacunado', esp:['Clínica médica'], txt:'Lavá con agua y jabón 10 minutos y tapala. Controlá al animal 10 días. Las mordeduras se infectan fácil: consultá hoy con clínica médica igual.' } },
+
+  { id:'piel', cat:'piel', chip:'Granitos, manchas o sarpullido', esp:'Clínica médica',
+    kw:{ f:['sarpullido','erupcion','granitos','manchas rojas','manchas en la piel','me salio algo en la piel','eccema','dermatitis','herpes','culebrilla','zoster','varicela','sarna','piojos','hongos','acne','me pica','picazon'], d:['granito','manchas','piel','pica','roncha'] },
+    senales:[
+      { s:'Manchas que no se van al apretarlas, con fiebre', n:1, t:'Fiebre con manchas que no desaparecen', txt:'Es una señal de alarma: llamá al 107 o andá a la guardia más cercana ya.' },
+      { s:'La piel se despega, hay ampollas grandes o llagas en la boca', n:2, t:'Reacción grave de la piel', txt:'Puede ser una reacción a un medicamento. Andá a una guardia ahora.' },
+      { s:'Hinchazón de labios o lengua, o falta de aire', n:1, t:'Posible reacción alérgica grave', txt:'Llamá al 107 ya.' },
+      { s:'Zona roja, caliente y dolorosa que se agranda, con fiebre', n:3, t:'Posible celulitis', txt:'Conviene que te vean hoy.' }
+    ],
+    leve:{ nivel:5, t:'Problema de piel sin signos de alarma', esp:['Dermatología','Clínica médica'], txt:'No te rasques y evitá cremas nuevas. Pedí un turno con dermatología o clínica médica (sirve mandar fotos en una teleconsulta).' } },
+
+  { id:'absceso', cat:'piel', chip:'Grano infectado, forúnculo o uña encarnada', esp:'Cirugía',
+    kw:{ f:['foruncul','absceso','grano infectado','tengo pus','una encarnada','unero','panadizo','quiste infectado','bulto con pus','golondrino','grano con pus','pus'], d:['infectad','encarnad'] },
+    senales:[
+      { s:'Tenés fiebre o la zona roja se está agrandando', n:3, t:'Infección que se extiende', txt:'Conviene que te vean hoy en una guardia.' },
+      { s:'Está en la cara, cerca del ojo o en la zona genital', n:3, t:'Infección en zona delicada', txt:'Conviene que te vean hoy.' },
+      { s:'Sos diabético o tenés las defensas bajas', n:3, t:'Infección en persona de riesgo', txt:'Conviene que te vean hoy.' },
+      { s:'Es grande, blando y muy doloroso', n:3, t:'Absceso que puede necesitar drenaje', txt:'Andá a una guardia: no lo revientes vos.' }
+    ],
+    leve:{ nivel:5, t:'Infección chica de la piel', esp:['Clínica médica','Dermatología'], txt:'Compresas tibias 3 o 4 veces por día y no lo aprietes. Si en 2 o 3 días no mejora, consultá con clínica médica.' } },
+
+  { id:'cuerpo_extrano', cat:'piel', chip:'Se me clavó o metió algo', esp:'Cirugía',
+    kw:{ f:['astilla','se me clavo','me clave','anzuelo','espina','vidrio clavado','se me metio algo','tengo algo clavado','se metio en la nariz','se metio en el oido','se trago','se trago una','trago una moneda','trago una pila','trago un iman','espina de pescado','poroto','se metio un','se metio una','tiene algo en la nariz','tiene algo en el oido','se puso algo en'], d:['clavado','metido','trago'] },
+    senales:[
+      { s:'Tragó una pila, imán o algo filoso', n:1, t:'Cuerpo extraño peligroso tragado', txt:'Las pilas e imanes pueden perforar en horas. Andá a la guardia más cercana ya.' },
+      { s:'Le cuesta respirar, tose sin parar o babea', n:1, t:'Posible obstrucción de la vía aérea', txt:'Llamá al 107 ya.' },
+      { s:'Es grande, está profundo o en el ojo', n:2, t:'Cuerpo extraño profundo', txt:'No lo saques: estabilizalo y andá a una guardia.' },
+      { s:'Está en la nariz o el oído de un chico', n:3, t:'Cuerpo extraño en nariz u oído', txt:'No intentes sacarlo con pinzas. Andá a una guardia hoy.', esp:'Pediatría' }
+    ],
+    leve:{ nivel:5, t:'Astilla o espina chica', esp:['Clínica médica'], txt:'Lavá la zona, sacala con una pinza limpia tirando en la misma dirección en que entró y desinfectá. Si queda adentro, se pone roja o con pus, consultá.' } },
+
+  { id:'sol', cat:'piel', chip:'Golpe de calor o insolación', esp:'Clínica médica',
+    kw:{ f:['golpe de calor','insolacion','me insole','quemadura de sol','me queme con el sol','mucho calor','deshidratad','me agarro el sol','estuve al sol','al sol','todo el dia al sol','bajo el sol'], d:['calor','sol'] },
+    senales:[
+      { s:'Está confundido, muy dormido o se desmayó', n:1, t:'Posible golpe de calor grave', txt:'Llamá al 107. Mientras tanto, llevalo a la sombra, sacale ropa y mojalo con agua fresca.' },
+      { s:'Tiene la piel muy caliente y seca, y no transpira', n:1, t:'Posible golpe de calor', txt:'Llamá al 107 y enfrialo con agua mientras llega.' },
+      { s:'Vomita y no puede tomar líquido', n:2, t:'Deshidratación', txt:'Andá a una guardia hoy.' },
+      { s:'Es un bebé o una persona mayor muy decaída', n:2, t:'Calor en persona vulnerable', txt:'Andá a una guardia hoy.' }
+    ],
+    leve:{ nivel:5, t:'Agotamiento por calor o quemadura de sol leve', esp:['Clínica médica'], txt:'Sombra, ropa liviana y agua en sorbos. Para la quemadura de sol, paños fríos y crema hidratante. Si aparece confusión o vómitos, andá a la guardia.' } },
+
+  /* ===== Ojos, oídos, nariz y boca ===== */
+  { id:'oido', cat:'ojos', chip:'Dolor o problema de oído', esp:'Clínica médica',
+    kw:{ f:['oido','oidos','otitis','me duele el oido','tapon de cera','no escucho','zumbido','me supura el oido','orejas','oreja'], d:['escuchar','sordo'] },
+    senales:[
+      { s:'Hinchazón roja detrás de la oreja o la oreja despegada', n:2, t:'Posible mastoiditis', txt:'Andá a una guardia hoy.' },
+      { s:'Perdiste la audición de golpe de un oído', n:2, t:'Sordera súbita', txt:'Necesita evaluación urgente: andá a una guardia hoy.' },
+      { s:'Fue por un golpe en la cabeza o sale líquido claro o sangre', n:2, t:'Posible fractura', txt:'Andá a una guardia ahora.' },
+      { s:'Viene con mareo fuerte, cara torcida o fiebre alta', n:2, t:'Problema de oído con signos de alarma', txt:'Andá a una guardia hoy.' }
+    ],
+    leve:{ nivel:5, t:'Dolor de oído sin signos de alarma', esp:['Otorrinolaringología','Clínica médica'], txt:'Calor seco local puede aliviar. No metas hisopos ni gotas sin indicación. Pedí una consulta con otorrinolaringología o clínica médica (si es un chico, con su pediatra).' } },
+
+  { id:'garganta_tragar', cat:'ojos', chip:'Algo trabado en la garganta', esp:'Clínica médica',
+    kw:{ f:['se me trabo','trabado en la garganta','atorado','atore','espina en la garganta','no puedo tragar','me quedo algo en la garganta','hueso de pollo','algo atorado','atorado en la garganta','algo trabado'], d:['tragar','garganta'] },
+    senales:[
+      { s:'No puede respirar, hablar o toser', n:1, t:'Atragantamiento', txt:'Llamá al 107 y hacé la maniobra de Heimlich si sabés.' },
+      { s:'No puede tragar ni su propia saliva', n:2, t:'Obstrucción del esófago', txt:'Andá a una guardia ahora.' },
+      { s:'Dolor de pecho o vómitos con sangre', n:2, t:'Posible lesión', txt:'Andá a una guardia ahora.' }
+    ],
+    leve:{ nivel:4, t:'Sensación de algo trabado', esp:['Otorrinolaringología','Clínica médica'], txt:'Si podés tragar bien la saliva y respirar, probá con pequeños sorbos de agua. Si la molestia sigue unas horas, consultá.' } },
+
+  /* ===== Orina y genitales ===== */
+  { id:'testiculo', cat:'orina', chip:'Dolor de testículo', esp:'Cirugía',
+    kw:{ f:['testiculo','escroto','me duelen las bolas','me duele un huevo','me duelen los huevos','me duele una bola'], d:['huevo','huevos','bolas','genitales'] },
+    senales:[
+      { s:'Empezó de golpe y es muy fuerte', n:2, t:'Posible torsión testicular', txt:'Es una urgencia: se puede perder el testículo en horas. Andá a una guardia ahora.' },
+      { s:'Viene con vómitos o el testículo está más alto', n:2, t:'Posible torsión testicular', txt:'Andá a una guardia ahora.' },
+      { s:'Fue por un golpe fuerte', n:2, t:'Traumatismo testicular', txt:'Andá a una guardia hoy.' },
+      { s:'Está rojo, hinchado y con fiebre', n:3, t:'Posible infección', txt:'Conviene que te vean hoy.' }
+    ],
+    leve:{ nivel:4, t:'Molestia testicular leve', esp:['Urología','Clínica médica'], txt:'Si es una molestia leve que viene de días, pedí un turno con urología. Si aparece un dolor fuerte de golpe, andá a la guardia ya.' } },
+
+  { id:'genital', cat:'orina', chip:'Flujo, lastimaduras o síntomas genitales', esp:'Clínica médica',
+    kw:{ f:['flujo','secrecion','me arde la vagina','picazon vaginal','me pica la vagina','llaga en el pene','ampollas en los genitales','its','ets','enfermedad de transmision sexual','preservativo se rompio','se rompio el forro','se rompio el preservativo','preservativo','forro','pastilla del dia despues'], d:['vagina','pene','genital','genitales','vulva'] },
+    senales:[
+      { s:'Fiebre con dolor fuerte en la parte baja de la panza', n:2, t:'Posible infección pélvica', txt:'Andá a una guardia hoy.' },
+      { s:'Podrías estar embarazada y tenés dolor o sangrado', n:2, t:'Síntomas en posible embarazo', txt:'Andá a una guardia (si podés, con obstetricia) hoy.' },
+      { s:'Fue una relación sin consentimiento', n:2, t:'Atención por agresión sexual', txt:'Andá a una guardia: tenés derecho a atención y a medicación preventiva dentro de las 72 horas. Línea 144 para acompañamiento.' },
+      { s:'Tuviste una relación de riesgo en las últimas 72 horas', n:3, t:'Posible profilaxis', txt:'Hay medicación que se da dentro de las 72 horas. Andá a una guardia hoy.' }
+    ],
+    leve:{ nivel:5, t:'Molestia genital leve', esp:['Ginecología','Urología','Clínica médica'], txt:'Pedí un turno con ginecología, urología o clínica médica. La anticoncepción de emergencia es gratuita en centros de salud y se toma lo antes posible.' } },
+
+  { id:'sangrado_vaginal', cat:'orina', chip:'Sangrado o dolor menstrual fuerte', esp:'Clínica médica',
+    kw:{ f:['sangrado vaginal','menstruacion','dolor menstrual','colico menstrual','sangro mucho','me baja mucho','menstruo'], d:['ovario','utero','periodo','regla'] },
+    senales:[
+      { s:'Podrías estar embarazada', n:2, t:'Sangrado con posible embarazo', txt:'Andá a una guardia (si podés, con obstetricia) hoy.' },
+      { s:'Llenás una toalla o tampón por hora, o te mareás', n:2, t:'Sangrado abundante', txt:'Andá a una guardia ahora.' },
+      { s:'Dolor muy fuerte de un costado o fiebre', n:2, t:'Dolor pélvico con signos de alarma', txt:'Andá a una guardia hoy.' }
+    ],
+    leve:{ nivel:5, t:'Dolor o sangrado menstrual habitual', esp:['Ginecología','Clínica médica'], txt:'Calor local y el analgésico que ya te haya indicado tu médico. Si cada mes es así o cambió, pedí un turno con ginecología.' } },
+
+  /* ===== Embarazo ===== */
+  { id:'embarazo', cat:'embarazo', chip:'Estoy embarazada y tengo un síntoma', esp:'Clínica médica',
+    kw:{ f:['embarazada','embarazo','semanas de embarazo','rompi bolsa','rompi la bolsa','contracciones','perdi liquido','el bebe no se mueve','no siento al bebe','pérdida de liquido','estoy por parir'], d:['bebe','panza','gestacion'] },
+    need:[['embarazada','embarazo','semanas','bolsa','contracciones','parir','gestacion','bebe no se mueve','no siento al bebe']],
+    senales:[
+      { s:'Sangrado, pérdida de líquido o contracciones seguidas', n:2, t:'Urgencia obstétrica', txt:'Andá ya a tu maternidad o a una guardia con obstetricia. Si es mucho sangrado, llamá al 107.' },
+      { s:'Dolor de cabeza fuerte, visión borrosa o hinchazón de cara y manos', n:2, t:'Posible preeclampsia', txt:'Andá a una guardia con obstetricia hoy.' },
+      { s:'El bebé se mueve menos que siempre (más de 20 semanas)', n:2, t:'Disminución de movimientos fetales', txt:'Andá a tu maternidad hoy para un control.' },
+      { s:'Fiebre, ardor al orinar o dolor de panza fuerte', n:3, t:'Síntoma en el embarazo', txt:'En el embarazo conviene que te vean hoy.' },
+      { s:'Vomitás todo y no podés retener líquido', n:3, t:'Vómitos intensos en el embarazo', txt:'Conviene que te vean hoy.' }
+    ],
+    leve:{ nivel:4, t:'Molestia leve en el embarazo', esp:['Ginecología'], txt:'Consultalo con tu obstetra o en tu control prenatal. Ante cualquier sangrado, pérdida de líquido o si el bebé se mueve menos, andá a la maternidad.' } },
+
+  /* ===== Chicos y bebés ===== */
+  { id:'nino_vomitos', cat:'chicos', chip:'Un chico con vómitos o diarrea', esp:'Pediatría',
+    kw:{ f:['vomita','vomito','diarrea','descompuesto','descompuesta','no retiene','gastroenteritis'], d:['panza','caca','liquido'] },
+    need:[['hijo','hija','nene','nena','bebe','bebito','bebita','nino','nina','chiquito','chiquita','chico','chica','mi peque','sobrino','sobrina','nieto','nieta']],
+    senales:[
+      { s:'Está muy decaído, cuesta despertarlo o tiene los ojos hundidos', n:1, t:'Deshidratación grave', txt:'Andá a la guardia pediátrica más cercana ya.' },
+      { s:'Vomita verde o con sangre, o la caca tiene sangre', n:2, t:'Vómitos o diarrea con signos de alarma', txt:'Andá a una guardia pediátrica ahora.' },
+      { s:'Hace más de 8 horas que casi no hace pis', n:2, t:'Deshidratación', txt:'Andá a una guardia pediátrica hoy.' },
+      { s:'Es un bebé de menos de 6 meses', n:2, t:'Vómitos o diarrea en un bebé chico', txt:'En bebés chiquitos conviene una guardia hoy.' },
+      { s:'Dolor de panza fuerte y constante', n:3, t:'Dolor abdominal en un chico', txt:'Conviene que lo vean hoy.' }
+    ],
+    leve:{ nivel:4, t:'Vómitos o diarrea leves en un chico', esp:['Pediatría'], txt:'Sales de rehidratación en sorbos chiquitos y seguidos (una cucharada cada 5 minutos). Seguí con el pecho o la comida de siempre en poca cantidad. Si no retiene nada, andá a la guardia.' } },
+
+  { id:'bebe_llanto', cat:'chicos', chip:'Un bebé llora y no se calma', esp:'Pediatría',
+    kw:{ f:['no para de llorar','llora sin parar','llora mucho','no se calma','colicos del bebe','bebe irritable','llanto','llora','llorando'], d:[] },
+    need:[['bebe','bebito','bebita','hijo','hija','nene','nena','recien nacido','chiquito','chiquita']],
+    senales:[
+      { s:'Tiene fiebre y menos de 3 meses', n:2, t:'Fiebre en un bebé chico', txt:'Andá a una guardia pediátrica ahora.' },
+      { s:'Está pálido, morado, flojito o cuesta despertarlo', n:1, t:'Bebé con signos de gravedad', txt:'Andá a la guardia pediátrica más cercana ya.' },
+      { s:'Vomita verde o tiene sangre en la caca', n:2, t:'Posible problema intestinal', txt:'Andá a una guardia pediátrica ahora.' },
+      { s:'No quiere comer y hace muy poco pis', n:2, t:'Bebé que no se alimenta', txt:'Andá a una guardia pediátrica hoy.' }
+    ],
+    leve:{ nivel:5, t:'Llanto sin signos de alarma', esp:['Pediatría'], txt:'Revisá pañal, hambre, frío o calor, y probá alzarlo, mecerlo o darle un baño tibio. Si te sentís desbordado, pedí ayuda y consultá con su pediatra (puede ser virtual).' } },
+
+  /* ===== Salud mental y consumo ===== */
+  { id:'ansiedad', cat:'mental', chip:'Ansiedad o ataque de pánico', esp:'Clínica médica',
+    kw:{ f:['ansiedad','ansios','ataque de panico','crisis de panico','angustia','estoy angustiad','nervios','estres','no puedo dormir','insomnio','me siento mal emocionalmente','depresion','deprimid'], d:['nervioso','nerviosa','triste','angustiad'] },
+    senales:[
+      { s:'Pensás en hacerte daño o en no seguir viviendo', n:1, t:'Riesgo para tu vida', txt:'No estás solo en esto. Llamá ya al 0800 999 0091 (gratis, 24 h) o al 107, o andá a la guardia más cercana.' },
+      { s:'Tenés dolor de pecho o falta de aire y es la primera vez que te pasa', n:2, t:'Síntomas físicos a descartar', txt:'La primera vez conviene descartar un problema del corazón en una guardia.' },
+      { s:'Tomaste alcohol, drogas o pastillas de más', n:2, t:'Crisis con posible intoxicación', txt:'Andá a una guardia ahora.' }
+    ],
+    leve:{ nivel:5, t:'Ansiedad sin signos de alarma', esp:['Salud mental','Clínica médica'], txt:'Probá respirar lento: inspirá en 4 tiempos, sostené 4, soltá en 6, durante unos minutos. Hablalo con alguien de confianza y pedí un turno con salud mental. Línea de Salud Mental: 0800 999 0091 (gratis, 24 h).' } },
+
+  { id:'consumo', cat:'mental', chip:'Tomó alcohol o drogas de más', esp:'Clínica médica',
+    kw:{ f:['borracho','borracha','alcoholizad','tomo de mas','tome de mas','pase de rosca','paso de rosca','de rosca','drogas','alcohol','mucho alcohol','tomo mucho','tome mucho','fume','me fume','fume un porro','cocaina','porro','marihuana','pasado de alcohol','resaca','intoxicado con alcohol','abstinencia'], d:['fernet','birra','cerveza','pastillas'] },
+    senales:[
+      { s:'No reacciona, respira mal o se ahoga con el vómito', n:1, t:'Intoxicación grave', txt:'Llamá al 107. Ponelo de costado y no lo dejes solo.' },
+      { s:'Tiene convulsiones, dolor de pecho o está muy agitado', n:1, t:'Intoxicación con signos de alarma', txt:'Llamá al 107 ya.' },
+      { s:'Se golpeó la cabeza o mezcló con pastillas', n:2, t:'Intoxicación con riesgo', txt:'Andá a una guardia ahora.' },
+      { s:'Vomita sin parar y no puede tomar agua', n:3, t:'Deshidratación', txt:'Andá a una guardia hoy.' }
+    ],
+    leve:{ nivel:5, t:'Malestar por alcohol sin signos de alarma', esp:['Clínica médica'], txt:'Agua en sorbos, descanso y que alguien lo acompañe. Si se duerme, que sea de costado. Si querés ayuda con el consumo, consultá con salud mental.' } },
+
+  /* ===== Generales ===== */
+  { id:'fiebre_adulto', cat:'general', chip:'Fiebre o malestar general', esp:'Clínica médica',
+    kw:{ f:['dengue','malestar','decaid','sin fuerzas','me duele todo el cuerpo','dolor de cuerpo','cansancio'], d:['fiebre','febril','temperatura','escalofrio','calentura','cansad','me siento mal'] },
+    senales:[
+      { s:'Manchas en la piel que no se van al apretarlas, o nuca dura', n:1, t:'Fiebre con signos de alarma', txt:'Llamá al 107 o andá a la guardia más cercana ya.' },
+      { s:'Sangrado de encías o nariz, vómitos seguidos o dolor fuerte de panza', n:2, t:'Posible dengue con signos de alarma', txt:'Andá a una guardia hoy. No tomes aspirina ni ibuprofeno.' },
+      { s:'Estás muy confundido, mareado o te falta el aire', n:2, t:'Fiebre con compromiso general', txt:'Andá a una guardia ahora.' },
+      { s:'Fiebre de más de 3 días o estás en quimioterapia o con defensas bajas', n:3, t:'Fiebre de riesgo', txt:'Conviene que te vean hoy.' }
+    ],
+    leve:{ nivel:5, t:'Fiebre o malestar sin signos de alarma', esp:['Clínica médica'], txt:'Reposo y mucho líquido. Si hay dengue en tu zona, usá paracetamol y no aspirina ni ibuprofeno, y consultá. Una teleconsulta con clínica médica suele alcanzar.' } },
+
+  { id:'diabetes', cat:'general', chip:'Azúcar alta o baja (diabetes)', esp:'Clínica médica',
+    kw:{ f:['diabet','glucemia','azucar alta','azucar baja','hipoglucemia','hiperglucemia','insulina','me bajo el azucar','glucosa'], d:['azucar'] },
+    senales:[
+      { s:'Está confundido, no reacciona o convulsiona', n:1, t:'Posible hipoglucemia grave', txt:'Llamá al 107. Si puede tragar, dale algo con azúcar.' },
+      { s:'Vómitos, respiración rápida o mucha sed y está muy decaído', n:2, t:'Posible descompensación diabética', txt:'Andá a una guardia ahora.' },
+      { s:'La glucemia está por encima de 300 o por debajo de 70 y no mejora', n:2, t:'Glucemia fuera de rango', txt:'Andá a una guardia hoy.' }
+    ],
+    leve:{ nivel:4, t:'Glucemia algo alterada sin síntomas graves', esp:['Clínica médica'], txt:'Si está baja, tomá algo con azúcar y volvé a medir en 15 minutos. Si está alta, tomá agua y no te saltees la medicación. Consultá hoy con tu médico.' } },
+
+  { id:'tramite', cat:'general', chip:'Receta, certificado, puntos o control', esp:'Clínica médica',
+    kw:{ f:['receta','certificado','sacar los puntos','sacarme los puntos','curacion','cambiar el vendaje','control de herida','sacar el yeso','sacarme el yeso','yeso','me aprieta el yeso','vacuna','me olvide la medicacion','me quede sin remedios','me quede sin','se me termino la medicacion','orden medica','estudios'], d:['puntos','vendaje','remedio','pastilla'] },
+    senales:[
+      { s:'El yeso aprieta y los dedos están fríos, morados o dormidos', n:2, t:'Yeso que comprime', txt:'Levantá el miembro y andá a una guardia ahora: puede haber que abrirlo.' },
+      { s:'La herida está roja, caliente, con pus o tenés fiebre', n:3, t:'Herida infectada', txt:'Conviene que te vean hoy.' },
+      { s:'Te quedaste sin una medicación imprescindible (insulina, anticonvulsivos, corazón)', n:3, t:'Falta de medicación esencial', txt:'Conviene conseguirla hoy: consultá en una guardia o con tu médico.' }
+    ],
+    leve:{ nivel:5, t:'No necesitás una guardia', esp:['Clínica médica'], txt:'Recetas, certificados, sacar puntos (a los 7 a 14 días) y controles se resuelven con turno o teleconsulta con clínica médica, sin esperar en la guardia.' } },
+
+  { id:'monoxido', cat:'general', chip:'Me siento mal con el brasero o la estufa', esp:'Clínica médica',
+    kw:{ f:['monoxido','brasero','estufa','olor a gas','calefon','pérdida de gas','perdida de gas','intoxicados con gas','nos sentimos mal todos'], d:['gas','calefaccion'] },
+    senales:[
+      { s:'Alguien se desmayó, está confundido o muy dormido', n:1, t:'Posible intoxicación por monóxido de carbono', txt:'Abrí puertas y ventanas, salgan todos al aire libre y llamá al 107 ya.' },
+      { s:'Dolor de cabeza, mareo o náuseas en varias personas de la casa', n:2, t:'Posible intoxicación por monóxido de carbono', txt:'Ventilá, apagá la estufa o el brasero, salgan al aire libre y vayan a una guardia ahora.' },
+      { s:'Hay una embarazada, un bebé o alguien con problemas del corazón', n:2, t:'Exposición en persona vulnerable', txt:'Vayan a una guardia ahora.' }
+    ],
+    leve:{ nivel:3, guardia:true, t:'Posible exposición a monóxido', esp:['Clínica médica'], txt:'El monóxido no tiene olor. Ventilá la casa, apagá la fuente de calor y si alguien tuvo síntomas, consulten hoy en una guardia. Hacé revisar estufas y calefones por un gasista matriculado.' } },
 ];
-const CASOS_DESTACADOS = ['golpe','pecho','resp','nino','panza','corte','cabeza','alergia'];
+const CASOS_DESTACADOS = ['golpe','pecho','resp','nino','panza','corte','quema','cabeza'];
+const CATEGORIAS = [['corazon','Corazón y respiración'],['cabeza','Cabeza y nervios'],['panza','Panza y digestión'],['huesos','Golpes, huesos y músculos'],['piel','Piel, heridas y picaduras'],['ojos','Ojos, oídos, nariz y boca'],['orina','Orina y genitales'],['embarazo','Embarazo'],['chicos','Chicos y bebés'],['mental','Salud mental y consumo'],['general','Fiebre y otros']];
 const COLORES = {1:'#C8372F',2:'#D9641E',3:'#C98612',4:'#0E9A75',5:'#17568B'};
 const NOMBRE_NIVEL = {1:'Rojo',2:'Naranja',3:'Amarillo',4:'Verde',5:'Azul'};
 
 /* Señales de emergencia que se detectan en cualquier parte del texto. */
 const CRISIS = ['suicid','matarme','me quiero matar','me voy a matar','quiero morir','me quiero morir','no quiero vivir','no quiero seguir viviendo','quitarme la vida','terminar con todo','hacerme dano','lastimarme','autolesion'];
 const EMERG = [
-  { kw:['no puedo respirar','no puede respirar','no respira','me ahogo','se ahoga','me estoy ahogando','se esta ahogando','atragant'], t:'Dificultad grave para respirar', txt:'Llamá al 107 ya y seguí las indicaciones de quien te atienda.', esp:'Clínica médica' },
+  { kw:['no puedo respirar','no puede respirar','no respira','me ahogo','se ahoga','me estoy ahogando','se esta ahogando','atragant','se ahogo en la pileta','casi se ahoga','se cayo a la pileta'], t:'Dificultad grave para respirar', txt:'Llamá al 107 ya y seguí las indicaciones de quien te atienda.', esp:'Clínica médica' },
   { kw:['inconsciente','perdio el conocimiento','no reacciona','no se despierta','convuls'], t:'Pérdida de conciencia o convulsión', txt:'Llamá al 107 ya. Poné a la persona de costado y no le des nada por la boca.', esp:'Clínica médica' },
   { kw:['acv','derrame cerebral','cara torcida','se le torcio la cara','boca torcida','no puedo hablar','no puede hablar','habla raro','paralis','paraliz','no puedo mover el brazo','no puede mover el brazo'], t:'Posible ACV', txt:'Llamá al 107 ya y anotá la hora en que empezó: en un ACV cada minuto cuenta.', esp:'Clínica médica' },
-  { kw:['sobredosis','envenen','veneno','pastillas de mas','tome lavandina','tomo lavandina','trago lavandina'], t:'Posible intoxicación', txt:'Llamá al 107 ya. No provoques el vómito y, si podés, tené a mano el envase de lo que tomó.', esp:'Clínica médica' },
+  { kw:['sobredosis','envenen','veneno','pastillas de mas','tome lavandina','tomo lavandina','trago lavandina','se tomo las pastillas','se tomo unas pastillas','se tomo los remedios','se tomo un frasco','tomo veneno para'], t:'Posible intoxicación', txt:'Llamá al 107 ya. No provoques el vómito y, si podés, tené a mano el envase de lo que tomó.', esp:'Clínica médica' },
   { kw:['accidente de auto','accidente de moto','accidente de transito','choque','me chocaron','lo chocaron','atropell','apunal','acuchill','disparo','balazo','baleado'], t:'Accidente o lesión grave', txt:'Llamá al 107 o al 911 ya. Si alguien se golpeó la cabeza, el cuello o la espalda, no lo muevas.', esp:'Traumatología' },
   { kw:['sangra mucho','sangra muchisimo','hemorragia','no para de sangrar','perdi mucha sangre','pierde mucha sangre'], t:'Sangrado abundante', txt:'Apretá fuerte la herida con una tela limpia, sin soltar, y llamá al 107.', esp:'Cirugía' }
 ];
@@ -902,7 +1252,7 @@ function aparece(tk, frase){
   const f = tokens(frase); if(!f.length) return false;
   for(let i=0;i+f.length<=tk.length;i++){
     let ok = true;
-    for(let j=0;j<f.length;j++){ const a=tk[i+j], b=f[j]; if(j===f.length-1 ? !(b.length<=3 ? (a===b||a===b+'s') : a.startsWith(b)) : a!==b){ ok=false; break; } }
+    for(let j=0;j<f.length;j++){ const a=tk[i+j], b=f[j]; if(j===f.length-1 ? !(b.length<=3 ? (a===b||a===b+'s') : a.startsWith(b)) : !(a===b || a===b+'s' || a===b+'es')){ ok=false; break; } }
     if(!ok) continue;
     let prev = tk.slice(Math.max(0,i-4), i); const corte = Math.max(prev.lastIndexOf('y'), prev.lastIndexOf('pero'), prev.lastIndexOf('e')); if(corte>=0) prev = prev.slice(corte+1);
     if(f[0]!=='no' && prev.some(p=>NEG.includes(p))) continue;   /* "no me duele el pecho" no cuenta como pecho */
@@ -918,30 +1268,40 @@ function analizar(txt){
   const em = EMERG.find(e=>algunaEn(tk, e.kw));
   if(em) return { emergencia:em, candidatos:[] };
   const candidatos = CASOS.map(c=>{
-    if(c.need && !c.need.every(g=>algunaEn(tk,g))) return { c, p:0 };
-    const fu = c.kw.f.filter(k=>aparece(tk,k));
-    const p = fu.reduce((a,k)=>a+2+(tokens(k).length>1?1:0),0) + c.kw.d.reduce((a,k)=>a+(aparece(tk,k)?1:0),0);
-    return { c, p, f:fu.length };
-  }).filter(x=>x.p>0).sort((a,b)=>b.p-a.p);
-  /* El dolor de pecho siempre gana: ante la duda, se evalúa como emergencia. */
-  const pecho = candidatos.find(x=>x.c.id==='pecho' && x.p>=2);
-  const nariz = candidatos.find(x=>x.c.id==='nariz' && x.f>0);
-  if(nariz && !pecho) return { candidatos:[nariz, ...candidatos.filter(x=>x!==nariz)], seguro:true };
-  if(pecho) return { candidatos:[pecho, ...candidatos.filter(x=>x!==pecho)], seguro:true };
-  /* Golpe en la cabeza le gana a "dolor de cabeza" y a "golpe" en general. */
-  const cr = candidatos.find(x=>x.c.id==='craneo');
-  if(cr) return { candidatos:[cr, ...candidatos.filter(x=>x!==cr)], seguro:true };
+    if(c.need && !c.need.every(g=>algunaEn(tk,g))) return { c, p:0, f:0 };
+    let fu = c.kw.f.filter(k=>aparece(tk,k));
+    fu = fu.filter(k=>!fu.some(o=>o!==k && nrm(o).includes(nrm(k))));   /* "sangra" y "sangrado", o "de la mano" y "dedo de la mano", cuentan una vez */
+    const de = c.kw.d.filter(k=>aparece(tk,k) && !fu.some(o=>nrm(o).includes(nrm(k))));
+    let p = fu.reduce((a,k)=>a+1+tokens(k).length,0) + de.length;   /* una frase más larga es más específica */
+    if(c.need && p>0) p += 2;   /* si habla de un chico o de un embarazo, ese caso específico va primero */
+    return { c, p, f:fu.length, fu, ml: Math.max(0, ...fu.map(k=>tokens(k).length)) };
+  }).filter(x=>x.p>0).sort((a,b)=>b.p-a.p || b.f-a.f);
+  /* Seguridad primero: dolor de pecho y golpe en la cabeza siempre se evalúan como tales. */
+  for(const id of ['pecho','craneo','monoxido','embarazo','nariz']){
+    const x = candidatos.find(y=>y.c.id===id && y.f>0);
+    /* "me silba el pecho" es de respiración, no dolor de pecho */
+    if(x && !(id==='pecho' && candidatos.some(y=>y!==x && y.fu && y.fu.some(k=>tokens(k).length>1 && tokens(k).includes('pecho'))))) return { candidatos:[x, ...candidatos.filter(y=>y!==x)], seguro:true };
+  }
+  /* Si cuenta un golpe o una caída, gana el caso de golpes aunque nombre la zona ("me caí y me duele la rodilla"). */
+  if(candidatos[0] && candidatos[0].c.region){
+    const g = candidatos.find(y=>y.c.id==='golpe' && y.f>0);
+    if(g) return { candidatos:[g, ...candidatos.filter(y=>y!==g)], seguro:true };
+  }
   const [a,b] = candidatos;
-  const seguro = !!a && a.f>0 && (!b || a.p >= b.p+2 || b.f===0);
+  let seguro = !!a && a.f>0 && (!b || a.p >= b.p+2 || b.f===0 || (a.p>b.p && a.ml>b.ml));
+  /* Si solo nombró una parte del cuerpo ("me duele el dedo"), va al caso de esa zona. */
+  if(!seguro && a && a.c.region && a.f===0 && (!b || (b.f===0 && a.p>b.p))) seguro = true;
   return { candidatos, seguro };
 }
-/* Resultado a partir de las señales marcadas (índices). */
 function evaluarSenales(c, marcadas){
   if(c.alarma) return { grave:true, r:c.grave };
   const si = c.senales.filter((s,i)=>marcadas.includes(i));
   const g = si.filter(s=>s.n<=3).sort((a,b)=>a.n-b.n)[0];
   if(g) return { grave:true, r:{ nivel:g.n, t:g.t, txt:g.txt, esp:g.esp||c.esp } };
-  return { grave:false, r:{ ...c.leve, notas:si.filter(s=>s.n===4).map(s=>s.nota) } };
+  const notas = si.filter(s=>s.n===4).map(s=>s.nota);
+  /* Algunos casos van a la guardia aunque no haya señales (ej.: picadura de alacrán, monóxido). */
+  if(c.leve.guardia) return { grave:true, r:{ nivel:c.leve.nivel, t:c.leve.t, txt:c.leve.txt, esp:c.esp, notas } };
+  return { grave:false, r:{ ...c.leve, notas } };
 }
 
 /* ---------- Ubicación ---------- */
@@ -1222,7 +1582,8 @@ function pantalla1(opciones){
     <button class="btn btn-p" id="go1" type="button" style="width:100%">Analizar →</button>
     <div class="err" id="err1"></div>
     <p class="q-sub" style="margin:16px 0 8px">O elegí un ejemplo:</p>
-    <div class="chips">${lista.map(c=>`<button type="button" class="chip" data-id="${c.id}">${c.chip}</button>`).join('')}${verTodos?'':'<button type="button" class="chip mas" id="ver-mas">Ver más…</button>'}</div>`;
+    ${verTodos ? CATEGORIAS.map(([id,nom])=>`<p class="cat-t">${nom}</p><div class="chips">${CASOS.filter(c=>c.cat===id).map(c=>`<button type="button" class="chip" data-id="${c.id}">${c.chip}</button>`).join('')}</div>`).join('')
+      : `<div class="chips">${lista.map(c=>`<button type="button" class="chip" data-id="${c.id}">${c.chip}</button>`).join('')}<button type="button" class="chip mas" id="ver-mas">Ver todos (${CASOS.length})…</button></div>`}`;
   bindChip();
   app.querySelectorAll('.chip[data-id]').forEach(b=>b.onclick=()=>{ st.caso=CASOS.find(x=>x.id===b.dataset.id); st.texto=document.getElementById('sint').value.trim()||st.caso.chip; empezarCaso(); });
   const mas=document.getElementById('ver-mas'); if(mas) mas.onclick=()=>{ st.texto=document.getElementById('sint').value; st.verTodos=true; pantalla1(opciones); };
@@ -1381,7 +1742,7 @@ function renderLeve(r){
     .map(p=>({...p, km: p.barrio ? dist(st.loc.ll,BARRIOS[p.barrio]) : 0, ok: !sinCob() && p.os.includes(st.perfil.os)}))
     .filter(p=>st.mod==='Todas'||p.mod.includes(st.mod))
     .filter(p=>!st.soloCob || sinCob() || p.ok)
-    .sort((a,b)=>(b.ok-a.ok)||(a.km-b.km));
+    .sort((a,b)=>(r.esp.indexOf(a.esp)-r.esp.indexOf(b.esp))||(b.ok-a.ok)||(a.km-b.km));   /* primero la especialidad más indicada */
   app.innerHTML = `${perfilChip()}
     ${triBox(r,false)}
     <div class="filters">
@@ -1561,8 +1922,9 @@ document.querySelectorAll('[data-tab="pro"]').forEach(a=>a.addEventListener('cli
   }
 
   /* ---------- Conversación ---------- */
-  const chipsSintoma = todos => (todos ? CASOS : CASOS.filter(c=>CASOS_DESTACADOS.includes(c.id))).map(c=>({ l:c.chip, fn:()=>elegirCaso(c) }))
-    .concat(todos ? [] : [{ l:'Ver más…', eco:false, cls:'alt', fn:()=>{ di('Estos son todos los casos que reconozco en la demo:'); chips(chipsSintoma(true)); } }]);
+  const chipsTemas = () => CATEGORIAS.map(([id,nom])=>({ l:nom, fn:()=>{ di('¿Cuál de estos?'); chips(CASOS.filter(c=>c.cat===id).map(c=>({ l:c.chip, fn:()=>elegirCaso(c) })).concat([{ l:'← Otros temas', eco:false, cls:'alt', fn:()=>{ di('Elegí un tema:'); chips(chipsTemas()); } }])); } }));
+  const chipsSintoma = todos => todos ? chipsTemas() : CASOS.filter(c=>CASOS_DESTACADOS.includes(c.id)).map(c=>({ l:c.chip, fn:()=>elegirCaso(c) }))
+    .concat([{ l:'Ver más temas…', eco:false, cls:'alt', fn:()=>{ di('Elegí un tema:'); chips(chipsTemas()); } }]);
   function bienvenida(){
     setFace('feliz');
     di(`<div class="ub-pose"><img src="${IMG('hola')}" alt="Urgenbot saludando" width="74" height="96"><div><p><b>¡Hola! Soy Urgenbot</b> 👋</p><p>Te ayudo a saber si lo tuyo es para la guardia o para un turno, y a dónde ir con tu obra social.</p></div></div>`);
@@ -1588,7 +1950,7 @@ document.querySelectorAll('[data-tab="pro"]').forEach(a=>a.addEventListener('cli
       if(a.seguro) return elegirCaso(a.candidatos[0].c);
       setFace('piensa');
       di('Quiero entenderte bien. ¿Cuál se parece más a lo que te pasa?');
-      return chips(a.candidatos.slice(0,3).map(x=>({ l:x.c.chip, fn:()=>elegirCaso(x.c) })).concat([{ l:'Otra cosa', cls:'alt', fn:()=>{ di('Elegí el ejemplo más parecido. Si sentís que es grave, no esperes: andá a una guardia o llamá al '+TEL107+'.'); chips(chipsSintoma(true)); } }]));
+      return chips(a.candidatos.slice(0,3).map(x=>({ l:x.c.chip, fn:()=>elegirCaso(x.c) })).concat([{ l:'Otra cosa', cls:'alt', fn:()=>{ di('Elegí el tema más parecido. Si sentís que es grave, no esperes: andá a una guardia o llamá al '+TEL107+'.'); chips(chipsTemas()); } }]));
     }
     if(algunaEn(tk, ['hola','buenas','buen dia','buenos dias','buenas tardes','buenas noches','hey','que tal'])){ di('¡Hola! 😊 Contame qué te pasa y te ayudo a ver a dónde ir.'); return chips(chipsSintoma()); }
     if(algunaEn(tk, ['gracias','genial','buenisimo','perfecto','joya','barbaro'])){ setFace('guino'); return di('¡De nada! Cuidate mucho. Si algo cambia o empeora, escribime de nuevo. 💚'); }
@@ -1599,8 +1961,8 @@ document.querySelectorAll('[data-tab="pro"]').forEach(a=>a.addEventListener('cli
     }
     setFace('piensa');
     di('No llegué a entenderte 🤔 Contámelo con otras palabras (por ejemplo, <i>«me duele la panza»</i>) o elegí el ejemplo más parecido.');
-    di(`Si sentís que es grave o empeora, no esperes: andá a una guardia o llamá al ${TEL107}.`);
-    chips(chipsSintoma(true));
+    di(`Si sentís que es grave o empeora, no esperes: andá a una guardia o llamá al ${TEL107}. O elegí un tema:`);
+    chips(chipsTemas());
   }
 
   function elegirCaso(c){
@@ -1810,7 +2172,7 @@ document.querySelectorAll('[data-tab="pro"]').forEach(a=>a.addEventListener('cli
     const r = cb.r, sc = !cb.os || cb.os===SIN_COB;
     const lista = PROS.filter(p=>r.esp.includes(p.esp))
       .map(p=>({ ...p, km:p.barrio ? dist(cb.loc.ll, BARRIOS[p.barrio]) : 0, ok: !sc && p.os.includes(cb.os) }))
-      .sort((a,b)=>(b.ok-a.ok) || (a.km-b.km));
+      .sort((a,b)=>(r.esp.indexOf(a.esp)-r.esp.indexOf(b.esp)) || (b.ok-a.ok) || (a.km-b.km));
     const top = lista.slice(cb.extra, cb.extra+3), algunoOk = lista.some(p=>p.ok);
     if(primera) di(algunoOk ? `Estos profesionales te atienden con <b>${esc(cb.os)}</b>, cerca tuyo o por videollamada:`
       : sc ? 'Estos profesionales te pueden atender cerca tuyo o por videollamada (con valor particular):'
